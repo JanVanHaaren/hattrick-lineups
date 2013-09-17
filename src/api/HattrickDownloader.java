@@ -19,11 +19,8 @@ public class HattrickDownloader {
 
 	public static void main(String[] arguments) throws IOException {
 		HattrickDownloader downloader = new HattrickDownloader();
-
-		// String arena = downloader.getArena(511721);
-		ArenaDetails arenaDetails = downloader.getArenaDetails(2009310);
-
-		System.out.println(arenaDetails.getArena().getCurrentCapacity().getTotal());
+		ArenaDetails arenaDetails = downloader.getArenaDetails(511721);
+		System.out.println("Current capacity: " + arenaDetails.getArena().getCurrentCapacity().getTotal());
 	}
 
 	public ArenaDetails getArenaDetails(int arenaId) throws IOException {

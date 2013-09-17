@@ -75,7 +75,7 @@ public class XMLArenaDetailsParser extends XMLParser {
 			CurrentCapacity currentCapacity = new CurrentCapacity();
 			Element rebuiltDateElement = getChildElement(arenaCurrentCapacityElement, "RebuiltDate");
 			if (hasAttributeValue(rebuiltDateElement, "Available", "True")) {
-				currentCapacity.setRebuiltDate(getElementValue(arenaRegionElement,"RebuiltDate"));
+				currentCapacity.setRebuiltDate(getElementValue(arenaCurrentCapacityElement, "RebuiltDate"));
 			}
 
 			currentCapacity.setTerraces(getElementValue(arenaCurrentCapacityElement,"Terraces"));

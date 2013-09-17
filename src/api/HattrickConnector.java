@@ -43,21 +43,6 @@ public class HattrickConnector {
 
 	private final Token accessToken;
 
-	//	public static void main(String[] arguments) {
-	//
-	//		try {
-	//			HattrickConnector connector = HattrickConnector.getInstance();
-	//			String str = connector.getPlayers(318648); //511721);
-	//			System.out.println(str);
-	//			//			String str2 = connector.getPlayerDetails(380652039);
-	//			//			System.out.println(str2);
-	//		}
-	//		catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//
-	//	}
-
 	private HattrickConnector() {
 		this.oauthService = new ServiceBuilder().provider(HattrickAPI.class)
 				.apiKey(this.getConsumerKey())
