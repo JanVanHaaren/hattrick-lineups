@@ -22,7 +22,7 @@ public class XMLArenaDetailsParser extends XMLParser {
 		// NOP
 	}
 
-	public static ArenaDetails parseArenaFromString(String string) {
+	public static ArenaDetails parseArenaDetailsFromString(String string) {
 		return parseArena(XMLParser.parseString(string));
 	}
 

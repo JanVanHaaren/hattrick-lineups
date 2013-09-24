@@ -1,12 +1,15 @@
 package api.parser;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 //FIXME: credit to original author!
 
@@ -27,9 +30,20 @@ public abstract class XMLParser  {
 	protected static Element getChildElement(Element parentElement, String name) {
 		return (Element) parentElement.getElementsByTagName(name).item(0);
 	}
+	
+	protected static Collection<Element> getChildElementList(Element parentElement, String name)
+	{
+		Collection<Element> result = new ArrayList<Element>();
+		NodeList list = parentElement.getElementsByTagName(name);
+		for(int i = 0; i < list.getLength(); i++)
+			result.add((Element)list.item(i));
+		return result;
+	}
 
 	protected static String getElementValue(Element element, String name) {
-		return element.getElementsByTagName(name).item(0).getFirstChild().getNodeValue();
+		if(element.getElementsByTagName(name).item(0) != null && element.getElementsByTagName(name).item(0).getFirstChild() != null)
+			return element.getElementsByTagName(name).item(0).getFirstChild().getNodeValue();
+		return null;
 	}
 
 	protected static Document parseString(String inputString) {

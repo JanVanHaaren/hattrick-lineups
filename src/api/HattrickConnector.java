@@ -31,13 +31,13 @@ public class HattrickConnector {
 
 	private final String applicationName = "Match Scanner for Academic Research";
 
-	private final String consumerKey = "";
+	private final String consumerKey = "UJ1QVYcH4p2fgMb6p8ydX2";
 
-	private final String consumerSecret = "";
+	private final String consumerSecret = "bzkMIzsqEv4JAS6ae8K4XUGjlWW3B1EsJjRxH6y8mVw";
 
-	private final String token = "";
+	private final String token = "QMebC8KbCwOOBJUO";
 
-	private final String tokenSecret = "";
+	private final String tokenSecret = "ih82CXHKYU46Bexf";
 
 	private final OAuthService oauthService;
 

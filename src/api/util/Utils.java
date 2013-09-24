@@ -16,4 +16,11 @@ public class Utils {
 		return Integer.valueOf(string);
 	}
 
+	public static float getFloatFromString(String string) {
+		return Float.valueOf(string);
+	}
+
+	public static boolean getBooleanFromString(String string) {
+		return Boolean.valueOf(string);
+	}
 }
