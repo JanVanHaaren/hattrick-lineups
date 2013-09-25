@@ -2,6 +2,8 @@ package api.entity.matchlineup;
 
 import java.util.Collection;
 
+import datatype.SkillLevel;
+
 import api.util.Utils;
 
 public class Team {
@@ -10,7 +12,7 @@ public class Team {
 	
 	private String teamName;
 	
-	private int experienceLevel;
+	private SkillLevel experienceLevel;
 	
 	private Collection<Player> startingLineup;
 	
@@ -34,12 +36,12 @@ public class Team {
 		this.teamName = teamName;
 	}
 
-	public int getExperienceLevel() {
+	public SkillLevel getExperienceLevel() {
 		return experienceLevel;
 	}
 
 	public void setExperienceLevel(String experienceLevel) {
-		this.experienceLevel = Utils.getIntFromString(experienceLevel);
+		this.experienceLevel = new SkillLevel(experienceLevel);
 	}
 
 	public Collection<Player> getStartingLineup() {

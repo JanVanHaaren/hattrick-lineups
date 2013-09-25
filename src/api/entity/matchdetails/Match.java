@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collection;
 
+import datatype.MatchType;
+
 import api.util.Utils;
 
 public class Match {

@@ -4,9 +4,9 @@ import api.util.Utils;
 
 public class LineupPlayer extends Player {
 	
-	private float ratingStars;
+	private Float ratingStars;
 	
-	private float ratingStarsEndOfMatch;
+	private Float ratingStarsEndOfMatch;
 
 	public float getRatingStars() {
 		return ratingStars;

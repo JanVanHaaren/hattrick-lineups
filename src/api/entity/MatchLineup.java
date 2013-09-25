@@ -1,15 +1,14 @@
 package api.entity;
 
+import datatype.MatchType;
 import api.entity.matchlineup.Arena;
-import api.entity.matchlineup.MatchType;
 import api.entity.matchlineup.Team;
 import api.entity.matchlineup.TeamIdentifier;
 import api.util.Utils;
 
 public class MatchLineup extends Entity{
 	
-	public MatchLineup()
-	{
+	public MatchLineup() {
 		super();
 	}
 	

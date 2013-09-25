@@ -5,9 +5,11 @@ import java.io.IOException;
 import api.entity.ArenaDetails;
 import api.entity.MatchDetails;
 import api.entity.MatchLineup;
+import api.entity.PlayerDetails;
 import api.parser.XMLArenaDetailsParser;
 import api.parser.XMLMatchDetailsParser;
 import api.parser.XMLMatchLineupParser;
+import api.parser.XMLPlayerDetailsParser;
 
 /**
  * @author	Jan Van Haaren
@@ -23,7 +25,8 @@ public class HattrickDownloader {
 
 	private final static String MATCH_LINEUP_VERSION = "1.8";
 	
-	private final static String MATCH_DETAILS_VERSION = "2.0";
+	private final static String MATCH_DETAILS_VERSION = "2.5";
+	
 
 	public static void main(String[] arguments) throws IOException {
 		HattrickDownloader downloader = new HattrickDownloader();
@@ -41,6 +44,8 @@ public class HattrickDownloader {
 		
 		MatchDetails matchDetails = downloader.getMatchDetails(237985);
 		
+		PlayerDetails playerDetails = downloader.getPlayerDetails(322536294);
+		
 	}
 
 	public ArenaDetails getArenaDetails(int arenaId) throws IOException {
@@ -51,12 +56,15 @@ public class HattrickDownloader {
 		return XMLMatchLineupParser.parseMatchLineupFromString(this.getMatchLineupString(matchId, teamId));
 	}
 	
-	public MatchDetails getMatchDetails(int matchId)throws IOException {
+	public MatchDetails getMatchDetails(int matchId) throws IOException {
 		return XMLMatchDetailsParser.parseMatchDetailsFromString(this.getMatchDetailsString(matchId));
 	}
 	
+	public PlayerDetails getPlayerDetails(int playerId) throws IOException {
+		return XMLPlayerDetailsParser.parsePlayerDetailsFromString(this.getPlayerDetailsString(playerId));
+	}
+	
 	private String getArenaDetailsString(int arenaId) throws IOException {
-
 		// file and version
 		String sURL = "?file=arenadetails&version=" + ARENA_DETAILS_VERSION;
 
@@ -70,7 +78,6 @@ public class HattrickDownloader {
 	}
 
 	public String getPlayersString(int teamId) throws IOException {
-
 		// file and version
 		String sURL = "?file=players&version=" + PLAYERS_VERSION;
 
@@ -84,7 +91,6 @@ public class HattrickDownloader {
 	}
 
 	public String getPlayerDetailsString(int playerId) throws IOException {
-
 		// file and version
 		String sURL = "?file=playerdetails&version=" + PLAYER_DETAILS_VERSION;
 
@@ -114,8 +120,7 @@ public class HattrickDownloader {
 		return this.getConnector().getWebContent(sURL);
 	}
 	
-	private String getMatchDetailsString(int matchId)
-	{
+	private String getMatchDetailsString(int matchId) {
 		// file and version
 		String sURL = "?file=matchdetails&version=" + MATCH_DETAILS_VERSION;
 

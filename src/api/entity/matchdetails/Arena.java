@@ -1,6 +1,7 @@
 package api.entity.matchdetails;
 
 import api.util.Utils;
+import datatype.WeatherID;
 
 public class Arena {
 	
@@ -8,17 +9,17 @@ public class Arena {
 	
 	private String arenaName;
 	
-	private int weatherID;
+	private WeatherID weatherID;
 	
-	private int soldTotal;
+	private Integer soldTotal;
 	
-	private int soldTerraces;
+	private Integer soldTerraces;
 	
-	private int soldBasic;
+	private Integer soldBasic;
 	
-	private int soldRoof;
+	private Integer soldRoof;
 	
-	private int soldVIP;
+	private Integer soldVIP;
 
 	public int getArenaID() {
 		return arenaID;
@@ -36,12 +37,12 @@ public class Arena {
 		this.arenaName = arenaName;
 	}
 
-	public int getWeatherID() {
+	public WeatherID getWeatherID() {
 		return weatherID;
 	}
 
 	public void setWeatherID(String weatherID) {
-		this.weatherID = Utils.getIntFromString(weatherID);
+		this.weatherID = WeatherID.getWeatherID(weatherID);
 	}
 
 	public int getSoldTotal() {

@@ -1,12 +1,14 @@
 package api.entity.matchlineup;
 
+import datatype.MatchBehaviourID;
+import datatype.MatchRoleID;
 import api.util.Utils;
 
 public class Player {
 	
 	private int playerID;
 	
-	private int roleID;
+	private MatchRoleID roleID;
 	
 	private String firstName;
 	
@@ -14,7 +16,7 @@ public class Player {
 
 	private String nickName;
 	
-	private int behaviour;
+	private MatchBehaviourID behaviour;
 
 	public int getPlayerID() {
 		return playerID;
@@ -24,12 +26,12 @@ public class Player {
 		this.playerID = Utils.getIntFromString(playerID);
 	}
 
-	public int getRoleID() {
+	public MatchRoleID getRoleID() {
 		return roleID;
 	}
 
 	public void setRoleID(String roleID) {
-		this.roleID = Utils.getIntFromString(roleID);
+		this.roleID = MatchRoleID.getMatchRoleID(roleID);
 	}
 
 	public String getFirstName() {
@@ -56,13 +58,13 @@ public class Player {
 		this.nickName = nickName;
 	}
 
-	public int getBehaviour() {
+	public MatchBehaviourID getBehaviour() {
 		return behaviour;
 	}
 
 	public void setBehaviour(String behaviour) {
 		if(behaviour != null)
-			this.behaviour = Utils.getIntFromString(behaviour);
+			this.behaviour = MatchBehaviourID.getMatchBehaviourID(behaviour);
 	}
 	
 	

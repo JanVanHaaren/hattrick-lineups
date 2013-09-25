@@ -1,4 +1,4 @@
-package api.entity.matchlineup;
+package datatype;
 
 import api.util.Utils;
 
@@ -21,8 +21,7 @@ public enum MatchType {
 	YOUTH_FRIENDLY(101),
 	YOUTH_FRIENDLY_CUP_RULES(103),
 	YOUTH_INTERNATIONAL_FRIENDLY(105),
-	YOUTH_INTERNATIONAL_FRIENDLY_CUP_RULES(106)
-	;
+	YOUTH_INTERNATIONAL_FRIENDLY_CUP_RULES(106);
 	
 	private final int code;
 	
@@ -40,7 +39,6 @@ public enum MatchType {
 		for(MatchType type : MatchType.values())
 			if(type.code == Utils.getIntFromString(code))
 				return type;
-		return null;
+		throw new IllegalArgumentException("Invalide code for MatchType");
 	}
-
 }

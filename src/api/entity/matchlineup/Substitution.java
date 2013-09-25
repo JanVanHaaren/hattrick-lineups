@@ -1,5 +1,8 @@
 package api.entity.matchlineup;
 
+import datatype.MatchBehaviourID;
+import datatype.MatchRoleID;
+import datatype.OrderType;
 import api.util.Utils;
 
 public class Substitution {
@@ -12,9 +15,9 @@ public class Substitution {
 	
 	private OrderType orderType;
 	
-	private int newPositionID;
+	private MatchRoleID newPositionID;
 	
-	private int newPositionBehaviour;
+	private MatchBehaviourID newPositionBehaviour;
 	
 	private int matchMinute;
 
@@ -50,20 +53,20 @@ public class Substitution {
 		this.orderType = OrderType.getOrderType(orderType);
 	}
 
-	public int getNewPositionID() {
+	public MatchRoleID getNewPositionID() {
 		return newPositionID;
 	}
 
 	public void setNewPositionID(String newPositionID) {
-		this.newPositionID = Utils.getIntFromString(newPositionID);
+		this.newPositionID = MatchRoleID.getMatchRoleID(newPositionID);
 	}
 
-	public int getNewPositionBehaviour() {
+	public MatchBehaviourID getNewPositionBehaviour() {
 		return newPositionBehaviour;
 	}
 
 	public void setNewPositionBehaviour(String newPositionBehaviour) {
-		this.newPositionBehaviour = Utils.getIntFromString(newPositionBehaviour);
+		this.newPositionBehaviour = MatchBehaviourID.getMatchBehaviourID(newPositionBehaviour);
 	}
 
 	public int getMatchMinute() {

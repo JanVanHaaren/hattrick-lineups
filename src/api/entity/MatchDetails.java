@@ -12,8 +12,7 @@ public class MatchDetails extends Entity {
 	
 	private Match match;
 	
-	public MatchDetails()
-	{
+	public MatchDetails() {
 		super();
 	}
 

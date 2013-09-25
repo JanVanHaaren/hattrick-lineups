@@ -1,12 +1,11 @@
-package api.entity.matchlineup;
+package datatype;
 
 import api.util.Utils;
 
 public enum OrderType {
 	
 	NORMAL_SUBSTITUTION_OR_BEHAVIOUR_CHANGE(1),
-	PLAYER_SWAP(3)
-	;
+	PLAYER_SWAP(3);
 	
 	private final int code;
 	
@@ -24,7 +23,7 @@ public enum OrderType {
 		for(OrderType type : OrderType.values())
 			if(type.code == Utils.getIntFromString(code))
 				return type;
-		return null;
+		throw new IllegalArgumentException("Invalide code for OrderType");
 	}
 
 }
