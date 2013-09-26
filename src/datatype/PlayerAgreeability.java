@@ -1,8 +1,6 @@
 package datatype;
 
-import api.util.Utils;
-
-public class PlayerAgreeability extends ScaledDataType{
+public class PlayerAgreeability extends ScaledDataType {
 
 	public PlayerAgreeability(String value) {
 		super(value);

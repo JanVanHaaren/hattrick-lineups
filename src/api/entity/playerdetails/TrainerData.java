@@ -2,7 +2,6 @@ package api.entity.playerdetails;
 
 import datatype.SkillLevel;
 import datatype.TrainerType;
-import api.util.Utils;
 
 public class TrainerData {
 	

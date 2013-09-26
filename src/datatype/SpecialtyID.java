@@ -25,9 +25,9 @@ public enum SpecialtyID {
 
 	public static SpecialtyID getSpecialtyID(String code)
 	{
-		for(SpecialtyID type : SpecialtyID.values())
-			if(type.code == Utils.getIntFromString(code))
-				return type;
+		for(SpecialtyID specialtyID : SpecialtyID.values())
+			if(specialtyID.code == Utils.getIntFromString(code))
+				return specialtyID;
 		throw new IllegalArgumentException("Invalide code for SpecialtyID");
 	}
 }

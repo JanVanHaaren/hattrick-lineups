@@ -27,9 +27,9 @@ public enum MatchBehaviourID {
 
 	public static MatchBehaviourID getMatchBehaviourID(String code)
 	{
-		for(MatchBehaviourID type : MatchBehaviourID.values())
-			if(type.code == Utils.getIntFromString(code))
-				return type;
+		for(MatchBehaviourID behaviourID : MatchBehaviourID.values())
+			if(behaviourID.code == Utils.getIntFromString(code))
+				return behaviourID;
 		throw new IllegalArgumentException("Invalide code for MatchBehaviourID");
 	}
 }

@@ -22,9 +22,9 @@ public enum WeatherID {
 
 	public static WeatherID getWeatherID(String code)
 	{
-		for(WeatherID type : WeatherID.values())
-			if(type.code == Utils.getIntFromString(code))
-				return type;
+		for(WeatherID weatherID : WeatherID.values())
+			if(weatherID.code == Utils.getIntFromString(code))
+				return weatherID;
 		throw new IllegalArgumentException("Invalide code for WeatherID");
 	}
 

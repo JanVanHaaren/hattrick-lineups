@@ -29,9 +29,9 @@ public enum PlayerCategoryID {
 
 	public static PlayerCategoryID getPlayerCategoryID(String code)
 	{
-		for(PlayerCategoryID type : PlayerCategoryID.values())
-			if(type.code == Utils.getIntFromString(code))
-				return type;
+		for(PlayerCategoryID categoryID : PlayerCategoryID.values())
+			if(categoryID.code == Utils.getIntFromString(code))
+				return categoryID;
 		throw new IllegalArgumentException("Invalide code for PlayerCategoryID");
 	}
 

@@ -21,9 +21,9 @@ public enum MatchTeamAttitude {
 
 	public static MatchTeamAttitude getMatchTeamAttitude(String code)
 	{
-		for(MatchTeamAttitude type : MatchTeamAttitude.values())
-			if(type.code == Utils.getIntFromString(code))
-				return type;
+		for(MatchTeamAttitude attitude : MatchTeamAttitude.values())
+			if(attitude.code == Utils.getIntFromString(code))
+				return attitude;
 		throw new IllegalArgumentException("Invalide code for MatchTeamAttitude");
 	}
 }

@@ -1,14 +1,16 @@
 package api.entity;
 
+import datatype.SourceSystem;
+import datatype.SupporterTier;
 import api.entity.matchdetails.Match;
 import api.util.Utils;
 
 
 public class MatchDetails extends Entity {
 	
-	private boolean isYouth;
+	private SourceSystem sourceSystem;
 	
-	private boolean userIsSupporter;
+	private SupporterTier userSupporterTier;
 	
 	private Match match;
 	
@@ -16,20 +18,20 @@ public class MatchDetails extends Entity {
 		super();
 	}
 
-	public boolean isYouth() {
-		return isYouth;
+	public SourceSystem getSourceSystem() {
+		return sourceSystem;
 	}
 
-	public void setYouth(String isYouth) {
-		this.isYouth = Utils.getBooleanFromString(isYouth);
+	public void setSourceSystem(String sourceSystem) {
+		this.sourceSystem = SourceSystem.getSourceSystem(sourceSystem);
 	}
 
-	public boolean isUserIsSupporter() {
-		return userIsSupporter;
+	public SupporterTier isUserIsSupporter() {
+		return userSupporterTier;
 	}
 
-	public void setUserIsSupporter(String userIsSupporter) {
-		this.userIsSupporter = Utils.getBooleanFromString(userIsSupporter);
+	public void setUserSupporterTier(String userSupporterTier) {
+		this.userSupporterTier = SupporterTier.getSupporterTier(userSupporterTier);
 	}
 
 	public Match getMatch() {

@@ -54,9 +54,9 @@ public enum MatchRoleID {
 
 	public static MatchRoleID getMatchRoleID(String code)
 	{
-		for(MatchRoleID type : MatchRoleID.values())
-			if(type.code == Utils.getIntFromString(code))
-				return type;
+		for(MatchRoleID roleID : MatchRoleID.values())
+			if(roleID.code == Utils.getIntFromString(code))
+				return roleID;
 		throw new IllegalArgumentException("Invalide code for MatchRoleID");
 	}
 

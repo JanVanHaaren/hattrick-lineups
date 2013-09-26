@@ -1,7 +1,6 @@
 package datatype;
 
-
-public class MatchRating extends ScaledDataType{
+public class MatchRating extends ScaledDataType {
 
 	public MatchRating(String value) {
 		super(value);

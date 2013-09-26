@@ -1,5 +1,6 @@
 package api.entity;
 
+import datatype.SupporterTier;
 import api.entity.playerdetails.Player;
 import api.util.Utils;
 
@@ -9,16 +10,16 @@ public class PlayerDetails extends Entity {
 		super();
 	}
 	
-	private Boolean userIsSupporter;
+	private SupporterTier userSupporterTier;
 	
 	private Player player;
 
-	public Boolean getUserIsSupporter() {
-		return userIsSupporter;
+	public SupporterTier getUserSupporterTier() {
+		return userSupporterTier;
 	}
 
-	public void setUserIsSupporter(String userIsSupporter) {
-		this.userIsSupporter = Utils.getBooleanFromString(userIsSupporter);
+	public void setUserSupporterTier(String userSupporterTier) {
+		this.userSupporterTier = SupporterTier.getSupporterTier(userSupporterTier);
 	}
 
 	public Player getPlayer() {

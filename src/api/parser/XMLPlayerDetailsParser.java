@@ -29,7 +29,7 @@ public class XMLPlayerDetailsParser extends XMLParser {
 			
 			playerDetails.setUserID(getElementValue(rootElement, "UserID"));
 			playerDetails.setFetchedDate(getElementValue(rootElement, "FetchedDate"));
-			playerDetails.setUserIsSupporter(getElementValue(rootElement, "UserIsSupporter"));
+			playerDetails.setUserSupporterTier(getElementValue(rootElement, "UserSupporterTier"));
 			
 			// <HattrickDate/Player>
 			Element playerElement = getChildElement(rootElement, "Player");

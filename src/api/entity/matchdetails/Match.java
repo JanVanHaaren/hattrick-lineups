@@ -24,9 +24,13 @@ public class Match {
 	
 	private Arena arena;
 	
+	private MatchOfficials matchOfficials;
+	
 	private Collection<Goal> scorers;
 	
 	private Collection<Booking> bookings;
+	
+	private Collection<Injury> injuries;
 	
 	private int possessionFirstHalfHome;
 
@@ -105,6 +109,14 @@ public class Match {
 	public void setArena(Arena arena) {
 		this.arena = arena;
 	}
+	
+	public MatchOfficials getMatchOfficials() {
+		return matchOfficials;
+	}
+
+	public void setMatchOfficials(MatchOfficials matchOfficials) {
+		this.matchOfficials = matchOfficials;
+	}
 
 	public Collection<Goal> getScorers() {
 		return scorers;
@@ -120,6 +132,14 @@ public class Match {
 
 	public void setBookings(Collection<Booking> bookings) {
 		this.bookings = bookings;
+	}
+	
+	public Collection<Injury> getInjuries() {
+		return injuries;
+	}
+
+	public void setInjuries(Collection<Injury> injuries) {
+		this.injuries = injuries;
 	}
 
 	public int getPossessionFirstHalfHome() {
