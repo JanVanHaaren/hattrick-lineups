@@ -1,5 +1,7 @@
 package api.parser;
 
+import java.io.File;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -10,6 +12,7 @@ import api.entity.arenadetails.ExtendedCapacity;
 import api.entity.arenadetails.League;
 import api.entity.arenadetails.Region;
 import api.entity.arenadetails.Team;
+import api.exception.IllegalXMLException;
 
 //FIXME: credit to original author!
 
@@ -18,14 +21,15 @@ import api.entity.arenadetails.Team;
  */
 public class XMLArenaDetailsParser extends XMLParser {
 
-	protected XMLArenaDetailsParser() {
+	public XMLArenaDetailsParser() {
 		// NOP
 	}
+	
 
-	public static ArenaDetails parseArenaDetailsFromString(String string) {
+	public static ArenaDetails parseArenaDetailsFromString(String string) throws IllegalXMLException {
 		return parseArena(XMLParser.parseString(string));
 	}
-
+	
 	private static ArenaDetails parseArena(Document document) {
 
 		ArenaDetails arenaDetails = new ArenaDetails();
@@ -106,5 +110,7 @@ public class XMLArenaDetailsParser extends XMLParser {
 		// return map;
 		return arenaDetails;
 	}
+
+	
 
 }

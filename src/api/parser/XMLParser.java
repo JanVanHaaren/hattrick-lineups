@@ -11,6 +11,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import api.exception.IllegalXMLException;
+
 //FIXME: credit to original author!
 
 /**
@@ -46,8 +48,11 @@ public abstract class XMLParser  {
 		return null;
 	}
 
-	protected static Document parseString(String inputString) {
+	protected static Document parseString(String inputString) throws IllegalXMLException {
 
+		if(inputString.contains("<FileName>chpperror.xml</FileName>"))
+			throw new IllegalXMLException("The XML file represents an error message");
+		
 		int indexCommentStart = inputString.indexOf("<!--");
 
 		while (indexCommentStart > -1) {

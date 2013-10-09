@@ -13,14 +13,15 @@ import api.entity.matchlineup.Player;
 import api.entity.matchlineup.Substitution;
 import api.entity.matchlineup.Team;
 import api.entity.matchlineup.TeamIdentifier;
+import api.exception.IllegalXMLException;
 
 public class XMLMatchLineupParser extends XMLParser {
 	
-	protected XMLMatchLineupParser() {
+	public XMLMatchLineupParser() {
 		// NOP
 	}
-
-	public static MatchLineup parseMatchLineupFromString(String string) {
+	
+	public static MatchLineup parseMatchLineupFromString(String string) throws IllegalXMLException {
 		return parseMatchLineup(XMLParser.parseString(string));
 	}
 

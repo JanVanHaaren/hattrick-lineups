@@ -1,6 +1,7 @@
 package api.entity.matchdetails;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -39,6 +40,8 @@ public class Match {
 	private int possessionSecondHalfHome;
 	
 	private int possessionSecondHalfAway;
+	
+	private Collection<Event> eventList;
 
 	public int getMatchID() {
 		return matchID;
@@ -119,7 +122,7 @@ public class Match {
 	}
 
 	public Collection<Goal> getScorers() {
-		return scorers;
+		return new ArrayList<Goal>(scorers);
 	}
 
 	public void setScorers(Collection<Goal> scorers) {
@@ -127,7 +130,7 @@ public class Match {
 	}
 
 	public Collection<Booking> getBookings() {
-		return bookings;
+		return new ArrayList<Booking>(bookings);
 	}
 
 	public void setBookings(Collection<Booking> bookings) {
@@ -135,7 +138,7 @@ public class Match {
 	}
 	
 	public Collection<Injury> getInjuries() {
-		return injuries;
+		return new ArrayList<Injury>(injuries);
 	}
 
 	public void setInjuries(Collection<Injury> injuries) {
@@ -173,18 +176,12 @@ public class Match {
 	public void setPossessionSecondHalfAway(String possessionSecondHalfAway) {
 		this.possessionSecondHalfAway = Utils.getIntFromString(possessionSecondHalfAway);
 	}
-	
-	
-	
-//	public void setRebuiltDate(String rebuiltDate) {
-//		this.rebuiltDate = Calendar.getInstance();
-//
-//		try {
-//			this.getRebuiltDate().setTime(Utils.getHattrickDateFormat().parse(rebuiltDate));
-//		}
-//		catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//	}
 
+	public Collection<Event> getEventList() {
+		return new ArrayList<Event>(eventList);
+	}
+
+	public void setEventList(Collection<Event> eventList) {
+		this.eventList = eventList;
+	}
 }

@@ -9,20 +9,22 @@ import org.w3c.dom.Element;
 import api.entity.MatchDetails;
 import api.entity.matchdetails.Arena;
 import api.entity.matchdetails.Booking;
+import api.entity.matchdetails.Event;
 import api.entity.matchdetails.Goal;
 import api.entity.matchdetails.Injury;
 import api.entity.matchdetails.Match;
 import api.entity.matchdetails.MatchOfficials;
 import api.entity.matchdetails.Referee;
 import api.entity.matchdetails.Team;
+import api.exception.IllegalXMLException;
 
 public class XMLMatchDetailsParser extends XMLParser {
 	
-	protected XMLMatchDetailsParser() {
+	public XMLMatchDetailsParser() {
 		// NOP
 	}
-
-	public static MatchDetails parseMatchDetailsFromString(String string) {
+	
+	public static MatchDetails parseMatchDetailsFromString(String string) throws IllegalXMLException {
 		return parseMatchDetails(XMLParser.parseString(string));
 	}
 
@@ -192,21 +194,41 @@ public class XMLMatchDetailsParser extends XMLParser {
 			match.setBookings(bookings);
 			
 			// <HattrickData/Match/Injuries>
-						Element injuriesElement = getChildElement(matchElement, "Injuries");
-						Collection<Element> injuryElements = getChildElementList(injuriesElement, "Injury");
+			Element injuriesElement = getChildElement(matchElement, "Injuries");
+			Collection<Element> injuryElements = getChildElementList(injuriesElement, "Injury");
+			
+			Collection<Injury> injuries = new ArrayList<Injury>();
+			for(Element injuryElement : injuryElements)
+			{
+				Injury injury = new Injury();
+				injury.setInjuryPlayerId(getElementValue(injuryElement, "InjuryPlayerID"));
+				injury.setInjuryPlayerName(getElementValue(injuryElement, "InjuryPlayerName"));
+				injury.setInjuryTeamId(getElementValue(injuryElement, "InjuryTeamID"));
+				injury.setInjuryType(getElementValue(injuryElement, "InjuryType"));
+				injury.setInjuryMinute(getElementValue(injuryElement, "InjuryMinute"));
+				injuries.add(injury);
+			}
+			match.setInjuries(injuries);
 						
-						Collection<Injury> injuries = new ArrayList<Injury>();
-						for(Element injuryElement : injuryElements)
-						{
-							Injury injury = new Injury();
-							injury.setInjuryPlayerId(getElementValue(injuryElement, "InjuryPlayerID"));
-							injury.setInjuryPlayerName(getElementValue(injuryElement, "InjuryPlayerName"));
-							injury.setInjuryTeamId(getElementValue(injuryElement, "InjuryTeamID"));
-							injury.setInjuryType(getElementValue(injuryElement, "InjuryType"));
-							injury.setInjuryMinute(getElementValue(injuryElement, "InjuryMinute"));
-							injuries.add(injury);
-						}
-						match.setInjuries(injuries);
+			// <HattrickData/Match/EventList>
+			Element eventListElement = getChildElement(matchElement, "EventList");
+			Collection<Element> eventElements = getChildElementList(eventListElement, "Event");
+			
+			Collection<Event> eventList = new ArrayList<Event>();
+			for(Element eventElement : eventElements)
+			{
+				Event event = new Event();
+				event.setMinute(getElementValue(eventElement, "Minute"));
+				event.setEventTypeID(getElementValue(eventElement, "EventTypeID"));
+				event.setEventVariation(getElementValue(eventElement, "EventVariation"));
+				event.setEventText(getElementValue(eventElement, "EventText"));
+				event.setSubjectTeamID(getElementValue(eventElement, "SubjectTeamID"));
+				event.setSubjectPlayerID(getElementValue(eventElement, "SubjectPlayerID"));
+				event.setObjectPlayerID(getElementValue(eventElement, "ObjectPlayerID"));
+				eventList.add(event);
+			}
+			match.setEventList(eventList);
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();

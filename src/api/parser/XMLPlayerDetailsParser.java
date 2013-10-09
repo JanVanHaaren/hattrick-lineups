@@ -9,13 +9,14 @@ import api.entity.playerdetails.Player;
 import api.entity.playerdetails.PlayerSkills;
 import api.entity.playerdetails.Team;
 import api.entity.playerdetails.TrainerData;
+import api.exception.IllegalXMLException;
 
 public class XMLPlayerDetailsParser extends XMLParser {
-	protected XMLPlayerDetailsParser() {
+	public XMLPlayerDetailsParser() {
 		// NOP
 	}
-
-	public static PlayerDetails parsePlayerDetailsFromString(String string) {
+	
+	public static PlayerDetails parsePlayerDetailsFromString(String string) throws IllegalXMLException {
 		return parsePlayerDetails(XMLParser.parseString(string));
 	}
 

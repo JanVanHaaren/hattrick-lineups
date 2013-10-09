@@ -1,5 +1,6 @@
 package api.entity.matchlineup;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import datatype.SkillLevel;
@@ -45,7 +46,7 @@ public class Team {
 	}
 
 	public Collection<Player> getStartingLineup() {
-		return startingLineup;
+		return new ArrayList<Player>(startingLineup);
 	}
 
 	public void setStartingLineup(Collection<Player> startingLineup) {
@@ -53,7 +54,7 @@ public class Team {
 	}
 
 	public Collection<Substitution> getSubstitutions() {
-		return substitutions;
+		return new ArrayList<Substitution>(substitutions);
 	}
 
 	public void setSubstitutions(Collection<Substitution> substitutions) {
@@ -61,7 +62,7 @@ public class Team {
 	}
 
 	public Collection<LineupPlayer> getLineup() {
-		return lineup;
+		return new ArrayList<LineupPlayer>(lineup);
 	}
 
 	public void setLineup(Collection<LineupPlayer> lineup) {
