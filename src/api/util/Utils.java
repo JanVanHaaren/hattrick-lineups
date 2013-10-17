@@ -17,7 +17,7 @@ public class Utils {
 	}
 
 	public static float getFloatFromString(String string) {
-		return Float.valueOf(string);
+		return Float.valueOf(string.replace(",", "."));
 	}
 
 	public static boolean getBooleanFromString(String string) {

@@ -3,8 +3,8 @@ package api.entity.matchlineup;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import datatype.SkillLevel;
 
+import api.datatype.SkillLevel;
 import api.util.Utils;
 
 public class Team {

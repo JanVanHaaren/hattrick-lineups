@@ -18,6 +18,8 @@ import api.entity.matchdetails.Referee;
 import api.entity.matchdetails.Team;
 import api.exception.IllegalXMLException;
 
+
+
 public class XMLMatchDetailsParser extends XMLParser {
 	
 	public XMLMatchDetailsParser() {
@@ -66,7 +68,7 @@ public class XMLMatchDetailsParser extends XMLParser {
 			homeTeam.setGoals(getElementValue(homeTeamElement, "HomeGoals"));
 			homeTeam.setTacticType(getElementValue(homeTeamElement, "TacticType"));
 			homeTeam.setTacticSkill(getElementValue(homeTeamElement, "TacticSkill"));
-			homeTeam.setRatingMidField(getElementValue(homeTeamElement, "RatingMidField"));
+			homeTeam.setRatingMidField(getElementValue(homeTeamElement, "RatingMidfield"));
 			homeTeam.setRatingRightDef(getElementValue(homeTeamElement, "RatingRightDef"));
 			homeTeam.setRatingMidDef(getElementValue(homeTeamElement, "RatingMidDef"));
 			homeTeam.setRatingLeftDef(getElementValue(homeTeamElement, "RatingLeftDef"));
@@ -89,7 +91,7 @@ public class XMLMatchDetailsParser extends XMLParser {
 			awayTeam.setGoals(getElementValue(awayTeamElement, "AwayGoals"));
 			awayTeam.setTacticType(getElementValue(awayTeamElement, "TacticType"));
 			awayTeam.setTacticSkill(getElementValue(awayTeamElement, "TacticSkill"));
-			awayTeam.setRatingMidField(getElementValue(awayTeamElement, "RatingMidField"));
+			awayTeam.setRatingMidField(getElementValue(awayTeamElement, "RatingMidfield"));
 			awayTeam.setRatingRightDef(getElementValue(awayTeamElement, "RatingRightDef"));
 			awayTeam.setRatingMidDef(getElementValue(awayTeamElement, "RatingMidDef"));
 			awayTeam.setRatingLeftDef(getElementValue(awayTeamElement, "RatingLeftDef"));

@@ -3,13 +3,13 @@ package api.entity.playerdetails;
 import java.text.ParseException;
 import java.util.Calendar;
 
-import datatype.PlayerAggressiveness;
-import datatype.PlayerAgreeability;
-import datatype.PlayerCategoryID;
-import datatype.PlayerHonesty;
-import datatype.SkillLevel;
-import datatype.SpecialtyID;
 
+import api.datatype.PlayerAggressiveness;
+import api.datatype.PlayerAgreeability;
+import api.datatype.PlayerCategoryID;
+import api.datatype.PlayerHonesty;
+import api.datatype.SkillLevel;
+import api.datatype.SpecialtyID;
 import api.util.Utils;
 
 public class Player {

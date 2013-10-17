@@ -1,6 +1,6 @@
 package api.entity;
 
-import datatype.MatchType;
+import api.datatype.MatchType;
 import api.entity.matchlineup.Arena;
 import api.entity.matchlineup.Team;
 import api.entity.matchlineup.TeamIdentifier;

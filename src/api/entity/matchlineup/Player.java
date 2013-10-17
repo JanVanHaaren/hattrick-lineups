@@ -1,7 +1,7 @@
 package api.entity.matchlineup;
 
-import datatype.MatchBehaviourID;
-import datatype.MatchRoleID;
+import api.datatype.MatchBehaviourID;
+import api.datatype.MatchRoleID;
 import api.util.Utils;
 
 public class Player {

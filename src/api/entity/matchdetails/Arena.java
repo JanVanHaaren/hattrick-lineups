@@ -1,7 +1,7 @@
 package api.entity.matchdetails;
 
+import api.datatype.WeatherID;
 import api.util.Utils;
-import datatype.WeatherID;
 
 public class Arena {
 	

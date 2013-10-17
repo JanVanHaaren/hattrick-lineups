@@ -1,9 +1,9 @@
 package api.entity.matchdetails;
 
-import datatype.MatchRating;
-import datatype.MatchTacticType;
-import datatype.MatchTeamAttitude;
-import datatype.SkillLevel;
+import api.datatype.MatchRating;
+import api.datatype.MatchTacticType;
+import api.datatype.MatchTeamAttitude;
+import api.datatype.SkillLevel;
 import api.util.Utils;
 
 public class Team {
@@ -103,8 +103,7 @@ public class Team {
 	}
 
 	public void setRatingMidField(String ratingMidField) {
-		if(ratingMidField != null)
-			this.ratingMidField = new MatchRating(ratingMidField);
+		this.ratingMidField = new MatchRating(ratingMidField);
 	}
 
 	public MatchRating getRatingRightDef() {
@@ -112,8 +111,7 @@ public class Team {
 	}
 
 	public void setRatingRightDef(String ratingRightDef) {
-		if(ratingRightDef != null)
-			this.ratingRightDef = new MatchRating(ratingRightDef);
+		this.ratingRightDef = new MatchRating(ratingRightDef);
 	}
 
 	public MatchRating getRatingMidDef() {
@@ -121,8 +119,7 @@ public class Team {
 	}
 
 	public void setRatingMidDef(String ratingMidDef) {
-		if(ratingMidDef != null)
-			this.ratingMidDef = new MatchRating(ratingMidDef);
+		this.ratingMidDef = new MatchRating(ratingMidDef);
 	}
 
 	public MatchRating getRatingLeftDef() {
@@ -130,8 +127,7 @@ public class Team {
 	}
 
 	public void setRatingLeftDef(String ratingLeftDef) {
-		if(ratingLeftDef != null)	
-			this.ratingLeftDef = new MatchRating(ratingLeftDef);
+		this.ratingLeftDef = new MatchRating(ratingLeftDef);
 	}
 
 	public MatchRating getRatingRightAtt() {
@@ -139,8 +135,7 @@ public class Team {
 	}
 
 	public void setRatingRightAtt(String ratingRightAtt) {
-		if(ratingRightAtt != null)
-			this.ratingRightAtt = new MatchRating(ratingRightAtt);
+		this.ratingRightAtt = new MatchRating(ratingRightAtt);
 	}
 
 	public MatchRating getRatingMidAtt() {
@@ -148,8 +143,7 @@ public class Team {
 	}
 
 	public void setRatingMidAtt(String ratingMidAtt) {
-		if(ratingMidAtt != null)
-			this.ratingMidAtt = new MatchRating(ratingMidAtt);
+		this.ratingMidAtt = new MatchRating(ratingMidAtt);
 	}
 
 	public MatchRating getRatingLeftAtt() {
@@ -157,8 +151,7 @@ public class Team {
 	}
 
 	public void setRatingLeftAtt(String ratingLeftAtt) {
-		if(ratingLeftAtt != null)
-			this.ratingLeftAtt = new MatchRating(ratingLeftAtt);
+		this.ratingLeftAtt = new MatchRating(ratingLeftAtt);
 	}
 
 	public MatchTeamAttitude getTeamAttitude() {
@@ -186,6 +179,27 @@ public class Team {
 	public void setRatingIndirectSetPiecesAtt(String ratingIndirectSetPiecesAtt) {
 		if(ratingIndirectSetPiecesAtt != null)
 			this.ratingIndirectSetPiecesAtt = new MatchRating(ratingIndirectSetPiecesAtt);
+	}
+	
+	public int getHatStats()
+	{
+		return 3*getRatingMidField().getValue()
+				+ getRatingLeftAtt().getValue() + getRatingMidAtt().getValue() + getRatingRightAtt().getValue()
+				+ getRatingLeftDef().getValue() + getRatingMidDef().getValue() + getRatingRightDef().getValue();
+	}
+	
+	public int getVnukStats()
+	{
+		return 5*getRatingMidField().getValue()
+				+ getRatingLeftAtt().getValue() + getRatingMidAtt().getValue() + getRatingRightAtt().getValue()
+				+ getRatingLeftDef().getValue() + getRatingMidDef().getValue() + getRatingRightDef().getValue();
+	}
+	
+	public int getOriginalVnukStats()
+	{
+		return 6*getRatingMidField().getValue()
+				+ getRatingLeftAtt().getValue() + getRatingMidAtt().getValue() + getRatingRightAtt().getValue()
+				+ getRatingLeftDef().getValue() + getRatingMidDef().getValue() + getRatingRightDef().getValue();
 	}
 	
 	

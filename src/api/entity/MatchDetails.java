@@ -1,9 +1,8 @@
 package api.entity;
 
-import datatype.SourceSystem;
-import datatype.SupporterTier;
+import api.datatype.SourceSystem;
+import api.datatype.SupporterTier;
 import api.entity.matchdetails.Match;
-import api.util.Utils;
 
 
 public class MatchDetails extends Entity {
@@ -31,7 +30,8 @@ public class MatchDetails extends Entity {
 	}
 
 	public void setUserSupporterTier(String userSupporterTier) {
-		this.userSupporterTier = SupporterTier.getSupporterTier(userSupporterTier);
+		if(userSupporterTier != null)
+			this.userSupporterTier = SupporterTier.getSupporterTier(userSupporterTier);
 	}
 
 	public Match getMatch() {
