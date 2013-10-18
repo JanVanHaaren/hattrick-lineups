@@ -6,6 +6,7 @@ import api.entity.ArenaDetails;
 import api.entity.LeagueFixtures;
 import api.entity.MatchDetails;
 import api.entity.MatchLineup;
+import api.entity.MatchesArchive;
 import api.entity.PlayerDetails;
 import api.entity.WorldDetails;
 import api.exception.IllegalXMLException;
@@ -13,6 +14,7 @@ import api.parser.XMLArenaDetailsParser;
 import api.parser.XMLLeagueFixturesParser;
 import api.parser.XMLMatchDetailsParser;
 import api.parser.XMLMatchLineupParser;
+import api.parser.XMLMatchesArchiveParser;
 import api.parser.XMLPlayerDetailsParser;
 import api.parser.XMLWorldDetailsParser;
 
@@ -114,6 +116,17 @@ public class HattrickObjectCreator {
 		return XMLWorldDetailsParser.parseWorldDetailsFromString(
 				getXmlCollector().readStringFromXMLFile(
 					LocalPaths.XML_LOCATION + LocalPaths.WORLD_DETAILS_DIRECTORY + "worldDetails.xml"));
+	}
+	
+	public MatchesArchive getMatchesArchive(int teamID) throws IOException, IllegalXMLException {
+		return XMLMatchesArchiveParser.parseMatchesArchiveFromString(getDownloader().getMatchesArchiveString(teamID));
+	}
+	
+	public MatchesArchive getMatchesArchiveFromFile(int teamID) throws IllegalXMLException
+	{
+		return XMLMatchesArchiveParser.parseMatchesArchiveFromString(
+				getXmlCollector().readStringFromXMLFile(
+					LocalPaths.XML_LOCATION + LocalPaths.MATCHES_ARCHIVE_DIRECTORY + teamID + ".xml"));
 	}
 	
 	

@@ -112,6 +112,19 @@ public class HattrickDownloader {
 		return this.getConnector().getWebContent(sURL);
 	}
 	
+	String getMatchesArchiveString(int teamID) {
+		// file and version
+				String sURL = "?file=matchesarchive&version=" + LEAGUE_FIXTURES_VERSION;
+				
+				// parameters
+				if (teamID > 0) {
+					sURL += "&teamID=" + teamID;
+				}
+				
+				// retrieve content
+				return this.getConnector().getWebContent(sURL);
+	}
+	
 	private HattrickConnector getConnector() {
 		return HattrickConnector.getInstance();
 	}

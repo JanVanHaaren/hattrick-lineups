@@ -2,7 +2,7 @@ package api.parser;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,9 +33,9 @@ public abstract class XMLParser  {
 		return (Element) parentElement.getElementsByTagName(name).item(0);
 	}
 	
-	protected static Collection<Element> getChildElementList(Element parentElement, String name)
+	protected static List<Element> getChildElementList(Element parentElement, String name)
 	{
-		Collection<Element> result = new ArrayList<Element>();
+		List<Element> result = new ArrayList<Element>();
 		NodeList list = parentElement.getElementsByTagName(name);
 		for(int i = 0; i < list.getLength(); i++)
 			result.add((Element)list.item(i));
