@@ -34,8 +34,10 @@ public class HattrickXMLCollector {
 		{
 			TrainingDates.refreshIfNeeded();
 			try {
-				TeamDetails teamDetails = creator.getTeamDetails(teamID);
+				collector.createTeamDetails(teamID);
 				Thread.sleep(2000);
+				
+				TeamDetails teamDetails = creator.getTeamDetailsFromFile(teamID);
 				
 				if(!teamDetails.isInLeague())
 					continue;
@@ -159,6 +161,12 @@ public class HattrickXMLCollector {
 	{
 		String xml = this.getDownloader().getMatchesArchiveString(teamId, fromDate);
 		writeToXML(xml, LocalPaths.XML_LOCATION + LocalPaths.MATCHES_ARCHIVE_DIRECTORY + teamId + ".xml");
+	}
+	
+	public void createTeamDetails(int teamId) throws IllegalXMLException
+	{
+		String xml = this.getDownloader().getTeamDetailsString(teamId);
+		writeToXML(xml, LocalPaths.XML_LOCATION + LocalPaths.TEAM_DETAILS_DIRECTORY + teamId + ".xml");
 	}
 	
 	String readStringFromXMLFile(String fileName)

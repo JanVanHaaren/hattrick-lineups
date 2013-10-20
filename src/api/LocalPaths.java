@@ -30,6 +30,7 @@ public class LocalPaths {
 	public static void createDirectoryStructure()
 	{
 		createDirectory(XML_LOCATION);
+		createDirectory(XML_LOCATION + TEAM_DETAILS_DIRECTORY);
 		
 		for(int leagueID : TrainingDates.nextTrainingDates.keySet())
 		{
