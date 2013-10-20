@@ -2,77 +2,163 @@ package api;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
+
+import api.entity.MatchDetails;
+import api.entity.MatchLineup;
+import api.entity.MatchesArchive;
+import api.entity.matchesarchive.Match;
+import api.entity.matchlineup.Player;
+import api.exception.IllegalXMLException;
 
 public class HattrickXMLCollector {
 	
-	private HattrickDownloader downloader;
-	
-	public HattrickXMLCollector()
-	{
-		this.downloader = new HattrickDownloader();
-	}
+	private HattrickDownloader downloader = new HattrickDownloader();	
 	
 	private HattrickDownloader getDownloader()
 	{
-		return this.downloader;
+		return downloader;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
+		TrainingDates.refreshIfNeeded();
 		HattrickXMLCollector collector = new HattrickXMLCollector();
-		collector.downloadMatchDetailsXML(453287181, 453287182);
-	}
-	
-	private void downloadMatchDetailsXML(int fromMatchId, int toMatchId)
-	{
-		for(int i = fromMatchId; i <= toMatchId; i++)
+		HattrickObjectCreator creator = new HattrickObjectCreator();
+		
+		for(int teamID = 1; teamID < 2045907; teamID++) //2045907 experimenteel bepaald als max valid teamID
 		{
+			TrainingDates.refreshIfNeeded();
 			try {
-				this.createMatchDetailsXML(i);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
+				TeamDetails teamDetails = creator.getTeamDetails(teamID);
+				Thread.sleep(2000);
+				
+				if(!teamDetails.isInLeague())
+					continue;
+				
+				int leagueID = teamDetails.getLeagueId();
+				
+				Calendar fromDate = TrainingDates.getNextTrainingDate(teamDetails.getLeagueId());
+				fromDate.add(Calendar.DAY_OF_YEAR, -6);
+				
+				MatchesArchive matchesArchive = creator.getMatchesArchive(teamID, fromDate);
+				Thread.sleep(2000);
+				
+				for(Match match : matchesArchive.getTeam().getMatchList())
+				{
+					int matchID = match.getMatchID();
+					collector.createMatchDetailsXML(teamDetails.getLeagueId(), matchID);
 					Thread.sleep(2000);
-					System.out.println("ok");
-				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
+					
+					MatchDetails matchDetails = creator.getMatchDetailsFromFile(teamDetails.getLeagueId(), matchID);
+					
+					int homeTeamID = matchDetails.getMatch().getHomeTeam().getTeamID();
+					int awayTeamID = matchDetails.getMatch().getAwayTeam().getTeamID();
+					
+					collector.createMatchLineupXML(leagueID, matchID, homeTeamID);
+					MatchLineup lineupHome = creator.getMatchLineupFromFile(leagueID, matchID, homeTeamID);
+					Thread.sleep(2000);
+					collector.createMatchLineupXML(leagueID, matchID, awayTeamID);
+					MatchLineup lineupAway = creator.getMatchLineupFromFile(leagueID, matchID, awayTeamID);
+					Thread.sleep(2000);
+					
+					for(Player player : lineupHome.getTeam().getStartingLineup())
+					{
+						collector.createPlayerDetailsXML(teamDetails.getLeagueId(), player.getPlayerID());
+						Thread.sleep(2000);
+					}
+					
+					for(Player player : lineupAway.getTeam().getStartingLineup())
+					{
+						collector.createPlayerDetailsXML(teamDetails.getLeagueId(), player.getPlayerID());
+						Thread.sleep(2000);
+					}
 				}
-			}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalXMLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
 	}
 	
+//	public static void main(String[] args) {
+//		HattrickXMLCollector collector = new HattrickXMLCollector();
+//		collector.downloadMatchDetailsXML(453287181, 453287182);
+//	}
+	
+//	private void downloadMatchDetailsXML(int fromMatchId, int toMatchId)
+//	{
+//		for(int i = fromMatchId; i <= toMatchId; i++)
+//		{
+//			try {
+//				this.createMatchDetailsXML(i);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			} finally {
+//				try {
+//					Thread.sleep(2000);
+//					System.out.println("ok");
+//				} catch (InterruptedException e) {
+//					Thread.currentThread().interrupt();
+//				}
+//			}
+//		}
+//	}
+	
+	//NOT USED
 	public void createArenaDetailsXML(int arenaId) throws IOException
 	{
 		writeToXML(this.getDownloader().getArenaDetailsString(arenaId),
 			LocalPaths.XML_LOCATION + LocalPaths.ARENA_DETAILS_DIRECTORY + arenaId + ".xml");
 	}
 	
-	public void createMatchLineupXML(int matchId, int teamId) throws IOException
+	//NOT USED
+	public void createMatchLineupXML(int leagueId, int matchId, int teamId) throws IOException
 	{
 		writeToXML(this.getDownloader().getMatchLineupString(matchId, teamId),
-			LocalPaths.XML_LOCATION + LocalPaths.MATCH_LINEUP_DIRECTORY + matchId + "_" + teamId + ".xml");
+				LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.MATCH_LINEUP_DIRECTORY + matchId + "_" + teamId + ".xml");
 	}
 	
-	public void createMatchDetailsXML(int matchId) throws IOException
+	public void createMatchDetailsXML(int leagueId, int matchId) throws IOException
 	{
 		writeToXML(this.getDownloader().getMatchDetailsString(matchId),
-			LocalPaths.XML_LOCATION + LocalPaths.MATCH_DETAILS_DIRECTORY + matchId + ".xml");
+				LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.MATCH_DETAILS_DIRECTORY + matchId + ".xml");
 	}
 	
-	public void createPlayerDetailsXML(int playerId) throws IOException
+	public void createPlayerDetailsXML(int leagueId, int playerId) throws IOException
 	{
+		File file = new File(LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.PLAYER_DETAILS_DIRECTORY + String.valueOf(playerId) + ".xml");
+		if(file.exists())
+			return;
 		writeToXML(this.getDownloader().getPlayerDetailsString(playerId),
-			LocalPaths.XML_LOCATION + LocalPaths.PLAYER_DETAILS_DIRECTORY + String.valueOf(playerId) + ".xml");
+				LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.PLAYER_DETAILS_DIRECTORY + String.valueOf(playerId) + ".xml");
 	}
 	
+	//NOT USED
 	public void createLeagueFixturesXML(int leagueLevelUnitID) throws IOException
 	{
 		String xml = this.getDownloader().getLeagueFixturesString(leagueLevelUnitID);
 		writeToXML(xml,LocalPaths.XML_LOCATION + LocalPaths.LEAGUE_FIXTURES_DIRECTORY + String.valueOf(leagueLevelUnitID) + ".xml");
+	}
+	
+	public void createMatchesArchive(int teamId) throws IllegalXMLException
+	{
+		String xml = this.getDownloader().getMatchesArchiveString(teamId);
+		writeToXML(xml, LocalPaths.XML_LOCATION + LocalPaths.MATCHES_ARCHIVE_DIRECTORY + teamId + ".xml");
+	}
+	
+	public void createMatchesArchive(int teamId, Calendar fromDate) throws IllegalXMLException
+	{
+		String xml = this.getDownloader().getMatchesArchiveString(teamId, fromDate);
+		writeToXML(xml, LocalPaths.XML_LOCATION + LocalPaths.MATCHES_ARCHIVE_DIRECTORY + teamId + ".xml");
 	}
 	
 	String readStringFromXMLFile(String fileName)

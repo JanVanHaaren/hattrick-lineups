@@ -1,6 +1,10 @@
 package api;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import api.util.Utils;
 
 /**
  * @author	Jan Van Haaren
@@ -21,6 +25,10 @@ public class HattrickDownloader {
 	private final static String LEAGUE_FIXTURES_VERSION = "1.2";
 	
 	private final static String WORLD_DETAILS_VERSION = "1.5";
+	
+	private final static String MATCHES_ARCHIVE_VERSION = "1.1";
+	
+	private final static String TEAM_DETAILS_VERSION = "3.0";
 
 	String getArenaDetailsString(int arenaId) throws IOException {
 		// file and version
@@ -114,7 +122,7 @@ public class HattrickDownloader {
 	
 	String getMatchesArchiveString(int teamID) {
 		// file and version
-				String sURL = "?file=matchesarchive&version=" + LEAGUE_FIXTURES_VERSION;
+				String sURL = "?file=matchesarchive&version=" + MATCHES_ARCHIVE_VERSION;
 				
 				// parameters
 				if (teamID > 0) {
@@ -123,6 +131,36 @@ public class HattrickDownloader {
 				
 				// retrieve content
 				return this.getConnector().getWebContent(sURL);
+	}
+	
+	String getMatchesArchiveString(int teamID, Calendar fromDate) {
+		// file and version
+				String sURL = "?file=matchesarchive&version=" + MATCHES_ARCHIVE_VERSION;
+				
+				// parameters
+				if (teamID > 0) {
+					sURL += "&teamID=" + teamID;
+				}
+				
+				SimpleDateFormat formatter = Utils.getHattrickDateFormat();  
+				String fromDateString = formatter.format(fromDate.getTime());    
+				sURL += "&FirstMatchDate=" + fromDateString;
+				
+				// retrieve content
+				return this.getConnector().getWebContent(sURL);
+	}
+	
+	String getTeamDetailsString(int teamID) {
+		// file and version
+		String sURL = "?file=teamdetails&version=" + TEAM_DETAILS_VERSION;
+		
+		// parameters
+		if (teamID > 0) {
+			sURL += "&teamID=" + teamID;
+		}
+		
+		// retrieve content
+		return this.getConnector().getWebContent(sURL);
 	}
 	
 	private HattrickConnector getConnector() {

@@ -39,13 +39,16 @@ public class Team {
 	}
 
 	public void setFirstMatchDate(String firstMatchDate) {
-		this.firstMatchDate = Calendar.getInstance();
-
-		try {
-			this.getFirstMatchDate().setTime(Utils.getHattrickDateFormat().parse(firstMatchDate));
-		}
-		catch (ParseException e) {
-			e.printStackTrace();
+		if(firstMatchDate != null)
+		{
+			this.firstMatchDate = Calendar.getInstance();
+	
+			try {
+				this.getFirstMatchDate().setTime(Utils.getHattrickDateFormat().parse(firstMatchDate));
+			}
+			catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -54,13 +57,16 @@ public class Team {
 	}
 
 	public void setLastMatchDate(String lastMatchDate) {
-		this.lastMatchDate = Calendar.getInstance();
-
-		try {
-			this.getLastMatchDate().setTime(Utils.getHattrickDateFormat().parse(lastMatchDate));
-		}
-		catch (ParseException e) {
-			e.printStackTrace();
+		if(lastMatchDate != null)
+		{
+			this.lastMatchDate = Calendar.getInstance();
+	
+			try {
+				this.getLastMatchDate().setTime(Utils.getHattrickDateFormat().parse(lastMatchDate));
+			}
+			catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

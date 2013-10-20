@@ -10,23 +10,9 @@ import java.util.List;
 
 import api.LocalPaths;
 import api.exception.IllegalXMLException;
-import api.weka.goaldiff.HatStatsGoalDiffWekaFileCreator;
-import api.weka.goaldiff.NaiveGoalDiffWekaFileCreator;
-import api.weka.goaldiff.NaiveWithTacticGoalDiffWekaFileCreator;
-import api.weka.goaldiff.RatingDifferenceGoalDiffWekaFileCreator;
-import api.weka.goaldiff.RatingProportionGoalDiffWekaFileCreator;
 import api.weka.goaldiff.VnukStatsGoalDiffWekaFileCreator;
-import api.weka.winloss.HatStatsWinLossWekaFileCreator;
-import api.weka.winloss.NaiveWinLossWekaFileCreator;
-import api.weka.winloss.NaiveWinLossWithTacticWekaFileCreator;
-import api.weka.winloss.RatingDifferenceWinLossWekaFileCreator;
-import api.weka.winloss.RatingProportionWinLossWekaFileCreator;
 import api.weka.winloss.VnukStatsWinLossWekaFileCreator;
 import api.weka.winlosstie.HatStatsWekaFileCreator;
-import api.weka.winlosstie.NaiveWekaFileCreator;
-import api.weka.winlosstie.NaiveWithTacticWekaFileCreator;
-import api.weka.winlosstie.RatingDifferenceWekaFileCreator;
-import api.weka.winlosstie.RatingProportionWekaFileCreator;
 import api.weka.winlosstie.VnukStatsWekaFileCreator;
 
 public abstract class WekaFileCreator {
