@@ -9,6 +9,7 @@ import api.entity.MatchDetails;
 import api.entity.MatchLineup;
 import api.entity.MatchesArchive;
 import api.entity.PlayerDetails;
+import api.entity.TeamDetails;
 import api.entity.WorldDetails;
 import api.exception.IllegalXMLException;
 import api.parser.XMLArenaDetailsParser;

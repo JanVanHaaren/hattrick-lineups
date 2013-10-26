@@ -5,7 +5,7 @@ import java.io.File;
 public class LocalPaths {
 	
 	//XML
-	public static final String XML_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML_Files\\";
+	public static final String XML_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML2\\";
 	
 	public final static String ARENA_DETAILS_DIRECTORY = "ArenaDetails\\";
 	

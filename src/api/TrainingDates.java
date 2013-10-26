@@ -58,7 +58,6 @@ public class TrainingDates {
 		{
 			setUpTrainingDates();
 			LocalPaths.createDirectoryStructure();
-			Thread.sleep(2000);
 		}
 	}
 	

@@ -1,6 +1,5 @@
-package api;
+package api.entity;
 
-import api.entity.Entity;
 import api.util.Utils;
 
 public class TeamDetails extends Entity {
@@ -8,6 +7,8 @@ public class TeamDetails extends Entity {
 	private Integer teamId;
 	
 	private Integer leagueId;
+	
+	private Boolean isBot;
 
 	public int getTeamId() {
 		return teamId;
@@ -30,6 +31,16 @@ public class TeamDetails extends Entity {
 	public boolean isInLeague()
 	{
 		return (getLeagueId() != null);
+	}
+
+	public boolean isBot() {
+		return isBot;
+	}
+	
+	public void setBot(String isBot)
+	{
+		if(isBot != null)
+			this.isBot = Utils.getBooleanFromString(isBot);
 	}
 	
 	

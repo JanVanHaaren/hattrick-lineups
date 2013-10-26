@@ -12,6 +12,7 @@ import java.util.Calendar;
 import api.entity.MatchDetails;
 import api.entity.MatchLineup;
 import api.entity.MatchesArchive;
+import api.entity.TeamDetails;
 import api.entity.matchesarchive.Match;
 import api.entity.matchlineup.Player;
 import api.exception.IllegalXMLException;
@@ -26,68 +27,69 @@ public class HattrickXMLCollector {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
+		/*
+		 * Bots skippen
+		 * Dubbels eruit halen
+		 */
 		TrainingDates.refreshIfNeeded();
 		HattrickXMLCollector collector = new HattrickXMLCollector();
 		HattrickObjectCreator creator = new HattrickObjectCreator();
-		
-		for(int teamID = 1; teamID < 2045907; teamID++) //2045907 experimenteel bepaald als max valid teamID
+		while(true)
 		{
-			TrainingDates.refreshIfNeeded();
-			try {
-				collector.createTeamDetails(teamID);
-				Thread.sleep(2000);
-				
-				TeamDetails teamDetails = creator.getTeamDetailsFromFile(teamID);
-				
-				if(!teamDetails.isInLeague())
-					continue;
-				
-				int leagueID = teamDetails.getLeagueId();
-				
-				Calendar fromDate = TrainingDates.getNextTrainingDate(teamDetails.getLeagueId());
-				fromDate.add(Calendar.DAY_OF_YEAR, -6);
-				
-				MatchesArchive matchesArchive = creator.getMatchesArchive(teamID, fromDate);
-				Thread.sleep(2000);
-				
-				for(Match match : matchesArchive.getTeam().getMatchList())
-				{
-					int matchID = match.getMatchID();
-					collector.createMatchDetailsXML(teamDetails.getLeagueId(), matchID);
-					Thread.sleep(2000);
+			for(int teamID = 1; teamID < 2045907; teamID++) //2045907 experimenteel bepaald als max valid teamID
+			{
+				TrainingDates.refreshIfNeeded();
+				try {
+					if(teamDetailsXMLCollected(teamID))
+						collector.createTeamDetails(teamID);
 					
-					MatchDetails matchDetails = creator.getMatchDetailsFromFile(teamDetails.getLeagueId(), matchID);
+					TeamDetails teamDetails = creator.getTeamDetailsFromFile(teamID);
 					
-					int homeTeamID = matchDetails.getMatch().getHomeTeam().getTeamID();
-					int awayTeamID = matchDetails.getMatch().getAwayTeam().getTeamID();
+					if(!teamDetails.isInLeague() || teamDetails.isBot())
+						continue;
 					
-					collector.createMatchLineupXML(leagueID, matchID, homeTeamID);
-					MatchLineup lineupHome = creator.getMatchLineupFromFile(leagueID, matchID, homeTeamID);
-					Thread.sleep(2000);
-					collector.createMatchLineupXML(leagueID, matchID, awayTeamID);
-					MatchLineup lineupAway = creator.getMatchLineupFromFile(leagueID, matchID, awayTeamID);
-					Thread.sleep(2000);
+					int leagueID = teamDetails.getLeagueId();
 					
-					for(Player player : lineupHome.getTeam().getStartingLineup())
+					Calendar fromDate = TrainingDates.getNextTrainingDate(leagueID);
+					fromDate.add(Calendar.DAY_OF_YEAR, -6);
+					
+					MatchesArchive matchesArchive = creator.getMatchesArchive(teamID, fromDate);
+					
+					for(Match match : matchesArchive.getTeam().getMatchList())
 					{
-						collector.createPlayerDetailsXML(teamDetails.getLeagueId(), player.getPlayerID());
-						Thread.sleep(2000);
+						int matchID = match.getMatchID();
+						if(collector.existingMatchDetailsXML(leagueID, matchID))
+							continue;
+						collector.createMatchDetailsXML(leagueID, matchID);
+						
+						MatchDetails matchDetails = creator.getMatchDetailsFromFile(leagueID, matchID);
+						
+						int homeTeamID = matchDetails.getMatch().getHomeTeam().getTeamID();
+						int awayTeamID = matchDetails.getMatch().getAwayTeam().getTeamID();
+						
+						collector.createMatchLineupXML(leagueID, matchID, homeTeamID);
+						MatchLineup lineupHome = creator.getMatchLineupFromFile(leagueID, matchID, homeTeamID);
+						collector.createMatchLineupXML(leagueID, matchID, awayTeamID);
+						MatchLineup lineupAway = creator.getMatchLineupFromFile(leagueID, matchID, awayTeamID);
+						
+						for(Player player : lineupHome.getTeam().getStartingLineup())
+						{
+							collector.createPlayerDetailsXML(teamDetails.getLeagueId(), player.getPlayerID());
+						}
+						
+						for(Player player : lineupAway.getTeam().getStartingLineup())
+						{
+							collector.createPlayerDetailsXML(teamDetails.getLeagueId(), player.getPlayerID());
+						}
+						break;
 					}
 					
-					for(Player player : lineupAway.getTeam().getStartingLineup())
-					{
-						collector.createPlayerDetailsXML(teamDetails.getLeagueId(), player.getPlayerID());
-						Thread.sleep(2000);
-					}
-				}
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalXMLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (IllegalXMLException e) {
+					e.printStackTrace();
+				}	
+			}
 		}
 	}
 	
@@ -115,6 +117,11 @@ public class HattrickXMLCollector {
 //		}
 //	}
 	
+	private static boolean teamDetailsXMLCollected(int teamID) {
+		File file = new File(LocalPaths.XML_LOCATION + LocalPaths.TEAM_DETAILS_DIRECTORY + teamID + ".xml");
+		return file.exists();
+	}
+
 	//NOT USED
 	public void createArenaDetailsXML(int arenaId) throws IOException
 	{
@@ -131,17 +138,27 @@ public class HattrickXMLCollector {
 	
 	public void createMatchDetailsXML(int leagueId, int matchId) throws IOException
 	{
-		writeToXML(this.getDownloader().getMatchDetailsString(matchId),
-				LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.MATCH_DETAILS_DIRECTORY + matchId + ".xml");
+		if(!existingMatchDetailsXML(leagueId, matchId))
+			writeToXML(this.getDownloader().getMatchDetailsString(matchId),
+						LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.MATCH_DETAILS_DIRECTORY + matchId + ".xml");
+	}
+	
+	private boolean existingMatchDetailsXML(Integer leagueId, int matchID) {
+		File file = new File(LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.MATCH_DETAILS_DIRECTORY + matchID + ".xml");
+		return file.exists();
 	}
 	
 	public void createPlayerDetailsXML(int leagueId, int playerId) throws IOException
 	{
-		File file = new File(LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.PLAYER_DETAILS_DIRECTORY + String.valueOf(playerId) + ".xml");
-		if(file.exists())
-			return;
-		writeToXML(this.getDownloader().getPlayerDetailsString(playerId),
-				LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.PLAYER_DETAILS_DIRECTORY + String.valueOf(playerId) + ".xml");
+		if(!existingPlayerDetailsXML(leagueId, playerId))
+			writeToXML(this.getDownloader().getPlayerDetailsString(playerId),
+						LocalPaths.getFullDirectoryPath(leagueId)
+						+ LocalPaths.PLAYER_DETAILS_DIRECTORY + playerId + ".xml");
+	}
+	
+	private boolean existingPlayerDetailsXML(int leagueId, int playerId) {
+		File file = new File(LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.PLAYER_DETAILS_DIRECTORY + playerId + ".xml");
+		return file.exists();
 	}
 	
 	//NOT USED

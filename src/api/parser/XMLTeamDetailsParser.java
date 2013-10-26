@@ -3,7 +3,7 @@ package api.parser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import api.TeamDetails;
+import api.entity.TeamDetails;
 import api.exception.IllegalXMLException;
 
 public class XMLTeamDetailsParser extends XMLParser {
@@ -33,6 +33,9 @@ public class XMLTeamDetailsParser extends XMLParser {
 				
 				Element leagueElement = getChildElement(teamElement, "League");
 				teamDetails.setLeagueId(getElementValue(leagueElement, "LeagueID"));
+				
+				Element botStatusElement = getChildElement(teamElement, "BotStatus");
+				teamDetails.setBot(getElementValue(botStatusElement, "IsBot"));
 			}
 
 			
