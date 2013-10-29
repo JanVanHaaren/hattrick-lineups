@@ -12,11 +12,6 @@ import api.weka.AttributeAndType;
 import api.weka.WekaFileCreator;
 
 public class NaiveWithTacticGoalDiffWekaFileCreator extends WekaFileCreator {
-
-	public static void main(String[] args) {
-		NaiveWithTacticGoalDiffWekaFileCreator creator = new NaiveWithTacticGoalDiffWekaFileCreator();
-		creator.createAndBuildWekaFile();
-	}
 	
 	@Override
 	protected String getDataForMatch(int matchId) throws IOException, IllegalXMLException {

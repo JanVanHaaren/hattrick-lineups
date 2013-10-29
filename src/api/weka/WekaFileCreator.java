@@ -10,10 +10,7 @@ import java.util.List;
 
 import api.LocalPaths;
 import api.exception.IllegalXMLException;
-import api.weka.goaldiff.VnukStatsGoalDiffWekaFileCreator;
-import api.weka.winloss.VnukStatsWinLossWekaFileCreator;
-import api.weka.winlosstie.HatStatsWekaFileCreator;
-import api.weka.winlosstie.VnukStatsWekaFileCreator;
+import api.weka.winloss.RatingProportionVnukStatsWinLossWekaFileCreator;
 
 public abstract class WekaFileCreator {
 	
@@ -46,14 +43,24 @@ public abstract class WekaFileCreator {
 //		creator13.createAndBuildWekaFile();
 //		WekaFileCreator creator14 = new HatStatsWinLossWekaFileCreator();
 //		creator14.createAndBuildWekaFile();
-		WekaFileCreator creator15 = new HatStatsWekaFileCreator();
-		creator15.createAndBuildWekaFile();
-		WekaFileCreator creator16 = new VnukStatsGoalDiffWekaFileCreator();
-		creator16.createAndBuildWekaFile();
-		WekaFileCreator creator17 = new VnukStatsWinLossWekaFileCreator();
-		creator17.createAndBuildWekaFile();
-		WekaFileCreator creator18 = new VnukStatsWekaFileCreator();
-		creator18.createAndBuildWekaFile();
+//		WekaFileCreator creator15 = new HatStatsWekaFileCreator();
+//		creator15.createAndBuildWekaFile();
+//		WekaFileCreator creator16 = new VnukStatsGoalDiffWekaFileCreator();
+//		creator16.createAndBuildWekaFile();
+//		WekaFileCreator creator17 = new VnukStatsWinLossWekaFileCreator();
+//		creator17.createAndBuildWekaFile();
+//		WekaFileCreator creator18 = new VnukStatsWekaFileCreator();
+//		creator18.createAndBuildWekaFile();
+//		WekaFileCreator creator19 = new OriginalVnukStatsGoalDiffWekaFileCreator();
+//		creator19.createAndBuildWekaFile();
+//		WekaFileCreator creator20 = new OriginalVnukStatsWinLossWekaFileCreator();
+//		creator20.createAndBuildWekaFile();
+//		WekaFileCreator creator21 = new OriginalVnukStatsWekaFileCreator();
+//		creator21.createAndBuildWekaFile();
+		WekaFileCreator creator22 = new RatingProportionVnukStatsWinLossWekaFileCreator();
+		creator22.createAndBuildWekaFile();
+//		WekaFileCreator creator23 = new RatingProportionVnukStatsGoalDiffWekaFileCreator();
+//		creator23.createAndBuildWekaFile();
 	}
 	
 	private String getRelation()
@@ -77,7 +84,9 @@ public abstract class WekaFileCreator {
 		StringBuilder sb = new StringBuilder();
 		sb.append("@DATA\n");
 		for(int i : matchIds)
+		{
 			sb.append(this.getDataForValidMatch(i));
+		}
 		
 		return sb.toString().trim();
 			
@@ -106,7 +115,7 @@ public abstract class WekaFileCreator {
 	{
 		BufferedWriter writer = null;
 		try {
-			Collection<Integer> idList = getIdsOfFetchedMatches(LocalPaths.XML_LOCATION + LocalPaths.MATCH_DETAILS_DIRECTORY);
+			Collection<Integer> idList = getIdsOfFetchedMatches(LocalPaths.XML_5000 + LocalPaths.MATCH_DETAILS_DIRECTORY);
 			writer = new BufferedWriter(new FileWriter(LocalPaths.WEKA_LOCATION + getFileName() + ".arff"));
 		    writer.write(getHeaderSection() + this.getData(idList));
 		} catch(IOException e) {

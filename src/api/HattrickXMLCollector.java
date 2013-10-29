@@ -14,6 +14,7 @@ import api.entity.MatchLineup;
 import api.entity.MatchesArchive;
 import api.entity.TeamDetails;
 import api.entity.matchesarchive.Match;
+import api.entity.matchlineup.LineupPlayer;
 import api.entity.matchlineup.Player;
 import api.exception.IllegalXMLException;
 
@@ -40,7 +41,7 @@ public class HattrickXMLCollector {
 			{
 				TrainingDates.refreshIfNeeded();
 				try {
-					if(teamDetailsXMLCollected(teamID))
+					if(!teamDetailsXMLCollected(teamID))
 						collector.createTeamDetails(teamID);
 					
 					TeamDetails teamDetails = creator.getTeamDetailsFromFile(teamID);
@@ -72,12 +73,12 @@ public class HattrickXMLCollector {
 						collector.createMatchLineupXML(leagueID, matchID, awayTeamID);
 						MatchLineup lineupAway = creator.getMatchLineupFromFile(leagueID, matchID, awayTeamID);
 						
-						for(Player player : lineupHome.getTeam().getStartingLineup())
+						for(LineupPlayer player : lineupHome.getTeam().getLineup())
 						{
 							collector.createPlayerDetailsXML(teamDetails.getLeagueId(), player.getPlayerID());
 						}
 						
-						for(Player player : lineupAway.getTeam().getStartingLineup())
+						for(LineupPlayer player : lineupAway.getTeam().getLineup())
 						{
 							collector.createPlayerDetailsXML(teamDetails.getLeagueId(), player.getPlayerID());
 						}

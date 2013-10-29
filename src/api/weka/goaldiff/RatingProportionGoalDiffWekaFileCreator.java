@@ -12,11 +12,6 @@ import api.weka.AttributeAndType;
 import api.weka.WekaFileCreator;
 
 public class RatingProportionGoalDiffWekaFileCreator extends WekaFileCreator {
-	
-	public static void main(String[] args) {
-		RatingProportionGoalDiffWekaFileCreator creator = new RatingProportionGoalDiffWekaFileCreator();
-		creator.createAndBuildWekaFile();
-	}
 
 	@Override
 	protected String getFileName() {
