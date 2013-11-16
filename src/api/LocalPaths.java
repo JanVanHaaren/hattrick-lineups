@@ -4,41 +4,31 @@ import java.io.File;
 
 public class LocalPaths {
 	
+	private static boolean inWindows = true;
+	
 	//WINDOWS
 	
 	//XML
-	public static final String XML_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML2\\";
-	public final static String ARENA_DETAILS_DIRECTORY = "ArenaDetails\\";
-	public final static String PLAYER_DETAILS_DIRECTORY = "PlayerDetails\\";
-	public final static String MATCH_LINEUP_DIRECTORY = "MatchLineup\\";
-	public final static String MATCH_DETAILS_DIRECTORY = "MatchDetails\\";
-	public final static String LEAGUE_FIXTURES_DIRECTORY = "LeagueFixtures\\";
-	public final static String WORLD_DETAILS_DIRECTORY = "WorldDetails\\";
-	public final static String MATCHES_ARCHIVE_DIRECTORY = "MatchesArchive\\";
-	public final static String TEAM_DETAILS_DIRECTORY = "TeamDetails\\";
+	public static final String XML_LOCATION = inWindows ?
+			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML2\\" :
+			"/cw/dtailocal/s0217261/XML/";
+	public final static String ARENA_DETAILS_DIRECTORY = "ArenaDetails" + getDelimiter();
+	public final static String PLAYER_DETAILS_DIRECTORY = "PlayerDetails" + getDelimiter();
+	public final static String MATCH_LINEUP_DIRECTORY = "MatchLineup" + getDelimiter();
+	public final static String MATCH_DETAILS_DIRECTORY = "MatchDetails" + getDelimiter();
+	public final static String LEAGUE_FIXTURES_DIRECTORY = "LeagueFixtures" + getDelimiter();
+	public final static String WORLD_DETAILS_DIRECTORY = "WorldDetails" + getDelimiter();
+	public final static String MATCHES_ARCHIVE_DIRECTORY = "MatchesArchive" + getDelimiter();
+	public final static String TEAM_DETAILS_DIRECTORY = "TeamDetails" + getDelimiter();
 	
-	//WEKA
-	public static final String XML_5000 = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML\\";
-	public static final String WEKA_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\Weka\\";
-	
-	//LINUX
-	
-	//XML
-//	public static final String XML_LOCATION = "/cw/dtailocal/s0217261/XML2/";
-//	public final static String ARENA_DETAILS_DIRECTORY = "ArenaDetails/";
-//	public final static String PLAYER_DETAILS_DIRECTORY = "PlayerDetails/";
-//	public final static String MATCH_LINEUP_DIRECTORY = "MatchLineup/";
-//	public final static String MATCH_DETAILS_DIRECTORY = "MatchDetails/";
-//	public final static String LEAGUE_FIXTURES_DIRECTORY = "LeagueFixtures/";
-//	public final static String WORLD_DETAILS_DIRECTORY = "WorldDetails/";
-//	public final static String MATCHES_ARCHIVE_DIRECTORY = "MatchesArchive/";
-//	public final static String TEAM_DETAILS_DIRECTORY = "TeamDetails/";
-//	
 //	//WEKA
-//	public static final String WEKA_LOCATION = "/cw/dtailocal/s0217261/Weka/";
-	
+	public static final String XML_5000 = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML\\";
+	public static final String WEKA_LOCATION = inWindows ?
+			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\Weka\\" :
+			"/cw/dtailocal/s0217261/Weka/";
+		
 	//Creator
-	public static void createDirectoryStructure()
+	public static void createXMLDirectoryStructure()
 	{
 		createDirectory(XML_LOCATION);
 		createDirectory(XML_LOCATION + TEAM_DETAILS_DIRECTORY);
@@ -57,11 +47,16 @@ public class LocalPaths {
 		}
 	}
 	
+	public static void createWekaDirectory()
+	{
+		createDirectory(WEKA_LOCATION);
+	}
+	
 	public static void createDirectory(String path)
 	{
 		File directory = new File(path);
 		if (!directory.exists())
-			directory.mkdir();  
+			directory.mkdir();
 	}
 	
 	public static String getLeagueDirectory(int leagueID)
@@ -82,6 +77,6 @@ public class LocalPaths {
 	
 	public static String getDelimiter()
 	{
-		 return "\\";
+		 return inWindows? "\\" : "/";
 	}
 }

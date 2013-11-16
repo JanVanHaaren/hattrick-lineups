@@ -1,8 +1,8 @@
-package api.datatype;
+package api.entity.datatype;
 
-public class PlayerAggressiveness extends ScaledDataType {
+public class PlayerAgreeability extends ScaledDataType {
 
-	public PlayerAggressiveness(String value) {
+	public PlayerAgreeability(String value) {
 		super(value);
 	}
 
@@ -15,5 +15,4 @@ public class PlayerAggressiveness extends ScaledDataType {
 	protected int getMaxValue() {
 		return 5;
 	}
-
 }

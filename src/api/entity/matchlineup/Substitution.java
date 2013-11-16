@@ -1,8 +1,8 @@
 package api.entity.matchlineup;
 
-import api.datatype.MatchBehaviourID;
-import api.datatype.MatchRoleID;
-import api.datatype.OrderType;
+import api.entity.datatype.MatchBehaviourID;
+import api.entity.datatype.MatchRoleID;
+import api.entity.datatype.OrderType;
 import api.util.Utils;
 
 public class Substitution {

@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import api.entity.MatchDetails;
 import api.entity.matchdetails.Match;
 import api.entity.matchdetails.Team;
+import api.exception.DiscardException;
 import api.exception.IllegalXMLException;
 
 
@@ -16,11 +17,11 @@ public class XMLMatchDetailsParser extends XMLParser {
 		// NOP
 	}
 	
-	public static MatchDetails parseMatchDetailsFromString(String string) throws IllegalXMLException {
+	public static MatchDetails parseMatchDetailsFromString(String string) throws IllegalXMLException, DiscardException {
 		return parseMatchDetails(XMLParser.parseString(string));
 	}
 
-	private static MatchDetails parseMatchDetails(Document document) {
+	private static MatchDetails parseMatchDetails(Document document) throws DiscardException {
 
 		MatchDetails matchDetails = new MatchDetails();
 
@@ -56,8 +57,8 @@ public class XMLMatchDetailsParser extends XMLParser {
 //			homeTeam.setDressURI(getElementValue(homeTeamElement, "DressURI"));
 			homeTeam.setFormation(getElementValue(homeTeamElement, "Formation"));
 			homeTeam.setGoals(getElementValue(homeTeamElement, "HomeGoals"));
-//			homeTeam.setTacticType(getElementValue(homeTeamElement, "TacticType"));
-//			homeTeam.setTacticSkill(getElementValue(homeTeamElement, "TacticSkill"));
+			homeTeam.setTacticType(getElementValue(homeTeamElement, "TacticType"));
+			homeTeam.setTacticSkill(getElementValue(homeTeamElement, "TacticSkill"));
 			homeTeam.setRatingMidField(getElementValue(homeTeamElement, "RatingMidfield"));
 			homeTeam.setRatingRightDef(getElementValue(homeTeamElement, "RatingRightDef"));
 			homeTeam.setRatingMidDef(getElementValue(homeTeamElement, "RatingMidDef"));
@@ -77,10 +78,11 @@ public class XMLMatchDetailsParser extends XMLParser {
 			awayTeam.setTeamID(getElementValue(awayTeamElement, "AwayTeamID"));
 			awayTeam.setTeamName(getElementValue(awayTeamElement, "AwayTeamName"));
 //			awayTeam.setDressURI(getElementValue(awayTeamElement, "DressURI"));
-			awayTeam.setFormation(getElementValue(awayTeamElement, "Formation"));
+			String formation = getElementValue(awayTeamElement, "Formation");
+			awayTeam.setFormation(formation);
 			awayTeam.setGoals(getElementValue(awayTeamElement, "AwayGoals"));
-//			awayTeam.setTacticType(getElementValue(awayTeamElement, "TacticType"));
-//			awayTeam.setTacticSkill(getElementValue(awayTeamElement, "TacticSkill"));
+			awayTeam.setTacticType(getElementValue(awayTeamElement, "TacticType"));
+			awayTeam.setTacticSkill(getElementValue(awayTeamElement, "TacticSkill"));
 			awayTeam.setRatingMidField(getElementValue(awayTeamElement, "RatingMidfield"));
 			awayTeam.setRatingRightDef(getElementValue(awayTeamElement, "RatingRightDef"));
 			awayTeam.setRatingMidDef(getElementValue(awayTeamElement, "RatingMidDef"));
@@ -222,8 +224,8 @@ public class XMLMatchDetailsParser extends XMLParser {
 //			match.setEventList(eventList);
 			
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		catch (DiscardException e) {
+			throw e;
 		}
 		
 		return matchDetails;

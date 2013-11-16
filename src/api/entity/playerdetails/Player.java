@@ -3,13 +3,12 @@ package api.entity.playerdetails;
 import java.text.ParseException;
 import java.util.Calendar;
 
-
-import api.datatype.PlayerAggressiveness;
-import api.datatype.PlayerAgreeability;
-import api.datatype.PlayerCategoryID;
-import api.datatype.PlayerHonesty;
-import api.datatype.SkillLevel;
-import api.datatype.SpecialtyID;
+import api.entity.datatype.PlayerAggressiveness;
+import api.entity.datatype.PlayerAgreeability;
+import api.entity.datatype.PlayerCategoryID;
+import api.entity.datatype.PlayerHonesty;
+import api.entity.datatype.SkillLevel;
+import api.entity.datatype.SpecialtyID;
 import api.util.Utils;
 
 public class Player {
@@ -480,5 +479,17 @@ public class Player {
 
 	public void setLastMatch(Match lastMatch) {
 		this.lastMatch = lastMatch;
+	}
+	
+	public double getPerformanceMultiplier()
+	{
+		double multiplier = 1;
+		if(this.getInjuryLevel() > 0)
+			return 0;
+		if(this.getInjuryLevel() == 0)
+			multiplier *= 0.95;
+		multiplier *= Math.pow((((double)this.getPlayerForm().getValue()-0.5D)/7D),0.45);
+		
+		return multiplier;
 	}
 }

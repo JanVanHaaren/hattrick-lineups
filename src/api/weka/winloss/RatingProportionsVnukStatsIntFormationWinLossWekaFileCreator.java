@@ -1,4 +1,4 @@
-package api.weka.advancedwinloss;
+package api.weka.winloss;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,15 +9,15 @@ import api.entity.MatchDetails;
 import api.entity.matchdetails.Team;
 import api.exception.DiscardException;
 import api.exception.IllegalXMLException;
-import api.weka.AdvancedWekaFileCreator;
 import api.weka.AttributeAndType;
+import api.weka.WekaFileCreator;
 
-public class RatingProportionsVnukStatsAdvancedWekaFileCreator extends
-		AdvancedWekaFileCreator {
+public class RatingProportionsVnukStatsIntFormationWinLossWekaFileCreator extends
+		WekaFileCreator {
 
 	@Override
 	protected String getFileName() {
-		return "advancedRatingProportions_VnukStats";
+		return "ratingProportions_VnukStats_intFormation_winLoss";
 	}
 
 	@Override
@@ -33,17 +33,23 @@ public class RatingProportionsVnukStatsAdvancedWekaFileCreator extends
 		
 		attributeList.add(new AttributeAndType("home_vnukStats", "NUMERIC"));
 		attributeList.add(new AttributeAndType("away_vnukStats", "NUMERIC"));
+		
+		attributeList.add(new AttributeAndType("home_formation_Def", "NUMERIC"));
+		attributeList.add(new AttributeAndType("home_formation_Mid", "NUMERIC"));
+		attributeList.add(new AttributeAndType("home_formation_Att", "NUMERIC"));
+		attributeList.add(new AttributeAndType("away_formation_Def", "NUMERIC"));
+		attributeList.add(new AttributeAndType("away_formation_Mid", "NUMERIC"));
+		attributeList.add(new AttributeAndType("away_formation_Att", "NUMERIC"));
 
 		attributeList.add(new AttributeAndType("result", "{win,loss}"));
 		return attributeList;
 	}
 
 	@Override
-	protected String getDataForMatch(int leagueId, int matchId, String directoryPath)
-			throws IOException, IllegalXMLException, DiscardException {
-
-		MatchDetails matchDetails = new HattrickObjectCreator().getMatchDetailsFromAdvancedFile(directoryPath, matchId);
-	
+	protected String getDataForMatch(int matchId) throws IOException,
+			IllegalXMLException, DiscardException {
+		MatchDetails matchDetails = new HattrickObjectCreator().getMatchDetailsFromSimpleFile(matchId);
+		
 		Team homeTeam = matchDetails.getMatch().getHomeTeam();
 		Team awayTeam = matchDetails.getMatch().getAwayTeam();
 		int homeAdvantage = homeTeam.getGoals() - awayTeam.getGoals();
@@ -61,6 +67,15 @@ public class RatingProportionsVnukStatsAdvancedWekaFileCreator extends
 		
 		dataString += homeTeam.getVnukStats() + ",";
 		dataString += awayTeam.getVnukStats() + ",";
+		
+		dataString += homeTeam.getFormation().charAt(0) + ",";
+		dataString += homeTeam.getFormation().charAt(2) + ",";
+		dataString += homeTeam.getFormation().charAt(4) + ",";
+		
+		dataString += awayTeam.getFormation().charAt(0) + ",";
+		dataString += awayTeam.getFormation().charAt(2) + ",";
+		dataString += awayTeam.getFormation().charAt(4) + ",";
+		
 		
 		if(homeAdvantage > 0)
 			dataString += "win";

@@ -1,6 +1,6 @@
 package api.entity;
 
-import api.datatype.SupporterTier;
+import api.entity.datatype.SupporterTier;
 import api.entity.playerdetails.Player;
 
 public class PlayerDetails extends Entity {

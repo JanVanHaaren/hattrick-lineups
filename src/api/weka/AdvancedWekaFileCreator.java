@@ -12,14 +12,28 @@ import java.util.List;
 import java.util.Map;
 
 import api.LocalPaths;
+import api.TrainingDates;
+import api.exception.DiscardException;
 import api.exception.IllegalXMLException;
 import api.weka.advancedwinloss.RatingProportionsVnukStatsAdvancedWekaFileCreator;
+import api.weka.advancedwinloss.RatingProportionsVnukStatsFormationAdvancedWekaFileCreator;
+import api.weka.advancedwinloss.RatingProportionsVnukStatsIntFormationAdvancedWekaFileCreator;
+import api.weka.advancedwinloss.RatingProportionsVnukStatsPlayerStatsAdvancedWekaFileCreator;
 
 public abstract class AdvancedWekaFileCreator{
 	
 	public static void main(String[] args) {
+		LocalPaths.createWekaDirectory();
+		TrainingDates.setUpTrainingDates();
+		
 		AdvancedWekaFileCreator creator1 = new RatingProportionsVnukStatsAdvancedWekaFileCreator();
 		creator1.createAndBuildWekaFile();
+		AdvancedWekaFileCreator creator2 = new RatingProportionsVnukStatsFormationAdvancedWekaFileCreator();
+		creator2.createAndBuildWekaFile();
+		AdvancedWekaFileCreator creator3 = new RatingProportionsVnukStatsIntFormationAdvancedWekaFileCreator();
+		creator3.createAndBuildWekaFile();
+		AdvancedWekaFileCreator creator4 = new RatingProportionsVnukStatsPlayerStatsAdvancedWekaFileCreator();
+		creator4.createAndBuildWekaFile();
 	}
 	
 	private String getRelation()
@@ -38,33 +52,34 @@ public abstract class AdvancedWekaFileCreator{
 		return result + "\n";
 	}
 	
-	public String getData(Map<Integer,String> matchMap)
+	public String getData(Map<Integer,LeagueDirectoryWrapper> matchMap)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("@DATA\n");
 		for(int i : matchMap.keySet())
 		{
-			sb.append(this.getDataForValidMatch(i, matchMap.get(i)));
+			sb.append(this.getDataForValidMatch(matchMap.get(i).getLeagueID(), i, matchMap.get(i).getLocation()));
 		}
 		
 		return sb.toString().trim();
 	}
 	
-	protected String getDataForValidMatch(int matchId, String directoryPath)
+	protected String getDataForValidMatch(int leagueId, int matchId, String directoryPath)
 	{
 		try {
-			return getDataForMatch(matchId, directoryPath);
+			return getDataForMatch(leagueId, matchId, directoryPath);
 		} catch (IOException e) {
 			return "";
 		} catch (IllegalXMLException e) {
 			return "";
+		} catch (DiscardException e) {
+			return "";
 		}
 	}
 	
-	public Map<Integer,String> getCorrectMatchDirectories(String directoryPath) throws IOException
+	public Map<Integer,LeagueDirectoryWrapper> getCorrectMatchDirectories(String directoryPath) throws IOException
 	{
-		System.out.println(directoryPath);
-		Map<Integer,String> map = new HashMap<Integer,String>();
+		Map<Integer,LeagueDirectoryWrapper> map = new HashMap<Integer,LeagueDirectoryWrapper>();
 		
 		File folder = new File(directoryPath);
 	    Collection<File> leagueFolders = Arrays.asList(
@@ -82,10 +97,9 @@ public abstract class AdvancedWekaFileCreator{
 	    	{
 	    		String correctDirectoryPath = weekFolder.getCanonicalPath() + LocalPaths.getDelimiter();
 	    		File matchDetailsFolder = new File(correctDirectoryPath  + LocalPaths.MATCH_DETAILS_DIRECTORY);
-	    		System.out.println(matchDetailsFolder.getCanonicalPath());
 	    		for (File matchDetailsFile : matchDetailsFolder.listFiles())
 		             map.put(Integer.parseInt(matchDetailsFile.getName().replace(".xml", "")),
-		            		 	correctDirectoryPath);
+		            		 	new LeagueDirectoryWrapper(Integer.parseInt(leagueFolder.getName()), correctDirectoryPath));
 	    	}
 	    }
 	    
@@ -111,5 +125,5 @@ public abstract class AdvancedWekaFileCreator{
 	
 	protected abstract String getFileName();
 	protected abstract List<AttributeAndType> getAttributeList();
-	protected abstract String getDataForMatch(int matchId, String directoryPath)  throws IOException, IllegalXMLException;
+	protected abstract String getDataForMatch(int leagueId, int matchId, String directoryPath)  throws IOException, IllegalXMLException, DiscardException;
 }

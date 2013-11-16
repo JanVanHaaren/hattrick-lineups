@@ -1,6 +1,6 @@
 package api.entity.matchdetails;
 
-import api.datatype.InjuryType;
+import api.entity.datatype.InjuryType;
 import api.util.Utils;
 
 public class Injury {

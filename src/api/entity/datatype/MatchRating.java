@@ -1,4 +1,4 @@
-package api.datatype;
+package api.entity.datatype;
 
 public class MatchRating extends ScaledDataType {
 

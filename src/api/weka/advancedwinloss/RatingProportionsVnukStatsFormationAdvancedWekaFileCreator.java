@@ -12,12 +12,12 @@ import api.exception.IllegalXMLException;
 import api.weka.AdvancedWekaFileCreator;
 import api.weka.AttributeAndType;
 
-public class RatingProportionsVnukStatsAdvancedWekaFileCreator extends
+public class RatingProportionsVnukStatsFormationAdvancedWekaFileCreator extends
 		AdvancedWekaFileCreator {
 
 	@Override
 	protected String getFileName() {
-		return "advancedRatingProportions_VnukStats";
+		return "advancedRatingProportions_VnukStats_formation";
 	}
 
 	@Override
@@ -33,6 +33,11 @@ public class RatingProportionsVnukStatsAdvancedWekaFileCreator extends
 		
 		attributeList.add(new AttributeAndType("home_vnukStats", "NUMERIC"));
 		attributeList.add(new AttributeAndType("away_vnukStats", "NUMERIC"));
+		
+		attributeList.add(new AttributeAndType("home_formation",
+				"{2-5-3,3-4-3,3-5-2,4-3-3,4-4-2,4-5-1,5-2-3,5-5-0,5-4-1,5-3-2}"));
+		attributeList.add(new AttributeAndType("away_formation",
+				"{2-5-3,3-4-3,3-5-2,4-3-3,4-4-2,4-5-1,5-2-3,5-5-0,5-4-1,5-3-2}"));
 
 		attributeList.add(new AttributeAndType("result", "{win,loss}"));
 		return attributeList;
@@ -61,6 +66,9 @@ public class RatingProportionsVnukStatsAdvancedWekaFileCreator extends
 		
 		dataString += homeTeam.getVnukStats() + ",";
 		dataString += awayTeam.getVnukStats() + ",";
+		
+		dataString += homeTeam.getFormation() + ",";
+		dataString += awayTeam.getFormation() + ",";
 		
 		if(homeAdvantage > 0)
 			dataString += "win";

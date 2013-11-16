@@ -3,8 +3,7 @@ package api.entity.playerdetails;
 import java.text.ParseException;
 import java.util.Calendar;
 
-
-import api.datatype.MatchRoleID;
+import api.entity.datatype.MatchRoleID;
 import api.util.Utils;
 
 public class Match {

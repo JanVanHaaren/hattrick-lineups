@@ -57,7 +57,7 @@ public class TrainingDates {
 		if (closestTrainingDate == null || Calendar.getInstance().after(closestTrainingDate))
 		{
 			setUpTrainingDates();
-			LocalPaths.createDirectoryStructure();
+			LocalPaths.createXMLDirectoryStructure();
 		}
 	}
 	

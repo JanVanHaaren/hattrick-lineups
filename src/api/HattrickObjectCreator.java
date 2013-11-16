@@ -11,6 +11,7 @@ import api.entity.MatchesArchive;
 import api.entity.PlayerDetails;
 import api.entity.TeamDetails;
 import api.entity.WorldDetails;
+import api.exception.DiscardException;
 import api.exception.IllegalXMLException;
 import api.parser.XMLArenaDetailsParser;
 import api.parser.XMLLeagueFixturesParser;
@@ -62,11 +63,19 @@ public class HattrickObjectCreator {
 						LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.MATCH_LINEUP_DIRECTORY + matchId + "_" + teamId + ".xml"));
 	}
 	
-	public MatchDetails getMatchDetails(int matchId) throws IOException, IllegalXMLException {
+	public MatchDetails getMatchDetails(int matchId) throws IOException, IllegalXMLException, DiscardException {
 		return XMLMatchDetailsParser.parseMatchDetailsFromString(getDownloader().getMatchDetailsString(matchId));
 	}
 	
-	public MatchDetails getMatchDetailsFromFile(int leagueId, int matchId) throws IllegalXMLException
+	public MatchDetails getMatchDetailsFromSimpleFile(int matchId) throws IllegalXMLException, DiscardException
+	{
+		return XMLMatchDetailsParser.parseMatchDetailsFromString(
+				getXmlCollector().readStringFromXMLFile(
+						LocalPaths.XML_5000 
+						+ LocalPaths.MATCH_DETAILS_DIRECTORY + matchId + ".xml"));
+	}
+	
+	public MatchDetails getMatchDetailsFromFile(int leagueId, int matchId) throws IllegalXMLException, DiscardException
 	{
 		return XMLMatchDetailsParser.parseMatchDetailsFromString(
 				getXmlCollector().readStringFromXMLFile(
@@ -74,23 +83,22 @@ public class HattrickObjectCreator {
 						+ LocalPaths.MATCH_DETAILS_DIRECTORY + matchId + ".xml"));
 	}
 	
-	public MatchDetails getMatchDetailsFromAdvancedFile(String directoryPath, int matchId) throws IllegalXMLException
+	public MatchDetails getMatchDetailsFromAdvancedFile(String directoryPath, int matchId) throws IllegalXMLException, DiscardException
 	{
 		return XMLMatchDetailsParser.parseMatchDetailsFromString(
 				getXmlCollector().readStringFromXMLFile(
 						directoryPath + LocalPaths.MATCH_DETAILS_DIRECTORY + matchId + ".xml"));
 	}
 	
-	public PlayerDetails getPlayerDetails(int leagueId, int playerId) throws IOException, IllegalXMLException {
+	public PlayerDetails getPlayerDetails(int playerId) throws IOException, IllegalXMLException {
 		return XMLPlayerDetailsParser.parsePlayerDetailsFromString(getDownloader().getPlayerDetailsString(playerId));
 	}
 	
-	public PlayerDetails getPlayerDetailsFromFile(int leagueId, int playerId) throws IllegalXMLException
+	public PlayerDetails getPlayerDetailsFromFile(String path, int playerId) throws IllegalXMLException
 	{
 		return XMLPlayerDetailsParser.parsePlayerDetailsFromString(
 				getXmlCollector().readStringFromXMLFile(
-						LocalPaths.getFullDirectoryPath(leagueId)
-						+ LocalPaths.PLAYER_DETAILS_DIRECTORY + String.valueOf(playerId) + ".xml"));
+						path + LocalPaths.PLAYER_DETAILS_DIRECTORY + String.valueOf(playerId) + ".xml"));
 	}
 	
 	public LeagueFixtures getLeagueFixtures(int leagueLevelUnitID) throws IOException, IllegalXMLException {

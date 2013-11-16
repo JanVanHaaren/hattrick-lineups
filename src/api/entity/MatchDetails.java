@@ -1,7 +1,7 @@
 package api.entity;
 
-import api.datatype.SourceSystem;
-import api.datatype.SupporterTier;
+import api.entity.datatype.SourceSystem;
+import api.entity.datatype.SupporterTier;
 import api.entity.matchdetails.Match;
 
 

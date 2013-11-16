@@ -1,9 +1,11 @@
 package api.entity.matchdetails;
 
-import api.datatype.MatchRating;
-import api.datatype.MatchTacticType;
-import api.datatype.MatchTeamAttitude;
-import api.datatype.SkillLevel;
+import api.entity.datatype.MatchRating;
+import api.entity.datatype.MatchTacticType;
+import api.entity.datatype.MatchTeamAttitude;
+import api.entity.datatype.SkillLevel;
+import api.exception.ForfeitException;
+import api.exception.IncompleteFormationException;
 import api.util.Utils;
 
 public class Team {
@@ -15,6 +17,12 @@ public class Team {
 	private String dressURI;
 	
 	private String formation;
+	
+	private int defCount;
+	
+	private int midCount;
+	
+	private int attCount;
 	
 	private int goals;
 	
@@ -41,6 +49,8 @@ public class Team {
 	private MatchRating ratingIndirectSetPiecesDef;
 	
 	private MatchRating ratingIndirectSetPiecesAtt;
+	
+	private boolean forfeit;
 
 	public int getTeamID() {
 		return teamID;
@@ -70,7 +80,12 @@ public class Team {
 		return formation;
 	}
 
-	public void setFormation(String formation) {
+	public void setFormation(String formation) throws IncompleteFormationException {
+		if(Integer.parseInt(formation.substring(0,1))
+			+ Integer.parseInt(formation.substring(2,3))
+			+ Integer.parseInt(formation.substring(4,5))
+			!= 10)
+			throw new IncompleteFormationException("Less than 10 players (without keeper) in team " + this.getTeamID());
 		this.formation = formation;
 	}
 
@@ -102,8 +117,11 @@ public class Team {
 		return ratingMidField;
 	}
 
-	public void setRatingMidField(String ratingMidField) {
-		this.ratingMidField = new MatchRating(ratingMidField);
+	public void setRatingMidField(String ratingMidField) throws ForfeitException {
+		if(!ratingMidField.equals("0"))
+			this.ratingMidField = new MatchRating(ratingMidField);
+		else
+			throw new ForfeitException("Team " + this.getTeamID() + " forfeited a match.");
 	}
 
 	public MatchRating getRatingRightDef() {
@@ -181,6 +199,29 @@ public class Team {
 			this.ratingIndirectSetPiecesAtt = new MatchRating(ratingIndirectSetPiecesAtt);
 	}
 	
+	public boolean isForfeit() {
+		return forfeit;
+	}
+
+	public void setForfeit(boolean forfeit) {
+		this.forfeit = forfeit;
+	}
+	
+	public int getDefenseCount()
+	{
+		return Integer.parseInt(this.getFormation().substring(0,1));
+	}
+	
+	public int getMidfieldCount()
+	{
+		return Integer.parseInt(this.getFormation().substring(2,3));
+	}
+	
+	public int getAttackCount()
+	{
+		return Integer.parseInt(this.getFormation().substring(4,5));
+	}
+	
 	public int getHatStats()
 	{
 		return 3*getRatingMidField().getValue()
@@ -201,6 +242,8 @@ public class Team {
 				+ getRatingLeftAtt().getValue() + getRatingMidAtt().getValue() + getRatingRightAtt().getValue()
 				+ getRatingLeftDef().getValue() + getRatingMidDef().getValue() + getRatingRightDef().getValue();
 	}
+
+	
 	
 	
 }

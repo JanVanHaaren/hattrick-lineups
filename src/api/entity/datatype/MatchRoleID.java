@@ -1,4 +1,4 @@
-package api.datatype;
+package api.entity.datatype;
 
 import api.util.Utils;
 
@@ -20,7 +20,7 @@ public enum MatchRoleID {
 	LEFT_FORWARD(113),
 	SUBSTITUTION_KEEPER(114),
 	SUBSTITUTION_DEFENDER(115),
-	INNER_MIDFIELD(116),
+	SUBSTITUTION_INNER_MIDFIELD(116),
 	SUBSTITUTION_WINGER(117),
 	SUBSTITUTION_FORWARD(118),
 	SET_PIECES(17),
@@ -40,6 +40,11 @@ public enum MatchRoleID {
 	PENALTY_TAKER_10(31),
 	PENALTY_TAKER_11(32);
 	
+	public static int NO_ROLE = -1;
+	public static int KEEPER_ROLE = 0;
+	public static int DEFENDER_ROLE = 1;
+	public static int MIDFIELD_ROLE = 2;
+	public static int ATTACKER_ROLE = 3;
 	
 	private final int code;
 	
@@ -59,5 +64,31 @@ public enum MatchRoleID {
 				return roleID;
 		throw new IllegalArgumentException("Invalide code for MatchRoleID");
 	}
-
+	
+	public int getGeneralRole()
+	{
+		if(this.equals(KEEPER) || this.equals(SUBSTITUTION_KEEPER))
+			return KEEPER_ROLE;
+		if(this.equals(RIGHT_BACK) || 
+				this.equals(RIGHT_CENTRAL_DEFENDER) ||
+				this.equals(MIDDLE_CENTRAL_DEFENDER) ||
+				this.equals(LEFT_CENTRAL_DEFENDER) ||
+				this.equals(LEFT_BACK) ||
+				this.equals(SUBSTITUTION_DEFENDER))
+			return DEFENDER_ROLE;
+		if(this.equals(SUBSTITUTION_INNER_MIDFIELD) ||
+				this.equals(LEFT_INNER_MIDFIELD) ||
+				this.equals(MIDDLE_INNER_MIDFIELD) ||
+				this.equals(RIGHT_INNER_MIDFIELD) ||
+				this.equals(RIGHT_WINGER) ||
+				this.equals(LEFT_WINGER) ||
+				this.equals(SUBSTITUTION_WINGER))
+			return MIDFIELD_ROLE;
+		if(this.equals(RIGHT_FORWARD) ||
+				this.equals(MIDDLE_FORWARD) ||
+				this.equals(LEFT_FORWARD) ||
+				this.equals(SUBSTITUTION_FORWARD))
+			return ATTACKER_ROLE;
+		return NO_ROLE;
+	}
 }

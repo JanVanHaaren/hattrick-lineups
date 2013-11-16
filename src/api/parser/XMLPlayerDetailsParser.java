@@ -98,13 +98,13 @@ public class XMLPlayerDetailsParser extends XMLParser {
 			
 			PlayerSkills playerSkills = new PlayerSkills();
 			playerSkills.setStaminaSkill(getElementValue(playerSkillsElement, "StaminaSkill"));
-//			playerSkills.setKeeperSkill(getElementValue(playerSkillsElement, "KepperSkill"));
-//			playerSkills.setPlaymakerSkill(getElementValue(playerSkillsElement, "PlaymakerSkill"));
-//			playerSkills.setScorerSkill(getElementValue(playerSkillsElement, "ScorerSkill"));
-//			playerSkills.setPassingSkill(getElementValue(playerSkillsElement, "PassingSkill"));
-//			playerSkills.setWingerSkill(getElementValue(playerSkillsElement, "WingerSkill"));
-//			playerSkills.setDefenderSkill(getElementValue(playerSkillsElement, "DefenderSkill"));
-//			playerSkills.setSetPiecesSkill(getElementValue(playerSkillsElement, "SetPiecesSkill"));
+			playerSkills.setKeeperSkill(getElementValue(playerSkillsElement, "KeeperSkill"));
+			playerSkills.setPlaymakerSkill(getElementValue(playerSkillsElement, "PlaymakerSkill"));
+			playerSkills.setScorerSkill(getElementValue(playerSkillsElement, "ScorerSkill"));
+			playerSkills.setPassingSkill(getElementValue(playerSkillsElement, "PassingSkill"));
+			playerSkills.setWingerSkill(getElementValue(playerSkillsElement, "WingerSkill"));
+			playerSkills.setDefenderSkill(getElementValue(playerSkillsElement, "DefenderSkill"));
+			playerSkills.setSetPiecesSkill(getElementValue(playerSkillsElement, "SetPiecesSkill"));
 			player.setPlayerSkills(playerSkills);
 			
 			// <HattrickDate/Player/LastMatch>

@@ -3,7 +3,7 @@ package api.entity.matchesarchive;
 import java.text.ParseException;
 import java.util.Calendar;
 
-import api.datatype.MatchType;
+import api.entity.datatype.MatchType;
 import api.util.Utils;
 
 public class Match {

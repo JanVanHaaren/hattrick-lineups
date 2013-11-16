@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
-
-import api.datatype.MatchType;
+import api.entity.datatype.MatchType;
 import api.util.Utils;
 
 public class Match {

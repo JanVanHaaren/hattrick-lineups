@@ -7,6 +7,7 @@ import java.util.List;
 import api.HattrickObjectCreator;
 import api.entity.MatchDetails;
 import api.entity.matchdetails.Team;
+import api.exception.DiscardException;
 import api.exception.IllegalXMLException;
 import api.weka.AttributeAndType;
 import api.weka.WekaFileCreator;
@@ -30,8 +31,8 @@ public class VnukStatsWinLossWekaFileCreator extends WekaFileCreator {
 
 	@Override
 	protected String getDataForMatch(int matchId) throws IOException,
-			IllegalXMLException {
-		MatchDetails matchDetails = new HattrickObjectCreator().getMatchDetails(matchId);
+			IllegalXMLException, DiscardException {
+		MatchDetails matchDetails = new HattrickObjectCreator().getMatchDetailsFromSimpleFile(matchId);
 		Team homeTeam = matchDetails.getMatch().getHomeTeam();
 		Team awayTeam = matchDetails.getMatch().getAwayTeam();
 		int homeAdvantage = homeTeam.getGoals() - awayTeam.getGoals();
