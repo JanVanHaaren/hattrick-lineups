@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import api.entity.PlayerDetails;
 import api.entity.playerdetails.Player;
 import api.entity.playerdetails.PlayerSkills;
+import api.entity.playerdetails.TrainerData;
 import api.exception.IllegalXMLException;
 
 public class XMLPlayerDetailsParser extends XMLParser {
@@ -53,9 +54,9 @@ public class XMLPlayerDetailsParser extends XMLParser {
 //			player.setAgreeability(getElementValue(playerElement, "Agreeability"));
 //			player.setAggressiveness(getElementValue(playerElement, "Aggressiveness"));
 //			player.setHonesty(getElementValue(playerElement, "Honesty"));
-//			player.setExperience(getElementValue(playerElement, "Experience"));
-//			player.setLoyalty(getElementValue(playerElement, "Loyalty"));
-//			player.setMotherClubBonus(getElementValue(playerElement, "MotherClubBonus"));
+			player.setExperience(getElementValue(playerElement, "Experience"));
+			player.setLoyalty(getElementValue(playerElement, "Loyalty"));
+			player.setMotherClubBonus(getElementValue(playerElement, "MotherClubBonus"));
 //			player.setLeaderShip(getElementValue(playerElement, "Leadership"));
 			player.setSpecialty(getElementValue(playerElement, "Specialty"));
 //			player.setNativeCountryID(getElementValue(playerElement, "NativeCountryID"));
@@ -77,12 +78,12 @@ public class XMLPlayerDetailsParser extends XMLParser {
 			playerDetails.setPlayer(player);
 			
 			// <HattrickDate/Player/TrainerData>
-//			Element trainingDataElement = getChildElement(playerElement, "TrainerData");
-//			
-//			TrainerData trainerData = new TrainerData();
-//			trainerData.setTrainerType(getElementValue(trainingDataElement, "TrainerType"));
-//			trainerData.setTrainerSkill(getElementValue(trainingDataElement, "TrainerSkill"));
-//			player.setTrainerData(trainerData);
+			Element trainingDataElement = getChildElement(playerElement, "TrainerData");
+			
+			TrainerData trainerData = new TrainerData();
+			trainerData.setTrainerType(getElementValue(trainingDataElement, "TrainerType"));
+			trainerData.setTrainerSkill(getElementValue(trainingDataElement, "TrainerSkill"));
+			player.setTrainerData(trainerData);
 			
 			// <HattrickDate/Player/OwningTeam>
 //			Element owningTeamElement = getChildElement(playerElement, "OwningTeam");

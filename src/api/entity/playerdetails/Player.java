@@ -12,6 +12,30 @@ import api.entity.datatype.SpecialtyID;
 import api.util.Utils;
 
 public class Player {
+	
+	public Player()
+	{
+		
+	}
+	
+	public Player(int injuryLevel, boolean motherClub, SpecialtyID specialty, int form, int experience, int loyalty, int stamina, int keeper, int defender, int playmaker, int passing, int winger, int scorer)
+	{
+		this.injuryLevel = injuryLevel;
+		this.specialty = specialty;
+		this.motherClubBonus = motherClub;
+		this.setPlayerForm(Integer.toString(form));
+		this.setExperience(Integer.toString(experience));
+		this.setLoyalty(Integer.toString(loyalty));
+		PlayerSkills playerSkills = new PlayerSkills();
+		playerSkills.setStaminaSkill(Integer.toString(stamina));
+		playerSkills.setKeeperSkill(Integer.toString(keeper));
+		playerSkills.setPlaymakerSkill(Integer.toString(playmaker));
+		playerSkills.setScorerSkill(Integer.toString(scorer));
+		playerSkills.setPassingSkill(Integer.toString(passing));
+		playerSkills.setWingerSkill(Integer.toString(winger));
+		playerSkills.setDefenderSkill(Integer.toString(defender));
+		this.setPlayerSkills(playerSkills);
+	}
 
 	private int playerID;
 	
@@ -488,8 +512,9 @@ public class Player {
 			return 0;
 		if(this.getInjuryLevel() == 0)
 			multiplier *= 0.95;
-		multiplier *= Math.pow((((double)this.getPlayerForm().getValue()-0.5D)/7D),0.45);
-		
+		multiplier *= Math.pow(Math.min(Math.max(((double)this.getPlayerForm().getValue()-0.5),0),7)/7D,0.45); // form
+		multiplier *= Math.pow(Math.min(Math.max(((double)this.getPlayerSkills().getStaminaSkill().getValue()+6.5),0),15.25)/14D,0.6); // stamina
+		multiplier *= 1D + 0.0716*Math.pow(Math.max(((double)this.getExperience().getValue()-0.5),0),0.5); // experience
 		return multiplier;
 	}
 }
