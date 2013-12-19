@@ -28,10 +28,11 @@ public class HattrickXMLCollector {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		/*
-		 * Bots skippen
-		 * Dubbels eruit halen
-		 */
+		gatherMatchDetails();
+	}
+
+	private static void gatherMatchDetailsWithPlayerDetails()
+			throws InterruptedException {
 		TrainingDates.refreshIfNeeded();
 		HattrickXMLCollector collector = new HattrickXMLCollector();
 		HattrickObjectCreator creator = new HattrickObjectCreator();
@@ -97,6 +98,60 @@ public class HattrickXMLCollector {
 							collector.createPlayerDetailsXML(teamDetails.getLeagueId(), player.getPlayerID());
 						}
 						break;
+					}
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (IllegalXMLException e) {
+					e.printStackTrace();
+				}	
+			}
+		}
+	}
+	
+	private static void gatherMatchDetails()
+			throws InterruptedException {
+		TrainingDates.refreshIfNeeded();
+		HattrickXMLCollector collector = new HattrickXMLCollector();
+		HattrickObjectCreator creator = new HattrickObjectCreator();
+		while(true)
+		{
+			for(int teamID = 1; teamID < 2045907; teamID++) //2045907 experimenteel bepaald als max valid teamID
+			{
+				TrainingDates.refreshIfNeeded();
+				try {
+					if(!teamDetailsXMLCollected(teamID))
+						collector.createTeamDetails(teamID);
+					
+					TeamDetails teamDetails = creator.getTeamDetailsFromFile(teamID);
+					
+					if(!teamDetails.isInLeague() || teamDetails.isBot())
+						continue;
+					
+					int leagueID = teamDetails.getLeagueId();
+					
+					Calendar fromDate = TrainingDates.getNextTrainingDate(leagueID);
+					fromDate.add(Calendar.DAY_OF_YEAR, -6);
+					
+					MatchesArchive matchesArchive = creator.getMatchesArchive(teamID, fromDate);
+					
+					for(Match match : matchesArchive.getTeam().getMatchList())
+					{
+						int matchID = match.getMatchID();
+						if(collector.existingMatchDetailsXML(leagueID, matchID))
+							continue;
+						collector.createMatchDetailsXML(leagueID, matchID);
+						
+						MatchDetails matchDetails = null;
+						boolean discard = false;
+						try {
+							matchDetails = creator.getMatchDetailsFromFile(leagueID, matchID);
+						} catch (DiscardException e) {
+							discard = true;
+						}
+						
+						if(discard == true)
+							continue;
 					}
 					
 				} catch (IOException e) {

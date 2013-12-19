@@ -10,6 +10,7 @@ import api.entity.MatchLineup;
 import api.entity.MatchesArchive;
 import api.entity.PlayerDetails;
 import api.entity.TeamDetails;
+import api.entity.Training;
 import api.entity.WorldDetails;
 import api.exception.DiscardException;
 import api.exception.IllegalXMLException;
@@ -20,12 +21,17 @@ import api.parser.XMLMatchLineupParser;
 import api.parser.XMLMatchesArchiveParser;
 import api.parser.XMLPlayerDetailsParser;
 import api.parser.XMLTeamDetailsParser;
+import api.parser.XMLTrainingParser;
 import api.parser.XMLWorldDetailsParser;
 
 public class HattrickObjectCreator {
 	
 	private HattrickDownloader downloader;
 	private HattrickXMLCollector xmlCollector;
+	
+	public static void main(String[] args) throws IllegalXMLException {
+		Training t = new HattrickObjectCreator().getTraining(321576);
+	}
 	
 	public HattrickObjectCreator()
 	{
@@ -65,6 +71,10 @@ public class HattrickObjectCreator {
 	
 	public MatchDetails getMatchDetails(int matchId) throws IOException, IllegalXMLException, DiscardException {
 		return XMLMatchDetailsParser.parseMatchDetailsFromString(getDownloader().getMatchDetailsString(matchId));
+	}
+	
+	public Training getTraining(int teamId) throws IllegalXMLException {
+		return XMLTrainingParser.parseTrainingFromString(getDownloader().getTrainingString(teamId));
 	}
 	
 	public MatchDetails getMatchDetailsFromSimpleFile(int matchId) throws IllegalXMLException, DiscardException

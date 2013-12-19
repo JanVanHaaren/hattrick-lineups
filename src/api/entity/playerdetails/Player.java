@@ -18,7 +18,7 @@ public class Player {
 		
 	}
 	
-	public Player(int injuryLevel, boolean motherClub, SpecialtyID specialty, int form, int experience, int loyalty, int stamina, int keeper, int defender, int playmaker, int passing, int winger, int scorer)
+	public Player(int injuryLevel, boolean motherClub, SpecialtyID specialty, int experience, int form, int stamina, int loyalty, int keeper, int defender, int playmaker, int passing, int winger, int scorer)
 	{
 		this.injuryLevel = injuryLevel;
 		this.specialty = specialty;
@@ -326,7 +326,7 @@ public class Player {
 		this.loyalty = new SkillLevel(loyalty);
 	}
 
-	public boolean isMotherClubBonus() {
+	public boolean hasMotherClubBonus() {
 		return motherClubBonus;
 	}
 
@@ -508,10 +508,10 @@ public class Player {
 	public double getPerformanceMultiplier()
 	{
 		double multiplier = 1;
-		if(this.getInjuryLevel() > 0)
-			return 0;
-		if(this.getInjuryLevel() == 0)
-			multiplier *= 0.95;
+//		if(this.getInjuryLevel() > 0)
+//			return 0;
+//		if(this.getInjuryLevel() == 0)
+//			multiplier *= 0.95;
 		multiplier *= Math.pow(Math.min(Math.max(((double)this.getPlayerForm().getValue()-0.5),0),7)/7D,0.45); // form
 		multiplier *= Math.pow(Math.min(Math.max(((double)this.getPlayerSkills().getStaminaSkill().getValue()+6.5),0),15.25)/14D,0.6); // stamina
 		multiplier *= 1D + 0.0716*Math.pow(Math.max(((double)this.getExperience().getValue()-0.5),0),0.5); // experience

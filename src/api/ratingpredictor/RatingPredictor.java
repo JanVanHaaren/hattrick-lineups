@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import api.HattrickObjectCreator;
+import api.entity.Training;
 import api.entity.datatype.MatchBehaviourID;
 import api.entity.datatype.MatchRoleID;
 import api.entity.datatype.SpecialtyID;
@@ -34,18 +35,22 @@ public class RatingPredictor {
 
 	private TrainerType trainerType;
 	
+	private Training training;
+	
 	public static void main(String[] args) throws IOException, IllegalXMLException, InvalidBehaviourForRoleException {
 		Map<MatchRoleID,PlayerBehaviour> positions = new HashMap<MatchRoleID, PlayerBehaviour>();
 		
 		RatingPredictor rp = janPlayers(positions);
 		rp.producePredictions();
-		System.out.println("Leftdef: " + rp.predictRatingLeftDef());
-		System.out.println("Middef: " + rp.predictRatingMidDef());
 		System.out.println("Rightdef: " + rp.predictRatingRightDef());
-		System.out.println("LeftAtt: " + rp.predictRatingLeftAtt());
-		System.out.println("MidAtt: " + rp.predictRatingMidAtt());
-		System.out.println("RightAtt: " + rp.predictRatingRightAtt());
+		System.out.println("Middef: " + rp.predictRatingMidDef());
+		System.out.println("Leftdef: " + rp.predictRatingLeftDef());
+		
 		System.out.println("Midfield: " + rp.predictRatingMidField());
+
+		System.out.println("RightAtt: " + rp.predictRatingRightAtt());
+		System.out.println("MidAtt: " + rp.predictRatingMidAtt());
+		System.out.println("LeftAtt: " + rp.predictRatingLeftAtt());
 	}
 	
 	private static RatingPredictor janPlayers(Map<MatchRoleID,PlayerBehaviour> positions) throws IOException, IllegalXMLException
@@ -73,32 +78,62 @@ public class RatingPredictor {
 		positions.put(MatchRoleID.RIGHT_FORWARD, new PlayerBehaviour(forwardR, MatchBehaviourID.NORMAL));
 		positions.put(MatchRoleID.LEFT_FORWARD, new PlayerBehaviour(forwardL, MatchBehaviourID.NORMAL));
 		
-		return new RatingPredictor(positions, TrainerType.BALANCED);
+		return new RatingPredictor(positions, TrainerType.BALANCED, new Training(4,4));
+	}
+	
+	private static RatingPredictor aaronPlayers2(Map<MatchRoleID,PlayerBehaviour> positions) throws IOException, IllegalXMLException
+	{
+		Player keeper = new Player(-1, true, SpecialtyID.TECHNICAL, 3, 5, 5, 20, 8, 1, 1, 1, 2, 1); //Florin
+		Player wingBackR = new Player(-1, true, null, 4, 5, 6, 20, 1, 5, 2, 5, 5, 4); //Wenzel
+		Player centralDefenderR = new Player(-1, true, null, 3, 5, 5, 20, 2, 5, 4, 4, 3, 3); //Termont
+		Player centralDefenderL = new Player(-1, true, SpecialtyID.QUICK, 2, 4, 6, 20, 1, 4, 4, 2, 4, 5); //Verhoene
+		Player wingBackL = new Player(-1, true, null, 3, 6, 6, 20, 1, 5, 2, 3, 3, 1); //Arnould
+		Player wingerR = new Player(-1, true, SpecialtyID.HEAD_SPECIALIST, 1, 5, 6, 20, 2, 1, 4, 3, 3, 3); //Lafalize
+		Player innerMidfieldR = new Player(-1, true, null, 1, 5, 7, 20, 1, 6, 6, 5, 3, 6); //Ghaye
+		Player innerMidfieldL = new Player(-1, true, SpecialtyID.POWERFUL, 2, 7, 5, 20, 1, 5, 6, 5, 6, 4); //Branswyck
+		Player wingerL = new Player(-1, true, null, 4, 4, 5, 20, 1, 2, 5, 4, 3, 3); //Debaveye
+		Player forwardR = new Player(-1, true, SpecialtyID.UNPERDICTABLE, 2, 6, 8, 20, 1, 3, 3, 3, 6, 6); //Godfroid
+		Player forwardL = new Player(-1, true, null, 3, 5, 6, 20, 1, 5, 2, 5, 3, 6); //Pauwels
+		positions.put(MatchRoleID.KEEPER, new PlayerBehaviour(keeper, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.RIGHT_BACK, new PlayerBehaviour(wingBackR, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.RIGHT_CENTRAL_DEFENDER, new PlayerBehaviour(centralDefenderR, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.LEFT_CENTRAL_DEFENDER, new PlayerBehaviour(centralDefenderL, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.LEFT_BACK, new PlayerBehaviour(wingBackL, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.RIGHT_WINGER, new PlayerBehaviour(wingerR, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.RIGHT_INNER_MIDFIELD, new PlayerBehaviour(innerMidfieldR, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.LEFT_INNER_MIDFIELD, new PlayerBehaviour(innerMidfieldL, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.LEFT_WINGER, new PlayerBehaviour(wingerL, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.RIGHT_FORWARD, new PlayerBehaviour(forwardR, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.LEFT_FORWARD, new PlayerBehaviour(forwardL, MatchBehaviourID.NORMAL));
+		
+		return new RatingPredictor(positions, TrainerType.DEFENSIVE, new Training(4,5));
 	}
 	
 	private static RatingPredictor aaronPlayers(Map<MatchRoleID,PlayerBehaviour> positions) throws IOException, IllegalXMLException
 	{
-		positions.put(MatchRoleID.KEEPER, new PlayerBehaviour(386236363, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.RIGHT_BACK, new PlayerBehaviour(386236365, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.RIGHT_CENTRAL_DEFENDER, new PlayerBehaviour(386236368, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.LEFT_CENTRAL_DEFENDER, new PlayerBehaviour(386236371, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.LEFT_BACK, new PlayerBehaviour(386236367, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.RIGHT_WINGER, new PlayerBehaviour(386236379, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.RIGHT_INNER_MIDFIELD, new PlayerBehaviour(386236370, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.LEFT_INNER_MIDFIELD, new PlayerBehaviour(386236375, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.LEFT_WINGER, new PlayerBehaviour(386236369, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.RIGHT_FORWARD, new PlayerBehaviour(386236373, MatchBehaviourID.NORMAL));
-		positions.put(MatchRoleID.LEFT_FORWARD, new PlayerBehaviour(386236372, MatchBehaviourID.NORMAL));
+		positions.put(MatchRoleID.KEEPER, new PlayerBehaviour(386236363, MatchBehaviourID.NORMAL)); //Florin
+		positions.put(MatchRoleID.RIGHT_BACK, new PlayerBehaviour(386236365, MatchBehaviourID.NORMAL)); //Wenzel
+		positions.put(MatchRoleID.RIGHT_CENTRAL_DEFENDER, new PlayerBehaviour(386236368, MatchBehaviourID.NORMAL)); //Termont
+		positions.put(MatchRoleID.LEFT_CENTRAL_DEFENDER, new PlayerBehaviour(386236371, MatchBehaviourID.NORMAL)); //Verhoene
+		positions.put(MatchRoleID.LEFT_BACK, new PlayerBehaviour(386236367, MatchBehaviourID.NORMAL)); //Arnould
+		positions.put(MatchRoleID.RIGHT_WINGER, new PlayerBehaviour(386236379, MatchBehaviourID.NORMAL)); //Lafalize
+		positions.put(MatchRoleID.RIGHT_INNER_MIDFIELD, new PlayerBehaviour(386236370, MatchBehaviourID.NORMAL)); //Ghaye
+		positions.put(MatchRoleID.LEFT_INNER_MIDFIELD, new PlayerBehaviour(386236375, MatchBehaviourID.NORMAL)); //Branswyck
+		positions.put(MatchRoleID.LEFT_WINGER, new PlayerBehaviour(386236369, MatchBehaviourID.NORMAL)); //Debaveye
+		positions.put(MatchRoleID.RIGHT_FORWARD, new PlayerBehaviour(386236373, MatchBehaviourID.NORMAL)); //Godfroid
+		positions.put(MatchRoleID.LEFT_FORWARD, new PlayerBehaviour(386236372, MatchBehaviourID.NORMAL)); //Pauwels
 		
-		return new RatingPredictor(positions, 386236362);
+		return new RatingPredictor(positions, 386236362, 321576);
 	}
 	
-	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, int trainerId) throws IOException, IllegalXMLException
+	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, int trainerId, int teamId) throws IOException, IllegalXMLException
 	{
-		this(positions, new HattrickObjectCreator().getPlayerDetails(trainerId).getPlayer().getTrainerData().getTrainerType());
+		this(positions,
+				new HattrickObjectCreator().getPlayerDetails(trainerId).getPlayer().getTrainerData().getTrainerType(),
+				new HattrickObjectCreator().getTraining(teamId));
 	}
 	
-	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, TrainerType trainerType) throws IOException, IllegalXMLException
+	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, TrainerType trainerType, Training training) throws IOException, IllegalXMLException
 	{
 		this.positions = positions;
 		
@@ -115,6 +150,8 @@ public class RatingPredictor {
 		int nbCentralDefender = 0;
 		
 		this.trainerType = trainerType;
+		
+		this.training = training;
 		
 		for(MatchRoleID role : positions.keySet())
 		{
@@ -218,12 +255,37 @@ public class RatingPredictor {
 			}
 		}
 		
+		this.ratingRightDef += 0.008504*Math.pow(this.ratingRightDef, 2) - 0.000027*Math.pow(this.ratingRightDef, 3);
+		this.ratingMidDef += 0.008504*Math.pow(this.ratingMidDef, 2) - 0.000027*Math.pow(this.ratingMidDef, 3);
+		this.ratingLeftDef += 0.008504*Math.pow(this.ratingLeftDef, 2) - 0.000027*Math.pow(this.ratingLeftDef, 3);
+		
+		this.ratingMidField += 0.008504*Math.pow(this.ratingMidField, 2) - 0.000027*Math.pow(this.ratingMidField, 3);
+		
+		this.ratingRightAtt += 0.008504*Math.pow(this.ratingRightAtt, 2) - 0.000027*Math.pow(this.ratingRightAtt, 3);
+		this.ratingMidAtt += 0.008504*Math.pow(this.ratingMidAtt, 2) - 0.000027*Math.pow(this.ratingMidAtt, 3);
+		this.ratingLeftAtt += 0.008504*Math.pow(this.ratingLeftAtt, 2) - 0.000027*Math.pow(this.ratingLeftAtt, 3);
+		
+		
 		this.ratingLeftAtt *= this.trainerType.equals(TrainerType.BALANCED) ? 1.05 : ((this.trainerType.equals(TrainerType.OFFENSIVE)) ? 1.133359 : 0.921278);
 		this.ratingRightAtt *= this.trainerType.equals(TrainerType.BALANCED) ? 1.05 : ((this.trainerType.equals(TrainerType.OFFENSIVE)) ? 1.133359 : 0.921278);
 		this.ratingMidAtt *= this.trainerType.equals(TrainerType.BALANCED) ? 1.05 : ((this.trainerType.equals(TrainerType.OFFENSIVE)) ? 1.135257 : 0.927930);
 		this.ratingRightDef *= this.trainerType.equals(TrainerType.BALANCED) ? 1.05 : ((this.trainerType.equals(TrainerType.OFFENSIVE)) ? 0.927577 : 1.197332);
 		this.ratingLeftDef *= this.trainerType.equals(TrainerType.BALANCED) ? 1.05 : ((this.trainerType.equals(TrainerType.OFFENSIVE)) ? 0.927577 : 1.197332);
 		this.ratingMidDef *= this.trainerType.equals(TrainerType.BALANCED) ? 1.05 : ((this.trainerType.equals(TrainerType.OFFENSIVE)) ? 0.928162 : 1.196307);
+	
+		this.ratingMidField *= Math.pow(0.147832*((double)this.training.getMorale()), 0.417779);
+		
+		this.ratingRightAtt *= (1.0 + 0.0525 * ((double)(this.training.getConfidence() - 5)));
+		this.ratingLeftAtt *= (1.0 + 0.0525 * ((double)(this.training.getConfidence() - 5)));
+		this.ratingMidAtt *= (1.0 + 0.0525 * ((double)(this.training.getConfidence() - 5)));
+		
+		this.ratingRightDef = Math.round(this.ratingRightDef);
+		this.ratingMidDef = Math.round(this.ratingMidDef);
+		this.ratingLeftDef = Math.round(this.ratingLeftDef);
+		this.ratingMidField = Math.round(this.ratingMidField);
+		this.ratingRightAtt = Math.round(this.ratingRightAtt);
+		this.ratingMidAtt = Math.round(this.ratingMidAtt);
+		this.ratingLeftAtt = Math.round(this.ratingLeftAtt);
 	}
 
 	private void addSideForwardFactors(MatchRoleID position, Player player,

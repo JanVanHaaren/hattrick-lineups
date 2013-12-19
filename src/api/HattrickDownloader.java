@@ -29,6 +29,8 @@ public class HattrickDownloader {
 	private final static String MATCHES_ARCHIVE_VERSION = "1.1";
 	
 	private final static String TEAM_DETAILS_VERSION = "3.0";
+	
+	private final static String TRAINING_VERSION = "2.2";
 
 	String getArenaDetailsString(int arenaId) throws IOException {
 		// file and version
@@ -163,8 +165,23 @@ public class HattrickDownloader {
 		return this.getConnector().getWebContent(sURL);
 	}
 	
+	String getTrainingString(int teamID) {
+		// file and version
+				String sURL = "?file=training&version=" + TRAINING_VERSION;
+				
+				// parameters
+				if (teamID > 0) {
+					sURL += "&teamID=" + teamID;
+				}
+				
+				// retrieve content
+				return this.getConnector().getWebContent(sURL);
+	}
+	
 	private HattrickConnector getConnector() {
 		return HattrickConnector.getInstance();
 	}
+
+	
 
 }

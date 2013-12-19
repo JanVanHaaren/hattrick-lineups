@@ -23,9 +23,10 @@ public class SkillLevel extends ScaledDataType{
 		double value = this.getValue();
 		if(value < 8)
 			value += 0.5;
-		if(player.isMotherClubBonus())
+		value -= 0.5; // -1 in HO, +0.5 to account for unknown subskill
+		if(player.hasMotherClubBonus())
 			value += 0.5;
 		value += 1*(((double)player.getLoyalty().getValue())/20);
-		return value;
+		return Math.max(0, value);
 	}
 }

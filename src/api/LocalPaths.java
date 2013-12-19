@@ -4,14 +4,15 @@ import java.io.File;
 
 public class LocalPaths {
 	
-	private static boolean inWindows = true;
+	private static boolean inWindows = false;
 	
 	//WINDOWS
 	
 	//XML
 	public static final String XML_LOCATION = inWindows ?
-			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML2\\" :
-			"/cw/dtailocal/s0217261/XML/";
+			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML_SIMPLE\\" :
+			"/cw/dtailocal/s0217261/XML_SIMPLE/";
+	
 	public final static String ARENA_DETAILS_DIRECTORY = "ArenaDetails" + getDelimiter();
 	public final static String PLAYER_DETAILS_DIRECTORY = "PlayerDetails" + getDelimiter();
 	public final static String MATCH_LINEUP_DIRECTORY = "MatchLineup" + getDelimiter();
