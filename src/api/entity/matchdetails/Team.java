@@ -1,5 +1,6 @@
 package api.entity.matchdetails;
 
+import weka.classifiers.Evaluation;
 import api.entity.datatype.MatchRating;
 import api.entity.datatype.MatchTacticType;
 import api.entity.datatype.MatchTeamAttitude;

@@ -187,7 +187,7 @@ public class HattrickXMLCollector {
 //		}
 //	}
 	
-	private static boolean teamDetailsXMLCollected(int teamID) {
+	public static boolean teamDetailsXMLCollected(int teamID) {
 		File file = new File(LocalPaths.XML_LOCATION + LocalPaths.TEAM_DETAILS_DIRECTORY + teamID + ".xml");
 		return file.exists();
 	}

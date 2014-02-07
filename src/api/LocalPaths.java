@@ -4,14 +4,16 @@ import java.io.File;
 
 public class LocalPaths {
 	
-	private static boolean inWindows = false;
+	private static boolean inWindows = true;
 	
 	//WINDOWS
 	
 	//XML
-	public static final String XML_LOCATION = inWindows ?
-			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML_SIMPLE\\" :
-			"/cw/dtailocal/s0217261/XML_SIMPLE/";
+//	public static final String XML_LOCATION = inWindows ?
+//			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML_SIMPLE\\" :
+//			"/cw/dtailocal/s0217261/XML_SIMPLE/";
+	
+	public static final String XML_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\XML\\";
 	
 	public final static String ARENA_DETAILS_DIRECTORY = "ArenaDetails" + getDelimiter();
 	public final static String PLAYER_DETAILS_DIRECTORY = "PlayerDetails" + getDelimiter();
@@ -23,10 +25,12 @@ public class LocalPaths {
 	public final static String TEAM_DETAILS_DIRECTORY = "TeamDetails" + getDelimiter();
 	
 //	//WEKA
-	public static final String XML_5000 = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML\\";
-	public static final String WEKA_LOCATION = inWindows ?
-			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\Weka\\" :
-			"/cw/dtailocal/s0217261/Weka/";
+	public static final String XML_5000 = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML_SIMPLE\\";
+//	public static final String WEKA_LOCATION = inWindows ?
+//			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\Weka\\" :
+//			"/cw/dtailocal/s0217261/Weka/";
+	
+	public static final String WEKA_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\Weka\\";
 		
 	//Creator
 	public static void createXMLDirectoryStructure()

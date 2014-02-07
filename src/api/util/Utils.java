@@ -1,5 +1,6 @@
 package api.util;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 /**
@@ -22,5 +23,10 @@ public class Utils {
 
 	public static boolean getBooleanFromString(String string) {
 		return Boolean.valueOf(string);
+	}
+	
+	public static String get5PrecisionDouble(Double d){
+		DecimalFormat df = new DecimalFormat("##.#####");
+		return df.format(d);
 	}
 }

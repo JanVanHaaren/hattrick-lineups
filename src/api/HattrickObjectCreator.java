@@ -69,6 +69,13 @@ public class HattrickObjectCreator {
 						LocalPaths.getFullDirectoryPath(leagueId) + LocalPaths.MATCH_LINEUP_DIRECTORY + matchId + "_" + teamId + ".xml"));
 	}
 	
+	public MatchLineup getMatchLineupFromAdvancedFile(String directoryPath, int matchId, int teamId) throws IllegalXMLException
+	{
+		return XMLMatchLineupParser.parseMatchLineupFromString(
+				getXmlCollector().readStringFromXMLFile(
+						directoryPath + LocalPaths.MATCH_LINEUP_DIRECTORY + matchId + "_" + teamId + ".xml"));
+	}
+	
 	public MatchDetails getMatchDetails(int matchId) throws IOException, IllegalXMLException, DiscardException {
 		return XMLMatchDetailsParser.parseMatchDetailsFromString(getDownloader().getMatchDetailsString(matchId));
 	}
