@@ -4,8 +4,8 @@ public abstract class UCTVariantNode extends MCTSNode {
 
 	private double c;
 	
-	public UCTVariantNode(MCTSNode parent, double c) {
-		super(parent);
+	public UCTVariantNode(MCTSNode parent, ChoiceSet choiceSet, double c) {
+		super(parent, choiceSet);
 		this.c = c;
 	}
 	

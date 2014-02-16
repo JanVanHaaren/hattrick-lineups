@@ -6,8 +6,8 @@ public class UCB1TunedNode extends UCTVariantNode {
 	private double squaredValuesSum;
 	private boolean recalculate;
 	
-	public UCB1TunedNode(MCTSNode parent, double c) {
-		super(parent, c);
+	public UCB1TunedNode(MCTSNode parent, ChoiceSet choiceSet, double c) {
+		super(parent, choiceSet, c);
 	}
 
 	private double getV() {
@@ -56,5 +56,10 @@ public class UCB1TunedNode extends UCTVariantNode {
 	@Override
 	public double getSelectionValue() {
 		return getValue() + getC()*Math.sqrt((Math.log(getParent().getVisits())/getVisits())*Math.min(0.25,  getV()));
+	}
+
+	@Override
+	protected UCB1TunedNode generateChild(ChoiceSet choiceSet) {
+		return new UCB1TunedNode(this, choiceSet, getC());
 	}
 }

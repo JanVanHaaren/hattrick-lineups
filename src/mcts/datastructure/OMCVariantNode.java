@@ -6,8 +6,8 @@ public abstract class OMCVariantNode extends MCTSNode {
 	private double squaredValuesSum;
 	private boolean recalculate;
 	
-	public OMCVariantNode(MCTSNode parent) {
-		super(parent);
+	public OMCVariantNode(MCTSNode parent, ChoiceSet choiceSet) {
+		super(parent, choiceSet);
 		this.recalculate = true;
 		this.squaredValuesSum = Math.pow(getValue(), 2);
 	}

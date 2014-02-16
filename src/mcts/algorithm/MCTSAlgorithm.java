@@ -2,14 +2,12 @@ package mcts.algorithm;
 
 import mcts.datastructure.MCTSNode;
 import mcts.datastructure.MCTSTree;
-import mcts.expansion.Expansion;
 import mcts.simulation.Simulation;
 
 public class MCTSAlgorithm {
 
 	private MCTSTree tree;
 	private int maxIterations;
-	private Expansion expansion;
 	private Simulation simulation;
 	
 	public MCTSAlgorithm(int maxIterations){
@@ -22,10 +20,6 @@ public class MCTSAlgorithm {
 	
 	private MCTSTree getTree(){
 		return tree;
-	}
-
-	private Expansion getExpansion() {
-		return expansion;
 	}
 
 	private Simulation getSimulation() {
@@ -42,7 +36,8 @@ public class MCTSAlgorithm {
 			currentNode = currentNode.select();
 		}
 		
-		lastNode = getExpansion().expand(lastNode);
+		lastNode.expand();
+		lastNode = lastNode.select();
 		
 		double result = getSimulation().simulate(lastNode);
 		

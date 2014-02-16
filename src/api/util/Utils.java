@@ -29,4 +29,13 @@ public class Utils {
 		DecimalFormat df = new DecimalFormat("##.#####");
 		return df.format(d);
 	}
+	
+	public static String get1PrecisionDouble(Double d){
+		DecimalFormat df = new DecimalFormat("#.#");
+		return df.format(d);
+	}
+	
+	public static String getDoubleCharacter(Double d){
+		return Character.toString((char)(((int)(d*10)) + 97));
+	}
 }

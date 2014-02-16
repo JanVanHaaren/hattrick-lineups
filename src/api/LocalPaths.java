@@ -13,7 +13,7 @@ public class LocalPaths {
 //			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML_SIMPLE\\" :
 //			"/cw/dtailocal/s0217261/XML_SIMPLE/";
 	
-	public static final String XML_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\XML\\";
+	public static final String XML_LOCATION = "C:\\Users\\Verachtert Aäron\\Desktop\\ThesisXML\\s0217261\\XML\\";
 	
 	public final static String ARENA_DETAILS_DIRECTORY = "ArenaDetails" + getDelimiter();
 	public final static String PLAYER_DETAILS_DIRECTORY = "PlayerDetails" + getDelimiter();

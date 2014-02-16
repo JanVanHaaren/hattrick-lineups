@@ -18,7 +18,13 @@ import java.util.Map;
 import api.LocalPaths;
 import api.exception.DiscardException;
 import api.exception.IllegalXMLException;
-import api.wekafilecreation.advancedwinloss.HatStatsAdvancedWekaFileCreator;
+import api.wekafilecreation.advancedgoaldiff.DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator2;
+import api.wekafilecreation.advancedgoaldiff.DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator2;
+import api.wekafilecreation.advancedgoaldiff.HatStatsAdvancedWekaFileCreator2;
+import api.wekafilecreation.advancedgoaldiff.RatingProportionsVnukStatsAdvancedWekaFileCreator2;
+import api.wekafilecreation.advancedgoaldiff.VnukStatsAdvancedWekaFileCreator2;
+import api.wekafilecreation.advancedwinloss.DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator;
+import api.wekafilecreation.advancedwinloss.DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator;
 
 public abstract class AdvancedWekaFileCreator{
 	
@@ -33,22 +39,34 @@ public abstract class AdvancedWekaFileCreator{
 //		System.out.println("___CREATING NEW FILE: VnukStats");
 //		AdvancedWekaFileCreator creator0 = new VnukStatsAdvancedWekaFileCreator();
 //		creator0.createAndBuildWekaFiles();
-		System.out.println("\n___CREATING NEW FILE: HatStats");
-		AdvancedWekaFileCreator creator01 = new HatStatsAdvancedWekaFileCreator();
-		creator01.createAndBuildWekaFiles();
+//		System.out.println("\n___CREATING NEW FILE: HatStats");
+//		AdvancedWekaFileCreator creator01 = new HatStatsAdvancedWekaFileCreator();
+//		creator01.createAndBuildWekaFiles();
 //		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStats");
 //		AdvancedWekaFileCreator creator1 = new RatingProportionsVnukStatsAdvancedWekaFileCreator();
 //		creator1.createAndBuildWekaFiles();
-//		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStatsFormation");
-//		AdvancedWekaFileCreator creator2 = new RatingProportionsVnukStatsFormationAdvancedWekaFileCreator();
-//		creator2.createAndBuildWekaFiles();
-//		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStatsIntFormation");
-//		AdvancedWekaFileCreator creator3 = new RatingProportionsVnukStatsIntFormationAdvancedWekaFileCreator();
-//		creator3.createAndBuildWekaFiles();
-//		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStatsPlayerStats");
-//		AdvancedWekaFileCreator creator4 = new RatingProportionsVnukStatsPlayerStatsAdvancedWekaFileCreator();
-//		creator4.createAndBuildWekaFiles();
-//		System.out.println("ALL DONE");
+		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsVnukStats");
+		AdvancedWekaFileCreator creator2 = new DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator();
+		creator2.createAndBuildWekaFiles();
+		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsCharVnukStats");
+		AdvancedWekaFileCreator creator3 = new DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator();
+		creator3.createAndBuildWekaFiles();
+		System.out.println("___CREATING NEW FILE: VnukStats2");
+		AdvancedWekaFileCreator creator20 = new VnukStatsAdvancedWekaFileCreator2();
+		creator20.createAndBuildWekaFiles();
+		System.out.println("\n___CREATING NEW FILE: HatStats2");
+		AdvancedWekaFileCreator creator201 = new HatStatsAdvancedWekaFileCreator2();
+		creator201.createAndBuildWekaFiles();
+		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStats2");
+		AdvancedWekaFileCreator creator21 = new RatingProportionsVnukStatsAdvancedWekaFileCreator2();
+		creator21.createAndBuildWekaFiles();
+		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsVnukStats2");
+		AdvancedWekaFileCreator creator22 = new DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator2();
+		creator22.createAndBuildWekaFiles();
+		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsCharVnukStats2");
+		AdvancedWekaFileCreator creator23 = new DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator2();
+		creator23.createAndBuildWekaFiles();
+		System.out.println("ALL DONE");
 	}
 	
 	private String getRelation()
@@ -159,10 +177,10 @@ public abstract class AdvancedWekaFileCreator{
 										return !subFolder.getName().equals("TeamDetails");
 									}
 	    }));
+	    System.out.println("structure collection");
 	    for(File leagueFolder : leagueFolders)
 	    {
 	    	Collection<File> weekFolders = Arrays.asList(leagueFolder.listFiles());
-	    	
 	    	for(File weekFolder: weekFolders)
 	    	{
 	    		String correctDirectoryPath = weekFolder.getCanonicalPath() + LocalPaths.getDelimiter();

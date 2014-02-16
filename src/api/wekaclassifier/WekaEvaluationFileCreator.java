@@ -13,9 +13,6 @@ import weka.classifiers.functions.SGD;
 import weka.classifiers.functions.SMO;
 import weka.classifiers.functions.SimpleLogistic;
 import weka.classifiers.functions.VotedPerceptron;
-import weka.classifiers.lazy.IBk;
-import weka.classifiers.lazy.KStar;
-import weka.classifiers.lazy.LWL;
 import weka.classifiers.meta.AdaBoostM1;
 import weka.classifiers.meta.AttributeSelectedClassifier;
 import weka.classifiers.meta.Bagging;
@@ -47,20 +44,28 @@ public class WekaEvaluationFileCreator {
 	
 	public static void main(String[] args) {
 		try {
-			WekaEvaluationFileCreator wefc = new WekaEvaluationFileCreator("advancedHatStats");
-//			WekaEvaluationFileCreator wefc2 = new WekaEvaluationFileCreator("advancedVnukStats");
-//			WekaEvaluationFileCreator wefc3 = new WekaEvaluationFileCreator("advancedRatingProportions_VnukStats");
-//			WekaEvaluationFileCreator wefc4 = new WekaEvaluationFileCreator("advancedRatingProportions_VnukStats_formation");
-//			WekaEvaluationFileCreator wefc5 = new WekaEvaluationFileCreator("advancedRatingProportions_VnukStats_intFormation");
-//			WekaEvaluationFileCreator wefc6 = new WekaEvaluationFileCreator("advancedRatingProportions_VnukStats_playerStats");
+			System.out.println("EVAL 1");
+			WekaEvaluationFileCreator wefc = new WekaEvaluationFileCreator("advancedHatStats2");
 			wefc.createEvaluationFile();
-//			wefc2.createEvaluationFile();
-//			wefc3.createEvaluationFile();
-//			wefc4.createEvaluationFile();
-//			wefc5.createEvaluationFile();
-//			wefc6.createEvaluationFile();
+			System.out.println("EVAL 2");
+			WekaEvaluationFileCreator wefc2 = new WekaEvaluationFileCreator("advancedVnukStats2");
+			wefc2.createEvaluationFile();
+			System.out.println("EVAL 3");
+			WekaEvaluationFileCreator wefc3 = new WekaEvaluationFileCreator("advancedRatingProportions_VnukStats2");
+			wefc3.createEvaluationFile();
+			System.out.println("EVAL 4");
+			WekaEvaluationFileCreator wefc4 = new WekaEvaluationFileCreator("advancedDiscreteRatingProportions_VnukStats");
+			wefc4.createEvaluationFile();
+			System.out.println("EVAL 5");
+			WekaEvaluationFileCreator wefc5 = new WekaEvaluationFileCreator("advancedDiscreteRatingProportions_VnukStats2");
+			wefc5.createEvaluationFile();
+			System.out.println("EVAL 6");
+			WekaEvaluationFileCreator wefc6 = new WekaEvaluationFileCreator("advancedDiscreteRatingProportionsChar_VnukStats");
+			wefc6.createEvaluationFile();
+			System.out.println("EVAL 7");
+			WekaEvaluationFileCreator wefc7 = new WekaEvaluationFileCreator("advancedDiscreteRatingProportionsChar_VnukStats2");
+			wefc7.createEvaluationFile();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -78,9 +83,9 @@ public class WekaEvaluationFileCreator {
 		this.classifiers.add(new WekaClassifier(new SimpleLogistic(),this.trainFileName,this.testFileName));
 		this.classifiers.add(new WekaClassifier(new SMO(),this.trainFileName,this.testFileName));
 		this.classifiers.add(new WekaClassifier(new VotedPerceptron(),this.trainFileName,this.testFileName));
-		this.classifiers.add(new WekaClassifier(new IBk(),this.trainFileName,this.testFileName));
-		this.classifiers.add(new WekaClassifier(new KStar(),this.trainFileName,this.testFileName));
-		this.classifiers.add(new WekaClassifier(new LWL(),this.trainFileName,this.testFileName));
+//		this.classifiers.add(new WekaClassifier(new IBk(),this.trainFileName,this.testFileName));
+//		this.classifiers.add(new WekaClassifier(new KStar(),this.trainFileName,this.testFileName));
+//		this.classifiers.add(new WekaClassifier(new LWL(),this.trainFileName,this.testFileName));
 		this.classifiers.add(new WekaClassifier(new AdaBoostM1(),this.trainFileName,this.testFileName));
 		this.classifiers.add(new WekaClassifier(new AttributeSelectedClassifier(),this.trainFileName,this.testFileName));
 		this.classifiers.add(new WekaClassifier(new Bagging(),this.trainFileName,this.testFileName));
@@ -145,7 +150,6 @@ public class WekaEvaluationFileCreator {
 			
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

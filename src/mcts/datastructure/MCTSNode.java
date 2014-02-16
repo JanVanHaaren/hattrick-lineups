@@ -7,16 +7,18 @@ public abstract class MCTSNode {
 	private MCTSNode parent;
 	private ArrayList<MCTSNode> children;
 	
+	private ChoiceSet choiceSet;
+	
 	private double value;
 	private int visits;
 
-	public MCTSNode(MCTSNode parent)
+	public MCTSNode(MCTSNode parent, ChoiceSet choiceSet)
 	{
 		this.parent = parent;
-		
 		parent.addChild(this);
 		this.children = new ArrayList<MCTSNode>();
 		
+		this.choiceSet = choiceSet;	
 	}
 	
 	private void addChild(MCTSNode node){
@@ -98,6 +100,15 @@ public abstract class MCTSNode {
 		}
 		return maxChild;
 	}
+
+	private ChoiceSet getChoiceSet() {
+		return choiceSet;
+	}
 	
+	protected abstract MCTSNode generateChild(ChoiceSet choiceSet);
 	
+	public void expand() {
+		for(ChoiceSet expandedSet : getChoiceSet().expand())
+			addChild(generateChild(expandedSet));
+	}
 }
