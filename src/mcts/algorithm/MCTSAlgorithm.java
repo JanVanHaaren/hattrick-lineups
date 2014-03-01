@@ -10,8 +10,10 @@ public class MCTSAlgorithm {
 	private int maxIterations;
 	private Simulation simulation;
 	
-	public MCTSAlgorithm(int maxIterations){
+	public MCTSAlgorithm(int maxIterations, MCTSNode root, Simulation simulation){
 		this.maxIterations = maxIterations;
+		this.tree = new MCTSTree(root);
+		this.simulation = simulation;
 	}
 	
 	private int getMaxIterations(){
@@ -37,7 +39,8 @@ public class MCTSAlgorithm {
 		}
 		
 		lastNode.expand();
-		lastNode = lastNode.select();
+		if(!lastNode.getChildren().isEmpty())
+			lastNode = lastNode.select();
 		
 		double result = getSimulation().simulate(lastNode);
 		
@@ -57,6 +60,7 @@ public class MCTSAlgorithm {
 	
 	public double execute(){
 		for(int i = 0; i < getMaxIterations(); i++){
+			System.out.println(i);
 			executeStep();
 		}
 		return getBestMove();

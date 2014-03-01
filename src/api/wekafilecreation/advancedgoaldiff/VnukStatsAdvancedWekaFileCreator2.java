@@ -17,7 +17,7 @@ public class VnukStatsAdvancedWekaFileCreator2 extends
 
 	@Override
 	protected String getFileName() {
-		return "advancedVnukStats2";
+		return "advancedVnukStats2_blub";
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class VnukStatsAdvancedWekaFileCreator2 extends
 		Team homeTeam = matchDetails.getMatch().getHomeTeam();
 		Team awayTeam = matchDetails.getMatch().getAwayTeam();
 		int homeAdvantage = homeTeam.getGoals() - awayTeam.getGoals();
-		if(homeAdvantage == 0)
-			return "";
+//		if(homeAdvantage == 0)
+//			return "";
 		
 		String dataString = "";
 		

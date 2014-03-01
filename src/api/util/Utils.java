@@ -30,9 +30,8 @@ public class Utils {
 		return df.format(d);
 	}
 	
-	public static String get1PrecisionDouble(Double d){
-		DecimalFormat df = new DecimalFormat("#.#");
-		return df.format(d);
+	public static String getFactor10Integer(Double d){
+		return Integer.toString((int)(d*10));
 	}
 	
 	public static String getDoubleCharacter(Double d){

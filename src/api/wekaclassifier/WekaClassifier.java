@@ -1,9 +1,11 @@
 package api.wekaclassifier;
 
 import java.io.File;
+import java.io.IOException;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
+import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
@@ -13,39 +15,64 @@ public class WekaClassifier {
 	private Instances testSet;
 	
 	private Classifier classifier;
+	private boolean isNumeric;
 	
 	private Evaluation evaluation;
 	
 	private long timeForEvaluation; //7759 instances buiten bij playershizz
 		
-	public WekaClassifier(Classifier classifier, String filepathTraining, String filepathTest) throws Exception{
+	public WekaClassifier(Classifier classifier, String filepathTraining, String filepathTest){
 		this.classifier = classifier;
 		
-		ArffLoader loader = new ArffLoader();
-		loader.setFile(new File(filepathTraining));
-		Instances trainingSet = loader.getDataSet();
-		trainingSet.setClassIndex(trainingSet.numAttributes() - 1);
-		this.trainingSet = trainingSet;
-		
-		loader = new ArffLoader();
-		loader.setFile(new File(filepathTest));
-		Instances testSet = loader.getDataSet();
-		testSet.setClassIndex(testSet.numAttributes() - 1);
-		this.testSet = testSet;
-		
-		this.classifier.buildClassifier(trainingSet);
-		this.evaluation = new Evaluation(getTrainingSet());
-		
-		long currTime = System.currentTimeMillis();
-		this.evaluation.evaluateModel(getClassifier(), getTestSet());
-		this.timeForEvaluation = (System.currentTimeMillis() - currTime);
-		System.out.println("evaluated " + this.getClassifierName());
+		try{
+			ArffLoader loader = new ArffLoader();
+			loader.setFile(new File(filepathTraining));
+			Instances trainingSet = loader.getDataSet();
+			trainingSet.setClassIndex(trainingSet.numAttributes() - 1);
+			this.isNumeric = trainingSet.attribute(trainingSet.numAttributes() - 1).isNumeric();
+			this.trainingSet = trainingSet;
+			
+			loader = new ArffLoader();
+			loader.setFile(new File(filepathTest));
+			Instances testSet = loader.getDataSet();
+			testSet.setClassIndex(testSet.numAttributes() - 1);
+			this.testSet = testSet;
+			
+			this.classifier.buildClassifier(trainingSet);
+			this.evaluation = new Evaluation(getTrainingSet());
+			
+			long currTime = System.currentTimeMillis();
+			this.evaluation.evaluateModel(getClassifier(), getTestSet());
+			this.timeForEvaluation = (System.currentTimeMillis() - currTime);
+			System.out.println("evaluated " + this.getClassifierName());
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private Classifier getClassifier() {
 		return classifier;
 	}
 	
+	private boolean isNumeric() {
+		return isNumeric;
+	}
+	
+	public double getPrediction(Instance instance) throws Exception{
+		instance.setDataset(getTrainingSet());
+		if(isNumeric())
+			return getClassifier().classifyInstance(instance);
+		String result = getTrainingSet().classAttribute().value((int) (getClassifier().classifyInstance(instance)));
+		if(result.equals("win"))
+			return 1D;
+		return 0D;
+	}
+
 	private Evaluation getEvaluation() {
 		return evaluation;
 	}
@@ -101,5 +128,15 @@ public class WekaClassifier {
 	public double getRMSE()
 	{
 		return getEvaluation().rootMeanSquaredError();
+	}
+	
+	public double getMAE()
+	{
+		return getEvaluation().meanAbsoluteError();
+	}
+	
+	public double getCorrelationCoefficient() throws Exception
+	{
+		return getEvaluation().correlationCoefficient();
 	}
 }

@@ -52,13 +52,13 @@ public class DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator extends
 			return "";
 		
 		String dataString = "";
-		dataString += Utils.get1PrecisionDouble((double)homeTeam.getRatingMidField().getValue()/((double)homeTeam.getRatingMidField().getValue() + (double)awayTeam.getRatingMidField().getValue())) + ",";
-		dataString += Utils.get1PrecisionDouble((double)homeTeam.getRatingRightDef().getValue()/((double)homeTeam.getRatingRightDef().getValue() + (double)awayTeam.getRatingLeftAtt().getValue())) + ",";
-		dataString += Utils.get1PrecisionDouble((double)homeTeam.getRatingMidDef().getValue()/((double)homeTeam.getRatingMidDef().getValue() + (double)awayTeam.getRatingMidAtt().getValue())) + ",";
-		dataString += Utils.get1PrecisionDouble((double)homeTeam.getRatingLeftDef().getValue()/((double)homeTeam.getRatingLeftDef().getValue() + (double)awayTeam.getRatingRightAtt().getValue())) + ",";
-		dataString += Utils.get1PrecisionDouble((double)homeTeam.getRatingRightAtt().getValue()/((double)homeTeam.getRatingRightAtt().getValue() + (double)awayTeam.getRatingLeftDef().getValue())) + ",";
-		dataString += Utils.get1PrecisionDouble((double)homeTeam.getRatingMidAtt().getValue()/((double)homeTeam.getRatingMidAtt().getValue() + (double)awayTeam.getRatingMidDef().getValue())) + ",";
-		dataString += Utils.get1PrecisionDouble((double)homeTeam.getRatingLeftAtt().getValue()/((double)homeTeam.getRatingLeftAtt().getValue() + (double)awayTeam.getRatingRightDef().getValue())) + ",";
+		dataString += Utils.getFactor10Integer((double)homeTeam.getRatingMidField().getValue()/((double)homeTeam.getRatingMidField().getValue() + (double)awayTeam.getRatingMidField().getValue())) + ",";
+		dataString += Utils.getFactor10Integer((double)homeTeam.getRatingRightDef().getValue()/((double)homeTeam.getRatingRightDef().getValue() + (double)awayTeam.getRatingLeftAtt().getValue())) + ",";
+		dataString += Utils.getFactor10Integer((double)homeTeam.getRatingMidDef().getValue()/((double)homeTeam.getRatingMidDef().getValue() + (double)awayTeam.getRatingMidAtt().getValue())) + ",";
+		dataString += Utils.getFactor10Integer((double)homeTeam.getRatingLeftDef().getValue()/((double)homeTeam.getRatingLeftDef().getValue() + (double)awayTeam.getRatingRightAtt().getValue())) + ",";
+		dataString += Utils.getFactor10Integer((double)homeTeam.getRatingRightAtt().getValue()/((double)homeTeam.getRatingRightAtt().getValue() + (double)awayTeam.getRatingLeftDef().getValue())) + ",";
+		dataString += Utils.getFactor10Integer((double)homeTeam.getRatingMidAtt().getValue()/((double)homeTeam.getRatingMidAtt().getValue() + (double)awayTeam.getRatingMidDef().getValue())) + ",";
+		dataString += Utils.getFactor10Integer((double)homeTeam.getRatingLeftAtt().getValue()/((double)homeTeam.getRatingLeftAtt().getValue() + (double)awayTeam.getRatingRightDef().getValue())) + ",";
 		
 		dataString += homeTeam.getVnukStats() + ",";
 		dataString += awayTeam.getVnukStats() + ",";

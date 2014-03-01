@@ -15,10 +15,11 @@ public abstract class MCTSNode {
 	public MCTSNode(MCTSNode parent, ChoiceSet choiceSet)
 	{
 		this.parent = parent;
-		parent.addChild(this);
+		if(parent != null)
+			parent.addChild(this);
 		this.children = new ArrayList<MCTSNode>();
 		
-		this.choiceSet = choiceSet;	
+		this.choiceSet = choiceSet;
 	}
 	
 	private void addChild(MCTSNode node){
@@ -32,8 +33,8 @@ public abstract class MCTSNode {
 		return getParent().getMaxChild();
 	}
 	
-	private MCTSNode getMaxChild() {
-		double maxValue = Double.MIN_VALUE;
+	public MCTSNode getMaxChild() {
+		double maxValue = Double.NEGATIVE_INFINITY;
 		MCTSNode maxChild = null;
 		for(MCTSNode child : getChildren())
 		{
@@ -88,7 +89,7 @@ public abstract class MCTSNode {
 	protected abstract double getSelectionValue();
 
 	public MCTSNode select(){
-		double maxSelectionValue = Double.MIN_VALUE;
+		double maxSelectionValue = Double.NEGATIVE_INFINITY;
 		MCTSNode maxChild = null;
 		for(MCTSNode child : getChildren())
 		{
@@ -101,7 +102,7 @@ public abstract class MCTSNode {
 		return maxChild;
 	}
 
-	private ChoiceSet getChoiceSet() {
+	public ChoiceSet getChoiceSet() {
 		return choiceSet;
 	}
 	
@@ -109,6 +110,21 @@ public abstract class MCTSNode {
 	
 	public void expand() {
 		for(ChoiceSet expandedSet : getChoiceSet().expand())
-			addChild(generateChild(expandedSet));
+			generateChild(expandedSet);
+	}
+	
+	public int getNodeCount(){
+		int count = 1;
+		for(MCTSNode node : getChildren())
+			count += node.getNodeCount();
+		return count;
+	}
+	
+	public int getExpandedChildrenCount(){
+		int i = 0;
+		for(MCTSNode node : getChildren())
+			if(!node.getChildren().isEmpty())
+				i++;
+		return i;
 	}
 }

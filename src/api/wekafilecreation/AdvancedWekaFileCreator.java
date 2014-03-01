@@ -18,13 +18,7 @@ import java.util.Map;
 import api.LocalPaths;
 import api.exception.DiscardException;
 import api.exception.IllegalXMLException;
-import api.wekafilecreation.advancedgoaldiff.DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator2;
-import api.wekafilecreation.advancedgoaldiff.DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator2;
-import api.wekafilecreation.advancedgoaldiff.HatStatsAdvancedWekaFileCreator2;
-import api.wekafilecreation.advancedgoaldiff.RatingProportionsVnukStatsAdvancedWekaFileCreator2;
 import api.wekafilecreation.advancedgoaldiff.VnukStatsAdvancedWekaFileCreator2;
-import api.wekafilecreation.advancedwinloss.DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator;
-import api.wekafilecreation.advancedwinloss.DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator;
 
 public abstract class AdvancedWekaFileCreator{
 	
@@ -45,27 +39,27 @@ public abstract class AdvancedWekaFileCreator{
 //		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStats");
 //		AdvancedWekaFileCreator creator1 = new RatingProportionsVnukStatsAdvancedWekaFileCreator();
 //		creator1.createAndBuildWekaFiles();
-		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsVnukStats");
-		AdvancedWekaFileCreator creator2 = new DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator();
-		creator2.createAndBuildWekaFiles();
-		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsCharVnukStats");
-		AdvancedWekaFileCreator creator3 = new DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator();
-		creator3.createAndBuildWekaFiles();
+//		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsVnukStats");
+//		AdvancedWekaFileCreator creator2 = new DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator();
+//		creator2.createAndBuildWekaFiles();
+//		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsCharVnukStats");
+//		AdvancedWekaFileCreator creator3 = new DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator();
+//		creator3.createAndBuildWekaFiles();
 		System.out.println("___CREATING NEW FILE: VnukStats2");
 		AdvancedWekaFileCreator creator20 = new VnukStatsAdvancedWekaFileCreator2();
 		creator20.createAndBuildWekaFiles();
-		System.out.println("\n___CREATING NEW FILE: HatStats2");
-		AdvancedWekaFileCreator creator201 = new HatStatsAdvancedWekaFileCreator2();
-		creator201.createAndBuildWekaFiles();
-		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStats2");
-		AdvancedWekaFileCreator creator21 = new RatingProportionsVnukStatsAdvancedWekaFileCreator2();
-		creator21.createAndBuildWekaFiles();
-		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsVnukStats2");
-		AdvancedWekaFileCreator creator22 = new DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator2();
-		creator22.createAndBuildWekaFiles();
-		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsCharVnukStats2");
-		AdvancedWekaFileCreator creator23 = new DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator2();
-		creator23.createAndBuildWekaFiles();
+//		System.out.println("\n___CREATING NEW FILE: HatStats2");
+//		AdvancedWekaFileCreator creator201 = new HatStatsAdvancedWekaFileCreator2();
+//		creator201.createAndBuildWekaFiles();
+//		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStats2");
+//		AdvancedWekaFileCreator creator21 = new RatingProportionsVnukStatsAdvancedWekaFileCreator2();
+//		creator21.createAndBuildWekaFiles();
+//		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsVnukStats2");
+//		AdvancedWekaFileCreator creator22 = new DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator2();
+//		creator22.createAndBuildWekaFiles();
+//		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsCharVnukStats2");
+//		AdvancedWekaFileCreator creator23 = new DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator2();
+//		creator23.createAndBuildWekaFiles();
 		System.out.println("ALL DONE");
 	}
 	

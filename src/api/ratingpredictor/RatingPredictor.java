@@ -133,7 +133,7 @@ public class RatingPredictor {
 				new HattrickObjectCreator().getTraining(teamId));
 	}
 	
-	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, TrainerType trainerType, Training training) throws IOException, IllegalXMLException
+	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, TrainerType trainerType, Training training)
 	{
 		this.positions = positions;
 		
@@ -176,7 +176,6 @@ public class RatingPredictor {
 		this.centralDefenderPenalty = (nbCentralDefender == 1 ) ? 1 : ((nbCentralDefender == 2) ? 0.9647 : 0.8731);
 		
 		this.ratingsPredicted = false;
-		
 	}
 	
 	public void producePredictions() throws InvalidBehaviourForRoleException

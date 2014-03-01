@@ -17,7 +17,7 @@ public class PlayerBehaviour {
 		this.behaviour = behaviour;
 	}
 	
-	public PlayerBehaviour(Player player, MatchBehaviourID behaviour) throws IOException, IllegalXMLException {
+	public PlayerBehaviour(Player player, MatchBehaviourID behaviour){
 		this.player = player;
 		this.behaviour = behaviour;
 	}
