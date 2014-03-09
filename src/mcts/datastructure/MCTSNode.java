@@ -15,6 +15,7 @@ public abstract class MCTSNode {
 	public MCTSNode(MCTSNode parent, ChoiceSet choiceSet)
 	{
 		this.parent = parent;
+		this.visits = 0;
 		if(parent != null)
 			parent.addChild(this);
 		this.children = new ArrayList<MCTSNode>();
@@ -76,6 +77,8 @@ public abstract class MCTSNode {
 	{
 		setValue((getValue()*getVisits()+value)/(getVisits()+1));
 		addVisit();
+		if(parent != null)
+			parent.backPropagate(value);
 	}
 	
 	protected int getVisits() {

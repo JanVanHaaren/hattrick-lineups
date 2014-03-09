@@ -44,13 +44,7 @@ public class MCTSAlgorithm {
 		
 		double result = getSimulation().simulate(lastNode);
 		
-		currentNode = lastNode;
-		
-		while(currentNode != null)
-		{
-			currentNode.backPropagate(result);
-			currentNode = currentNode.getParent();
-		}
+		lastNode.backPropagate(result);
 	}
 	
 	private double getBestMove(){

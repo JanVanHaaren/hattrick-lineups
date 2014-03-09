@@ -75,18 +75,6 @@ public class FillChoiceSet extends HattrickChoiceSet{
 	}
 
 	@Override
-	public double valuation() {
-		TeamRatings teamRatings;
-		try {
-			teamRatings = TeamRatings.predictHomeTeamRatings(this);
-		} catch (InvalidBehaviourForRoleException e) {
-			e.printStackTrace();
-			return 0;
-		}
-		return teamRatings.getVnukStats();
-	}
-
-	@Override
 	public boolean isComplete() {
 		return assignedMapping.size() == 11;
 	}

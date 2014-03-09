@@ -36,7 +36,7 @@ public abstract class OMCVariantNode extends MCTSNode {
 	protected double getStandardDeviation() {
 		if(this.recalculate)
 		{
-			setStandardDeviation(Math.sqrt(getSquaredValuesSum() + Math.pow(getValue(), 2)));
+			setStandardDeviation(Math.sqrt(getSquaredValuesSum()/getVisits() - Math.pow(getValue(), 2)));
 			this.recalculate = false;
 		}
 		return standardDeviation;

@@ -40,6 +40,18 @@ public abstract class HattrickChoiceSet extends ChoiceSet {
 	public boolean isNumeric() {
 		return numeric;
 	}
+	
+	@Override
+	public double valuation() {
+		TeamRatings teamRatings;
+		try {
+			teamRatings = TeamRatings.predictHomeTeamRatings(this);
+		} catch (InvalidBehaviourForRoleException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return teamRatings.getVnukStats();
+	}
 
 	public double getSimulationResult(){
 		Instance predictionInstance;

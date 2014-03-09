@@ -25,12 +25,6 @@ public class SwapChoiceSet extends HattrickChoiceSet {
 	}
 
 	@Override
-	public double valuation() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public boolean isComplete() {
 		// TODO Auto-generated method stub
 		return false;

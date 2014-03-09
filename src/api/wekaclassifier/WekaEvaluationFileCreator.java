@@ -16,9 +16,9 @@ public abstract class WekaEvaluationFileCreator {
 //			System.out.println("EVAL 1");
 //			WekaEvaluationFileCreator wefc = new WekaEvaluationFileCreator("advancedHatStats2", false);
 //			wefc.createEvaluationFile2();
-//			System.out.println("EVAL 2");
-//			WekaEvaluationFileCreator wefc2 = new WekaEvaluationFileCreator("advancedVnukStats2", false);
-//			wefc2.createEvaluationFile2();
+			System.out.println("EVAL 2");
+			WekaEvaluationFileCreator wefc2 = new WekaNumericEvaluationFileCreator("advancedVnukStats2_blub");
+			wefc2.createEvaluationFile();
 //			System.out.println("EVAL 3");
 //			WekaEvaluationFileCreator wefc3 = new WekaEvaluationFileCreator("advancedRatingProportions_VnukStats2", false);
 //			wefc3.createEvaluationFile2();
@@ -34,7 +34,6 @@ public abstract class WekaEvaluationFileCreator {
 //			System.out.println("EVAL 7");
 //			WekaEvaluationFileCreator wefc7 = new WekaEvaluationFileCreator("advancedDiscreteRatingProportionsChar_VnukStats2", false);
 //			wefc7.createEvaluationFile2();
-			blub();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,9 +61,4 @@ public abstract class WekaEvaluationFileCreator {
 	}
 	
 	public abstract void createEvaluationFile() throws Exception;
-	
-	public static void blub() throws Exception
-	{
-		
-	}
 }

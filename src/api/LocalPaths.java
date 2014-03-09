@@ -26,6 +26,7 @@ public class LocalPaths {
 	
 //	//WEKA
 	public static final String XML_5000 = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\XML_SIMPLE\\";
+	public static final String WEKA_5000 = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\WEKA\\";
 //	public static final String WEKA_LOCATION = inWindows ?
 //			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\Weka\\" :
 //			"/cw/dtailocal/s0217261/Weka/";
