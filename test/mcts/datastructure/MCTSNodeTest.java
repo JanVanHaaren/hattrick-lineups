@@ -39,6 +39,9 @@ public class MCTSNodeTest {
 		childNode2.backPropagate(0.6);
 		parentNode.backPropagate(0.9);
 		
+		System.out.println(childNode1.getValue());
+		System.out.println(childNode2.getValue());
+		System.out.println(childNode3.getValue());
 		assertEquals(childNode1, parentNode.getMaxChild());
 		
 		assertEquals(childNode1, childNode1.getMaxSibling());
@@ -52,11 +55,11 @@ public class MCTSNodeTest {
 		assertEquals(4, parentNode.getVisits());
 		assertEquals(1, childNode1.getVisits());
 		assertEquals(2, childNode2.getVisits());
-		assertEquals(0, childNode3.getVisits());
+		assertEquals(1, childNode3.getVisits());
 		
 		assertEquals(0.6, childNode1.getValue(), 0.0000001);
 		assertEquals(0.45, childNode2.getValue(), 0.0000001);
-		assertEquals(0, childNode3.getValue(), 0.0000001);
+		assertEquals(0.5, childNode3.getValue(), 0.0000001);
 		assertEquals(0.6, parentNode.getValue(), 0.0000001);
 	}
 	

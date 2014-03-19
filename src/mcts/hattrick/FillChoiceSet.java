@@ -11,7 +11,6 @@ import api.entity.datatype.MatchBehaviourID;
 import api.entity.datatype.MatchRoleID;
 import api.entity.datatype.TrainerType;
 import api.entity.playerdetails.Player;
-import api.exception.InvalidBehaviourForRoleException;
 import api.ratingpredictor.PlayerBehaviour;
 
 public class FillChoiceSet extends HattrickChoiceSet{

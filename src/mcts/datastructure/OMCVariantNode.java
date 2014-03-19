@@ -1,5 +1,8 @@
 package mcts.datastructure;
 
+import mcts.algorithm.Epsilon;
+import mcts.hattrick.Data;
+
 public abstract class OMCVariantNode extends MCTSNode {
 
 	private double standardDeviation;
@@ -39,7 +42,14 @@ public abstract class OMCVariantNode extends MCTSNode {
 			setStandardDeviation(Math.sqrt(getSquaredValuesSum()/getVisits() - Math.pow(getValue(), 2)));
 			this.recalculate = false;
 		}
-		return standardDeviation;
+		
+		if(this.standardDeviation == 0)
+		{
+			if(getChoiceSet().isNumeric())
+				return Data.DEFAULT_SD_NUMERIC;
+			return Data.DEFAULT_SD_NOMINAL;
+		}
+		return this.standardDeviation;
 	}
 
 	private void setStandardDeviation(double standardDeviation) {
@@ -65,6 +75,6 @@ public abstract class OMCVariantNode extends MCTSNode {
 	@Override
 	protected double getSelectionValue(){
 		
-		return getFairness(getUrgency());
+		return getFairness(getUrgency()) + Math.random()*Epsilon.epsilon();
 	}
 }

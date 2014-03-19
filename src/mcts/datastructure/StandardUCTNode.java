@@ -10,9 +10,7 @@ public class StandardUCTNode extends UCTVariantNode {
 	
 	@Override
 	public double getSelectionValue() {
-		if (getVisits() == 0)
-			return getChoiceSet().getNeutralValue() + getC() + Math.random()*Epsilon.epsilon(); //TODO: + C?
-		return getValue() + getC()*Math.sqrt(Math.log(getParent().getVisits())/getVisits());
+		return getValue() + getC()*Math.sqrt(Math.log(getParent().getVisits())/getVisits()) + Math.random()*Epsilon.epsilon();
 	}
 
 	@Override

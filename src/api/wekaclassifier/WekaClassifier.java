@@ -50,7 +50,6 @@ public class WekaClassifier {
 		{
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

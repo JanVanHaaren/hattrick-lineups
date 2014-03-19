@@ -60,13 +60,10 @@ public abstract class HattrickChoiceSet extends ChoiceSet {
 			predictionInstance = HattrickInstanceBuilder.buildInstance(homeTeamRatings, this.getAwayRatings());
 			HattrickClassifier hc = isNumeric() ? HattrickClassifier.getNumericInstance() : HattrickClassifier.getNominalInstance();
 			return hc.getPredictionResult(predictionInstance);
-			//TODO: beide
 		} catch (InvalidBehaviourForRoleException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;

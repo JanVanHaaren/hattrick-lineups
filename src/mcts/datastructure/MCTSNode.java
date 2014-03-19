@@ -66,7 +66,27 @@ public abstract class MCTSNode {
 	}
 
 	protected double getValue() {
+		if(this.visits == 0 && getParent() != null)
+			return getParent().getActualChildValueAverage();
 		return value;
+	}
+	
+	private double getActualValue() {
+		return this.value;
+	}
+	
+	private double getActualChildValueAverage() {
+		double totalValue = 0;
+		double totalVisits = 0;
+		for(MCTSNode node : getChildren())
+		{
+			totalValue += node.getActualValue()*node.getActualVisits();
+			totalVisits += node.getActualVisits();
+		}
+		
+		if(totalVisits == 0)
+			return 0;
+		return totalValue / totalVisits;
 	}
 
 	private void setValue(double value) {
@@ -75,13 +95,19 @@ public abstract class MCTSNode {
 	
 	public void backPropagate(double value)
 	{
-		setValue((getValue()*getVisits()+value)/(getVisits()+1));
+		setValue((getValue()*getActualVisits()+value)/(getActualVisits()+1));
 		addVisit();
 		if(parent != null)
 			parent.backPropagate(value);
 	}
 	
 	protected int getVisits() {
+		if(this.visits == 0)
+			return 1;
+		return visits;
+	}
+	
+	private int getActualVisits() {
 		return visits;
 	}
 

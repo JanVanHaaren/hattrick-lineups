@@ -12,7 +12,6 @@ public class MatchCounter {
 		try {
 			System.out.println("Count: " + getMatchCount());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

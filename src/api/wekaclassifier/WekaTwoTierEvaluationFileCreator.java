@@ -28,7 +28,6 @@ public class WekaTwoTierEvaluationFileCreator {
 		try {
 			new WekaTwoTierEvaluationFileCreator("advancedRatingProportions_Vnukstats2");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

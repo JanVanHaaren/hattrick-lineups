@@ -27,7 +27,6 @@ public class HattrickClassifier {
 	
 	private HattrickClassifier(WekaClassifier classifier){
 		this.classifier = classifier;
-		//TODO
 	}
 	
 	private WekaClassifier getClassifier() {

@@ -29,25 +29,19 @@ public class PBBMNodeTest {
 
 	@Test
 	public void testGetUrgency() {
-		childNode1.backPropagate(-1);
-		childNode2.backPropagate(1);
+		childNode1.backPropagate(-1); //sd 0.5
+		childNode2.backPropagate(1); //sd 2
 		childNode2.backPropagate(5);
-		childNode3.backPropagate(0.5);
+		childNode3.backPropagate(0.5); //sd 
 		childOf3Node1.backPropagate(0);
 		childOf3Node2.backPropagate(1);
 		
-		assertEquals(1, childNode1.getUrgency(), 0.00001);
+		assertEquals(0.0371507, childNode1.getUrgency(), 0.00001);
 		assertEquals(1, childNode2.getUrgency(), 0.00001);
-		assertEquals(1, childNode3.getUrgency(), 0.00001);
-		assertEquals(1, childOf3Node1.getUrgency(), 0.00001);
+		assertEquals(0.125123, childNode3.getUrgency(), 0.00001);
+		assertEquals(0.0907180, childOf3Node1.getUrgency(), 0.00001);
+		assertEquals(1, childOf3Node2.getUrgency(), 0.00001);
 		
-		//TODO: wat doen met standaardafwijkingen =0
-		
-//		assertEquals(2.0591260281974000631594738928395, parentNode.getStandardDeviation(), 0.00001);
-//		assertEquals(0, childNode1.getStandardDeviation(), 0.00001);
-//		assertEquals(2, childNode2.getStandardDeviation(), 0.00001);
-//		assertEquals(0.25, childNode3.getStandardDeviation(), 0.00001);
-//		assertEquals(0, childOf3Node1.getStandardDeviation(), 0.00001);
 	}
 
 }

@@ -48,8 +48,7 @@ public class MCTSAlgorithm {
 	}
 	
 	private double getBestMove(){
-		//TODO: implement
-		return -1;
+		return getTree().getBestNode().getChoiceSet().getSimulationResult();
 	}
 	
 	public double execute(){

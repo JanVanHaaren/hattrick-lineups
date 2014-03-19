@@ -13,4 +13,6 @@ public abstract class ChoiceSet {
 	public abstract double getSimulationResult();
 	
 	public abstract double getNeutralValue();
+	
+	public abstract boolean isNumeric();
 }

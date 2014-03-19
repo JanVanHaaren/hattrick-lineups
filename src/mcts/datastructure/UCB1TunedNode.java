@@ -1,5 +1,8 @@
 package mcts.datastructure;
 
+import mcts.algorithm.Epsilon;
+import mcts.hattrick.Data;
+
 public class UCB1TunedNode extends UCTVariantNode {
 
 	private double standardDeviation;
@@ -38,10 +41,17 @@ public class UCB1TunedNode extends UCTVariantNode {
 	protected double getStandardDeviation() {
 		if(this.recalculate)
 		{
-			setStandardDeviation(Math.sqrt(getSquaredValuesSum() + Math.pow(getValue(), 2)));
+			setStandardDeviation(Math.sqrt(getSquaredValuesSum()/getVisits() - Math.pow(getValue(), 2)));
 			this.recalculate = false;
 		}
-		return standardDeviation;
+		
+		if(this.standardDeviation == 0)
+		{
+			if(getChoiceSet().isNumeric())
+				return Data.DEFAULT_SD_NUMERIC;
+			return Data.DEFAULT_SD_NOMINAL;
+		}
+		return this.standardDeviation;
 	}
 
 	private void setStandardDeviation(double standardDeviation) {
@@ -55,7 +65,9 @@ public class UCB1TunedNode extends UCTVariantNode {
 
 	@Override
 	public double getSelectionValue() {
-		return getValue() + getC()*Math.sqrt((Math.log(getParent().getVisits())/getVisits())*Math.min(0.25,  getV()));
+		return getValue()
+			+ getC()*Math.sqrt((Math.log(getParent().getVisits())/getVisits())*Math.min(0.25,  getV()))
+			+ Math.random()*Epsilon.epsilon();
 	}
 
 	@Override

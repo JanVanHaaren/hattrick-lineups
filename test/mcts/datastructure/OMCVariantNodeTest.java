@@ -2,6 +2,7 @@ package mcts.datastructure;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +19,7 @@ public class OMCVariantNodeTest {
 	@Before
 	public void setUp() throws Exception {
 		ChoiceSet choiceSetMock = mock(ChoiceSet.class);
+		when(choiceSetMock.isNumeric()).thenReturn(false);
 		
 		parentNode = new OMCVariantNodeInstantiation(null, choiceSetMock,0);
 		childNode1 = new OMCVariantNodeInstantiation(parentNode, choiceSetMock, 0.5);
@@ -49,10 +51,10 @@ public class OMCVariantNodeTest {
 		childOf3Node1.backPropagate(0);
 		
 		assertEquals(2.0591260281974000631594738928395, parentNode.getStandardDeviation(), 0.00001);
-		assertEquals(0, childNode1.getStandardDeviation(), 0.00001);
+		assertEquals(0.5, childNode1.getStandardDeviation(), 0.00001);
 		assertEquals(2, childNode2.getStandardDeviation(), 0.00001);
 		assertEquals(0.25, childNode3.getStandardDeviation(), 0.00001);
-		assertEquals(0, childOf3Node1.getStandardDeviation(), 0.00001);
+		assertEquals(0.5, childOf3Node1.getStandardDeviation(), 0.00001);
 	}
 	
 	private class OMCVariantNodeInstantiation extends OMCVariantNode
