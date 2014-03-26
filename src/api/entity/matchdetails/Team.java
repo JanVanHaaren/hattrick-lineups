@@ -1,6 +1,5 @@
 package api.entity.matchdetails;
 
-import weka.classifiers.Evaluation;
 import api.entity.datatype.MatchRating;
 import api.entity.datatype.MatchTacticType;
 import api.entity.datatype.MatchTeamAttitude;
@@ -18,12 +17,6 @@ public class Team {
 	private String dressURI;
 	
 	private String formation;
-	
-	private int defCount;
-	
-	private int midCount;
-	
-	private int attCount;
 	
 	private int goals;
 	

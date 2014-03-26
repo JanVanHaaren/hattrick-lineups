@@ -37,10 +37,12 @@ public class RatingPredictor {
 	
 	private Training training;
 	
+	private boolean homeMatch;
+	
 	public static void main(String[] args) throws IOException, IllegalXMLException, InvalidBehaviourForRoleException {
 		Map<MatchRoleID,PlayerBehaviour> positions = new HashMap<MatchRoleID, PlayerBehaviour>();
 		
-		RatingPredictor rp = janPlayers(positions);
+		RatingPredictor rp = aaronPlayers2(positions);
 		rp.producePredictions();
 		System.out.println("Rightdef: " + rp.predictRatingRightDef());
 		System.out.println("Middef: " + rp.predictRatingMidDef());
@@ -78,7 +80,7 @@ public class RatingPredictor {
 		positions.put(MatchRoleID.RIGHT_FORWARD, new PlayerBehaviour(forwardR, MatchBehaviourID.NORMAL));
 		positions.put(MatchRoleID.LEFT_FORWARD, new PlayerBehaviour(forwardL, MatchBehaviourID.NORMAL));
 		
-		return new RatingPredictor(positions, TrainerType.BALANCED, new Training(4,4));
+		return new RatingPredictor(positions, TrainerType.BALANCED, new Training(4,4), false);
 	}
 	
 	private static RatingPredictor aaronPlayers2(Map<MatchRoleID,PlayerBehaviour> positions) throws IOException, IllegalXMLException
@@ -106,7 +108,7 @@ public class RatingPredictor {
 		positions.put(MatchRoleID.RIGHT_FORWARD, new PlayerBehaviour(forwardR, MatchBehaviourID.NORMAL));
 		positions.put(MatchRoleID.LEFT_FORWARD, new PlayerBehaviour(forwardL, MatchBehaviourID.NORMAL));
 		
-		return new RatingPredictor(positions, TrainerType.DEFENSIVE, new Training(4,5));
+		return new RatingPredictor(positions, TrainerType.DEFENSIVE, new Training(4,5), true);
 	}
 	
 	private static RatingPredictor aaronPlayers(Map<MatchRoleID,PlayerBehaviour> positions) throws IOException, IllegalXMLException
@@ -123,17 +125,18 @@ public class RatingPredictor {
 		positions.put(MatchRoleID.RIGHT_FORWARD, new PlayerBehaviour(386236373, MatchBehaviourID.NORMAL)); //Godfroid
 		positions.put(MatchRoleID.LEFT_FORWARD, new PlayerBehaviour(386236372, MatchBehaviourID.NORMAL)); //Pauwels
 		
-		return new RatingPredictor(positions, 386236362, 321576);
+		return new RatingPredictor(positions, 386236362, 321576, false);
 	}
 	
-	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, int trainerId, int teamId) throws IOException, IllegalXMLException
+	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, int trainerId, int teamId, boolean homeMatch) throws IOException, IllegalXMLException
 	{
 		this(positions,
 				new HattrickObjectCreator().getPlayerDetails(trainerId).getPlayer().getTrainerData().getTrainerType(),
-				new HattrickObjectCreator().getTraining(teamId));
+				new HattrickObjectCreator().getTraining(teamId),
+				homeMatch);
 	}
 	
-	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, TrainerType trainerType, Training training)
+	public RatingPredictor(Map<MatchRoleID,PlayerBehaviour> positions, TrainerType trainerType, Training training, boolean homeMatch)
 	{
 		this.positions = positions;
 		
@@ -152,6 +155,8 @@ public class RatingPredictor {
 		this.trainerType = trainerType;
 		
 		this.training = training;
+		
+		this.homeMatch = homeMatch;
 		
 		for(MatchRoleID role : positions.keySet())
 		{
@@ -273,6 +278,8 @@ public class RatingPredictor {
 		this.ratingMidDef *= this.trainerType.equals(TrainerType.BALANCED) ? 1.05 : ((this.trainerType.equals(TrainerType.OFFENSIVE)) ? 0.928162 : 1.196307);
 	
 		this.ratingMidField *= Math.pow(0.147832*((double)this.training.getMorale()), 0.417779);
+		if(this.homeMatch)
+			this.ratingMidField *= 1.20;
 		
 		this.ratingRightAtt *= (1.0 + 0.0525 * ((double)(this.training.getConfidence() - 5)));
 		this.ratingLeftAtt *= (1.0 + 0.0525 * ((double)(this.training.getConfidence() - 5)));

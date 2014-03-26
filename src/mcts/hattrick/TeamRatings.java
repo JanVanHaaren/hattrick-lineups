@@ -27,8 +27,24 @@ public class TeamRatings {
 	
 	public static TeamRatings predictHomeTeamRatings(HattrickChoiceSet choiceSet) throws InvalidBehaviourForRoleException
 	{
-		RatingPredictor rp = new RatingPredictor(choiceSet.getFieldSetup(), choiceSet.getTrainerType(), choiceSet.getTraining());
+		RatingPredictor rp = new RatingPredictor(choiceSet.getFieldSetup(), choiceSet.getTrainerType(), choiceSet.getTraining(), true);
 		
+		TeamRatings teamRatings = predictRatings(rp);
+		
+		return teamRatings;
+	}
+	
+	public static TeamRatings predictAwayTeamRatings(HattrickChoiceSet choiceSet) throws InvalidBehaviourForRoleException
+	{
+		RatingPredictor rp = new RatingPredictor(choiceSet.getFieldSetup(), choiceSet.getTrainerType(), choiceSet.getTraining(), false);
+		
+		TeamRatings teamRatings = predictRatings(rp);
+		
+		return teamRatings;
+	}
+
+	private static TeamRatings predictRatings(RatingPredictor rp)
+			throws InvalidBehaviourForRoleException {
 		double predictRatingMidField = rp.predictRatingMidField();
 		double predictRatingRightDef = rp.predictRatingRightDef();
 		double predictRatingMidDef = rp.predictRatingMidDef();
@@ -40,7 +56,6 @@ public class TeamRatings {
 		TeamRatings teamRatings = new TeamRatings(predictRatingMidField,
 				predictRatingRightDef, predictRatingMidDef, predictRatingLeftDef,
 				predictRatingRightAtt, predictRatingMidAtt, predictRatingLeftAtt);
-		
 		return teamRatings;
 	}
 
@@ -77,5 +92,18 @@ public class TeamRatings {
 		return 5*getRatingMidField()
 				+ getRatingLeftAtt() + getRatingMidAtt() + getRatingRightAtt()
 				+ getRatingLeftDef() + getRatingMidDef() + getRatingRightDef();
+	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		result += "\tMidfield = " + getRatingMidField();
+		result += "\tRightDef = " + getRatingRightDef();
+		result += "\tMidDef = " + getRatingMidDef();
+		result += "\tLeftDef = " + getRatingLeftDef();
+		result += "\tRightAtt = " + getRatingRightAtt();
+		result += "\tMidAtt = " + getRatingMidAtt();
+		result += "\tLeftAtt = " + getRatingLeftAtt();
+		return result;
 	}
 }

@@ -20,7 +20,9 @@ public class WekaClassifier {
 	private Evaluation evaluation;
 	
 	private long timeForEvaluation; //7759 instances buiten bij playershizz
-		
+	
+	
+	
 	public WekaClassifier(Classifier classifier, String filepathTraining, String filepathTest){
 		this.classifier = classifier;
 		
@@ -54,7 +56,27 @@ public class WekaClassifier {
 		}
 	}
 	
-	private Classifier getClassifier() {
+	public WekaClassifier(String modelFilePath, String filepathTraining, String filepathTest) {
+		try {
+			ArffLoader loader = new ArffLoader();
+			loader.setFile(new File(filepathTraining));
+			Instances trainingSet = loader.getDataSet();
+			trainingSet.setClassIndex(trainingSet.numAttributes() - 1);
+			this.isNumeric = trainingSet.attribute(trainingSet.numAttributes() - 1).isNumeric();
+			this.trainingSet = trainingSet;
+			
+			loader = new ArffLoader();
+			loader.setFile(new File(filepathTest));
+			Instances testSet = loader.getDataSet();
+			testSet.setClassIndex(testSet.numAttributes() - 1);
+			this.testSet = testSet;
+			this.classifier = (Classifier) weka.core.SerializationHelper.read(modelFilePath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Classifier getClassifier() {
 		return classifier;
 	}
 	

@@ -23,6 +23,7 @@ public class MCTSNodeTest {
 		childNode1 = new MCTSNodeInstantiation(parentNode, choiceSetMock);
 		childNode2 = new MCTSNodeInstantiation(parentNode, choiceSetMock);
 		childNode3 = new MCTSNodeInstantiation(parentNode, choiceSetMock);
+		
 	}
 	
 	public void testGetChildren(){
@@ -39,9 +40,6 @@ public class MCTSNodeTest {
 		childNode2.backPropagate(0.6);
 		parentNode.backPropagate(0.9);
 		
-		System.out.println(childNode1.getValue());
-		System.out.println(childNode2.getValue());
-		System.out.println(childNode3.getValue());
 		assertEquals(childNode1, parentNode.getMaxChild());
 		
 		assertEquals(childNode1, childNode1.getMaxSibling());

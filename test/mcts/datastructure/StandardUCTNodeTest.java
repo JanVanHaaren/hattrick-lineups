@@ -13,8 +13,6 @@ public class StandardUCTNodeTest {
 	private StandardUCTNode childNode2;
 	private StandardUCTNode childNode3;
 	private StandardUCTNode childOf3Node1;
-	private StandardUCTNode childOf3Node2;
-	
 	@Before
 	public void setUp() throws Exception {
 		ChoiceSet choiceSetMock = mock(ChoiceSet.class);
@@ -24,7 +22,7 @@ public class StandardUCTNodeTest {
 		childNode2 = new StandardUCTNode(parentNode, choiceSetMock, 2);
 		childNode3 = new StandardUCTNode(parentNode, choiceSetMock, 4);
 		childOf3Node1 = new StandardUCTNode(childNode3, choiceSetMock, 0);
-		childOf3Node2 = new StandardUCTNode(childNode3, choiceSetMock, 1);
+		new StandardUCTNode(childNode3, choiceSetMock, 1);
 	}
 
 	@Test

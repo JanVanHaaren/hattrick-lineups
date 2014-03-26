@@ -18,7 +18,8 @@ import java.util.Map;
 import api.LocalPaths;
 import api.exception.DiscardException;
 import api.exception.IllegalXMLException;
-import api.wekafilecreation.advancedgoaldiff.VnukStatsAdvancedWekaFileCreator2;
+import api.wekafilecreation.advancedgoaldiff.NaiveAdvancedWekaFileCreator2;
+import api.wekafilecreation.advancedgoaldiff.RatingProportionsVnukStatsAdvancedWekaFileCreator2;
 
 public abstract class AdvancedWekaFileCreator{
 	
@@ -45,15 +46,18 @@ public abstract class AdvancedWekaFileCreator{
 //		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsCharVnukStats");
 //		AdvancedWekaFileCreator creator3 = new DiscreteRatingProportionsCharVnukStatsAdvancedWekaFileCreator();
 //		creator3.createAndBuildWekaFiles();
-		System.out.println("___CREATING NEW FILE: VnukStats2");
-		AdvancedWekaFileCreator creator20 = new VnukStatsAdvancedWekaFileCreator2();
-		creator20.createAndBuildWekaFiles();
+//		System.out.println("___CREATING NEW FILE: VnukStats2");
+//		AdvancedWekaFileCreator creator20 = new VnukStatsAdvancedWekaFileCreator2();
+//		creator20.createAndBuildWekaFiles();
 //		System.out.println("\n___CREATING NEW FILE: HatStats2");
 //		AdvancedWekaFileCreator creator201 = new HatStatsAdvancedWekaFileCreator2();
 //		creator201.createAndBuildWekaFiles();
-//		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStats2");
-//		AdvancedWekaFileCreator creator21 = new RatingProportionsVnukStatsAdvancedWekaFileCreator2();
-//		creator21.createAndBuildWekaFiles();
+		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStats2");
+		AdvancedWekaFileCreator creator21 = new RatingProportionsVnukStatsAdvancedWekaFileCreator2();
+		creator21.createAndBuildWekaFiles();
+		System.out.println("\n___CREATING NEW FILE: RatingProportionsVnukStats2");
+		AdvancedWekaFileCreator creator25 = new NaiveAdvancedWekaFileCreator2();
+		creator25.createAndBuildWekaFiles();
 //		System.out.println("\n___CREATING NEW FILE: DiscreteRatingProportionsVnukStats2");
 //		AdvancedWekaFileCreator creator22 = new DiscreteRatingProportionsVnukStatsAdvancedWekaFileCreator2();
 //		creator22.createAndBuildWekaFiles();

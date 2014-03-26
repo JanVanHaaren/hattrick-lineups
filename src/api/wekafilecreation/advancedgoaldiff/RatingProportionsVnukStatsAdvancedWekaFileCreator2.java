@@ -17,7 +17,7 @@ public class RatingProportionsVnukStatsAdvancedWekaFileCreator2 extends
 
 	@Override
 	protected String getFileName() {
-		return "advancedRatingProportions_VnukStats2";
+		return "advancedRatingProportions_VnukStats2_blub";
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public class RatingProportionsVnukStatsAdvancedWekaFileCreator2 extends
 		Team homeTeam = matchDetails.getMatch().getHomeTeam();
 		Team awayTeam = matchDetails.getMatch().getAwayTeam();
 		int homeAdvantage = homeTeam.getGoals() - awayTeam.getGoals();
-		if(homeAdvantage == 0)
-			return "";
+//		if(homeAdvantage == 0)
+//			return "";
 		
 		String dataString = "";
 		dataString += (double)homeTeam.getRatingMidField().getValue()/((double)homeTeam.getRatingMidField().getValue() + (double)awayTeam.getRatingMidField().getValue()) + ",";

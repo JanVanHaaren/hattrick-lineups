@@ -1,5 +1,6 @@
 package mcts.algorithm;
 
+import mcts.datastructure.ChoiceSet;
 import mcts.datastructure.MCTSNode;
 import mcts.datastructure.MCTSTree;
 import mcts.simulation.Simulation;
@@ -47,15 +48,13 @@ public class MCTSAlgorithm {
 		lastNode.backPropagate(result);
 	}
 	
-	private double getBestMove(){
-		return getTree().getBestNode().getChoiceSet().getSimulationResult();
-	}
-	
-	public double execute(){
+	public ChoiceSet execute(){
+		System.out.println("executing");
 		for(int i = 0; i < getMaxIterations(); i++){
-			System.out.println(i);
+			if(i % 10 == 0)
+				System.out.println("current step: " + i);
 			executeStep();
 		}
-		return getBestMove();
+		return getTree().getBestNode().getChoiceSet();
 	}
 }

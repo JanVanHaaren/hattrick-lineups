@@ -8,7 +8,8 @@ import mcts.datastructure.ChoiceSet;
 public class PureRandomSimulation extends Simulation {
 
 	@Override
-	protected ChoiceSet selectChoice(ArrayList<ChoiceSet> extensions) {
+	protected ChoiceSet selectExtension(ChoiceSet choiceSet) {
+		ArrayList<ChoiceSet> extensions = choiceSet.expand();
 		return extensions.get(new Random().nextInt(extensions.size()));
 	}
 

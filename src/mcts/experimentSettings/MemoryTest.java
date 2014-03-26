@@ -6,12 +6,10 @@ import java.util.Map;
 
 import mcts.datastructure.ChoiceSet;
 import mcts.datastructure.MCTSNode;
-import mcts.datastructure.StandardUCTNode;
+import mcts.datastructure.PBBMNode;
 import mcts.hattrick.FillChoiceSet;
 import mcts.hattrick.HattrickChoiceSet;
 import mcts.hattrick.TeamRatings;
-import mcts.simulation.Simulation;
-import mcts.simulation.VnukStatsRouletteSimulation;
 import api.entity.Training;
 import api.entity.datatype.MatchBehaviourID;
 import api.entity.datatype.MatchRoleID;
@@ -19,15 +17,22 @@ import api.entity.datatype.SpecialtyID;
 import api.entity.datatype.TrainerType;
 import api.entity.playerdetails.Player;
 
-public class TestExperiment extends Experiment {
-
+public class MemoryTest {
 	public static void main(String[] args) {
-		TestExperiment experiment = new TestExperiment();
-		System.out.println(experiment.execute());
+		ChoiceSet choiceSet = getChoiceSet();
+		MCTSNode root = new PBBMNode(null, choiceSet);
+		
+		int i = 0;
+		while(true)
+		{
+			new PBBMNode(root, choiceSet.expand().get(0));
+			i++;
+			if(i % 1000 == 0)
+				System.out.println(root.getChildren().size());
+		}
 	}
 	
-	@Override
-	protected ArrayList<Player> getPlayers() {
+	private static ArrayList<Player> getPlayers() {
 		ArrayList<Player> players = new ArrayList<Player>();
 		players.add(new Player(-1, false, null, 6, 6, 7, 20, 10, 4, 4, 3, 5, 3)); //Fehér
 		players.add(new Player(-1, false, null, 4, 7, 7, 20, 1, 10, 6, 3, 10, 4)); //Haberecht
@@ -43,8 +48,7 @@ public class TestExperiment extends Experiment {
 		return players;
 	}
 
-	@Override
-	protected Map<MatchRoleID, ArrayList<MatchBehaviourID>> getPositions() {
+	private static Map<MatchRoleID, ArrayList<MatchBehaviourID>> getPositions() {
 		Map<MatchRoleID, ArrayList<MatchBehaviourID>> positions = new HashMap<MatchRoleID, ArrayList<MatchBehaviourID>>();
 		ArrayList<MatchBehaviourID> onlyNormal = new ArrayList<MatchBehaviourID>();
 		onlyNormal.add(MatchBehaviourID.NORMAL);
@@ -62,54 +66,29 @@ public class TestExperiment extends Experiment {
 		return positions;
 	}
 
-	@Override
-	protected TrainerType getTrainerType() {
+	private static TrainerType getTrainerType() {
 		return TrainerType.BALANCED;
 	}
 
-	@Override
-	protected Training getTraining() {
+	private static Training getTraining() {
 		return new Training(4,4);
 	}
 
-	@Override
-	protected TeamRatings getOpponentRatings() {
-		TeamRatings awayRatings = new TeamRatings(15, 15, 15, 15, 15, 15, 15);
+	private static TeamRatings getAwayRatings() {
+		TeamRatings awayRatings = new TeamRatings(20, 20, 20, 20, 20, 20, 20);
 		return awayRatings;
 	}
 
-	@Override
-	protected HattrickChoiceSet getRootChoiceSet(TrainerType trainerType,
-			Training training, TeamRatings opponentRatings, boolean numeric, boolean homeMatch,
+	private static HattrickChoiceSet getRootChoiceSet(TrainerType trainerType,
+			Training training, TeamRatings awayRatings, boolean numeric, boolean homeMatch,
 			ArrayList<Player> players,
 			Map<MatchRoleID, ArrayList<MatchBehaviourID>> positions) {
-		return new FillChoiceSet(trainerType, training, opponentRatings, numeric, homeMatch, players, positions);
+		return new FillChoiceSet(trainerType, training, awayRatings, numeric, homeMatch, players, positions);
 	}
 	
-	protected boolean isNumeric(){
-		return true;
+	public static HattrickChoiceSet getChoiceSet()
+	{
+		return getRootChoiceSet(getTrainerType(), getTraining(), getAwayRatings(), false, false, getPlayers(), getPositions());
 	}
-	
-	protected boolean isHomeMatch(){
-		return false;
-	}
-
-	@Override
-	protected MCTSNode generateRoot(ChoiceSet choiceSet) {
-		return new StandardUCTNode(null, choiceSet, 1);
-	}
-
-	@Override
-	protected int getMaxIterations() {
-		return 5000;
-	}
-
-	@Override
-	protected Simulation getSimulation() {
-		return new VnukStatsRouletteSimulation();
-//		return new PureRandomSimulation();
-	}
-	
-	
 
 }

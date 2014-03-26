@@ -19,19 +19,19 @@ public class FillChoiceSet extends HattrickChoiceSet{
 	private HashMap<MatchRoleID, ArrayList<MatchBehaviourID>> unassignedPositions;
 	private HashMap<MatchRoleID,PlayerBehaviour> assignedMapping;
 	
-	public FillChoiceSet(TrainerType trainerType, Training training, TeamRatings awayRatings, boolean numeric,
+	public FillChoiceSet(TrainerType trainerType, Training training, TeamRatings opponentRatings, boolean numeric, boolean homeMatch,
 			List<Player> unassignedPlayers,
 			Map<MatchRoleID, ArrayList<MatchBehaviourID>> unassignedPositions) {
-		this(trainerType, training, awayRatings, numeric,
+		this(trainerType, training, opponentRatings, numeric, homeMatch, 
 				unassignedPlayers, unassignedPositions,
 				new HashMap<MatchRoleID,PlayerBehaviour>());
 	}
 	
-	public FillChoiceSet(TrainerType trainerType, Training training, TeamRatings awayRatings, boolean numeric,
+	public FillChoiceSet(TrainerType trainerType, Training training, TeamRatings awayRatings, boolean numeric, boolean homeMatch,
 			List<Player> unassignedPlayers,
 			Map<MatchRoleID, ArrayList<MatchBehaviourID>> unassignedPositions,
 			Map<MatchRoleID, PlayerBehaviour> assignedMapping) {
-		super(trainerType, training, awayRatings, numeric);
+		super(trainerType, training, awayRatings, numeric, homeMatch);
 		this.unassignedPlayers = new ArrayList<Player>(unassignedPlayers);
 		this.unassignedPositions = new HashMap<MatchRoleID, ArrayList<MatchBehaviourID>>(unassignedPositions);
 		this.assignedMapping = new HashMap<MatchRoleID,PlayerBehaviour>(assignedMapping);
@@ -66,7 +66,7 @@ public class FillChoiceSet extends HattrickChoiceSet{
 					expandedUnassignedPositions.remove(role);
 					expandedAssignedMapping.put(role, new PlayerBehaviour(player, behaviour));
 					expansion.add(new FillChoiceSet(
-							getTrainerType(), getTraining(), getAwayRatings(), isNumeric(),
+							getTrainerType(), getTraining(), getOpponentRatings(), isNumeric(), isHomeMatch(),
 							expandedUnassignedPlayers, expandedUnassignedPositions,
 							expandedAssignedMapping));
 				}
@@ -77,9 +77,37 @@ public class FillChoiceSet extends HattrickChoiceSet{
 	public boolean isComplete() {
 		return assignedMapping.size() == 11;
 	}
+	
+	@Override
+	public int getDepth() {
+		return getAssignedMapping().size();
+	}
 
 	@Override
 	public Map<MatchRoleID, PlayerBehaviour> getFieldSetup() {
 		return getAssignedMapping();
 	}
+
+	@Override
+	public ChoiceSet getGreedyCompletion() {
+		ChoiceSet completion = this;
+		while(!completion.isComplete())
+		{	
+			double maxValue = -1; //VnukStats altijd positief
+			ChoiceSet maxChoiceSet = null;
+			for(ChoiceSet choiceSetE : completion.expand())
+			{
+				if(choiceSetE.valuation() > maxValue)
+				{
+					maxValue = choiceSetE.valuation();
+					maxChoiceSet = choiceSetE;
+				}
+			}
+			completion = maxChoiceSet;
+		}
+		return completion;
+		
+	}
+
+	
 }

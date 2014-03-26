@@ -517,4 +517,18 @@ public class Player {
 		multiplier *= 1D + 0.0716*Math.pow(Math.max(((double)this.getExperience().getValue()-0.5),0),0.5); // experience
 		return multiplier;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "Experience :" + getExperience().getValue() + "\n"
+				+ "Form :" + getPlayerForm().getValue() + "\n"
+				+ "Stamina :" + getPlayerSkills().getStaminaSkill().getValue() + "\n"
+				+ "Keeper :" + getPlayerSkills().getKeeperSkill().getValue() + "\n"
+				+ "Defender :" + getPlayerSkills().getDefenderSkill().getValue() + "\n"
+				+ "Playmaker :" + getPlayerSkills().getPlaymakerSkill().getValue() + "\n"
+				+ "Passing :" + getPlayerSkills().getPassingSkill().getValue() + "\n"
+				+ "Winger :" + getPlayerSkills().getWingerSkill().getValue() + "\n"
+				+ "Scorer :" + getPlayerSkills().getScorerSkill().getValue() + "\n";
+	}
 }

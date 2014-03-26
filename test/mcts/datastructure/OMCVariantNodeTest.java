@@ -14,8 +14,7 @@ public class OMCVariantNodeTest {
 	private OMCVariantNode childNode2;
 	private OMCVariantNode childNode3;
 	private OMCVariantNode childOf3Node1;
-	private OMCVariantNode childOf3Node2;
-
+	
 	@Before
 	public void setUp() throws Exception {
 		ChoiceSet choiceSetMock = mock(ChoiceSet.class);
@@ -26,7 +25,7 @@ public class OMCVariantNodeTest {
 		childNode2 = new OMCVariantNodeInstantiation(parentNode, choiceSetMock, 2);
 		childNode3 = new OMCVariantNodeInstantiation(parentNode, choiceSetMock, 4);
 		childOf3Node1 = new OMCVariantNodeInstantiation(childNode3, choiceSetMock, 0);
-		childOf3Node2 = new OMCVariantNodeInstantiation(childNode3, choiceSetMock, 1);
+		new OMCVariantNodeInstantiation(childNode3, choiceSetMock, 1);
 	}
 
 	@Test

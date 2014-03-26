@@ -22,6 +22,7 @@ public class NaiveGoalDiffWekaFileCreator extends WekaFileCreator {
 		int homeAdvantage = homeTeam.getGoals() - awayTeam.getGoals();
 		
 		String dataString = "";
+		
 		dataString += homeTeam.getRatingMidField().getValue() + ",";
 		dataString += homeTeam.getRatingRightDef().getValue() + ",";
 		dataString += homeTeam.getRatingMidDef().getValue() + ",";
@@ -37,7 +38,6 @@ public class NaiveGoalDiffWekaFileCreator extends WekaFileCreator {
 		dataString += awayTeam.getRatingRightAtt().getValue() + ",";
 		dataString += awayTeam.getRatingMidAtt().getValue() + ",";
 		dataString += awayTeam.getRatingLeftAtt().getValue() + ",";
-		
 		dataString += homeAdvantage;
 		return dataString + "\n";
 	}

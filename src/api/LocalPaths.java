@@ -32,7 +32,13 @@ public class LocalPaths {
 //			"/cw/dtailocal/s0217261/Weka/";
 	
 	public static final String WEKA_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\Weka\\";
-		
+	
+	public static final String MODEL_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\Model\\";
+	
+	public static final String TEAM_FILES = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\TeamFile\\";
+	
+	public static final String EVALUATION_FILES = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\EvaluationFiles\\";
+	
 	//Creator
 	public static void createXMLDirectoryStructure()
 	{
