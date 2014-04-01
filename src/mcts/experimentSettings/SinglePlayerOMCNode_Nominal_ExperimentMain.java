@@ -25,6 +25,7 @@ import api.entity.playerdetails.Player;
 
 public class SinglePlayerOMCNode_Nominal_ExperimentMain {
 	public static void main(String[] args) {
+		LocalPaths.createMCTSEvaluationDirectory();
 		int x = 1;
 		while(true)
 		{
@@ -64,71 +65,71 @@ public class SinglePlayerOMCNode_Nominal_ExperimentMain {
 					System.out.println("OpponentRatings number " + t + ":\n" + opponentRatings);
 					writer.write("OpponentRatings Number = " + t);
 					writer.newLine();
-					for(int i = 1; i <= 15; i++) //TODO: aanpassen
+					Experiment experiment = new Experiment(){
+						@Override
+						protected ArrayList<Player> getPlayers() {
+							return playerList;
+						}
+						
+						@Override
+						protected Map<MatchRoleID, ArrayList<MatchBehaviourID>> getPositions() {
+							return getBasicPositions();
+						}
+						
+						@Override
+						protected TrainerType getTrainerType() {
+							return TrainerType.BALANCED;
+						}
+						
+						@Override
+						protected Training getTraining() {
+							return new Training(4,4);
+						}
+						
+						@Override
+						protected TeamRatings getOpponentRatings() {
+							return opponentRatings;
+						}
+						
+						@Override
+						protected HattrickChoiceSet getRootChoiceSet(
+								TrainerType trainerType, Training training,
+								TeamRatings opponentRatings, boolean numeric,
+								boolean homeMatch, ArrayList<Player> players,
+								Map<MatchRoleID, ArrayList<MatchBehaviourID>> positions) {
+							return new FillChoiceSet(trainerType, training, opponentRatings, numeric, homeMatch, players, positions);
+						}
+						
+						@Override
+						protected boolean isNumeric() {
+							return false; //TODO: aanpassen
+						}
+						
+						@Override
+						protected boolean isHomeMatch() {
+							return true;
+						}
+						
+						@Override
+						protected MCTSNode generateRoot(ChoiceSet choiceSet) {
+							return new SinglePlayerOMCNode(null, choiceSet, 10);  //TODO: aanpassen
+						}
+						
+						@Override
+						protected int getMaxIterations() {
+							return 1000;
+						}
+						
+						@Override
+						protected Simulation getSimulation() {
+							return new PureRandomSimulation();
+						}
+					};
+					for(int i = 1; i <= 50; i++) //TODO: aanpassen
 					{
+						System.out.println("\t\tMax iterations = " + i*1000);
 						writer.write("\tMax iterations = " + i*1000);
 						writer.newLine();
-						final int j = i;
-						Experiment experiment = new Experiment(){
-							@Override
-							protected ArrayList<Player> getPlayers() {
-								return playerList;
-							}
-			
-							@Override
-							protected Map<MatchRoleID, ArrayList<MatchBehaviourID>> getPositions() {
-								return getBasicPositions();
-							}
-			
-							@Override
-							protected TrainerType getTrainerType() {
-								return TrainerType.BALANCED;
-							}
-			
-							@Override
-							protected Training getTraining() {
-								return new Training(4,4);
-							}
-			
-							@Override
-							protected TeamRatings getOpponentRatings() {
-								return opponentRatings;
-							}
-			
-							@Override
-							protected HattrickChoiceSet getRootChoiceSet(
-									TrainerType trainerType, Training training,
-									TeamRatings opponentRatings, boolean numeric,
-									boolean homeMatch, ArrayList<Player> players,
-									Map<MatchRoleID, ArrayList<MatchBehaviourID>> positions) {
-								return new FillChoiceSet(trainerType, training, opponentRatings, numeric, homeMatch, players, positions);
-							}
-			
-							@Override
-							protected boolean isNumeric() {
-								return false; //TODO: aanpassen
-							}
-			
-							@Override
-							protected boolean isHomeMatch() {
-								return true;
-							}
-			
-							@Override
-							protected MCTSNode generateRoot(ChoiceSet choiceSet) {
-								return new SinglePlayerOMCNode(null, choiceSet, 50);  //TODO: aanpassen
-							}
-			
-							@Override
-							protected int getMaxIterations() {
-								return j*1000;
-							}
-			
-							@Override
-							protected Simulation getSimulation() {
-								return new PureRandomSimulation();
-							}
-						};
 						
 						ChoiceSet result = experiment.execute();
 						writer.write("\t\t"+ result.getDepth()
@@ -176,71 +177,71 @@ public class SinglePlayerOMCNode_Nominal_ExperimentMain {
 					System.out.println("OpponentRatings number " + t + ":\n" + opponentRatings);
 					writer.write("OpponentRatings Number = " + t);
 					writer.newLine();
-					for(int i = 1; i <= 15; i++) //TODO: aanpassen
+					Experiment experiment = new Experiment(){
+						@Override
+						protected ArrayList<Player> getPlayers() {
+							return playerList;
+						}
+						
+						@Override
+						protected Map<MatchRoleID, ArrayList<MatchBehaviourID>> getPositions() {
+							return getBasicPositions();
+						}
+						
+						@Override
+						protected TrainerType getTrainerType() {
+							return TrainerType.BALANCED;
+						}
+						
+						@Override
+						protected Training getTraining() {
+							return new Training(4,4);
+						}
+						
+						@Override
+						protected TeamRatings getOpponentRatings() {
+							return opponentRatings;
+						}
+						
+						@Override
+						protected HattrickChoiceSet getRootChoiceSet(
+								TrainerType trainerType, Training training,
+								TeamRatings opponentRatings, boolean numeric,
+								boolean homeMatch, ArrayList<Player> players,
+								Map<MatchRoleID, ArrayList<MatchBehaviourID>> positions) {
+							return new FillChoiceSet(trainerType, training, opponentRatings, numeric, homeMatch, players, positions);
+						}
+						
+						@Override
+						protected boolean isNumeric() {
+							return false; //TODO: aanpassen
+						}
+						
+						@Override
+						protected boolean isHomeMatch() {
+							return true;
+						}
+						
+						@Override
+						protected MCTSNode generateRoot(ChoiceSet choiceSet) {
+							return new SinglePlayerOMCNode(null, choiceSet, 10);  //TODO: aanpassen
+						}
+						
+						@Override
+						protected int getMaxIterations() {
+							return 1000;
+						}
+						
+						@Override
+						protected Simulation getSimulation() {
+							return new PureRandomSimulation();
+						}
+					};
+					for(int i = 1; i <= 50; i++) //TODO: aanpassen
 					{
+						System.out.println("\t\tMax iterations = " + i*1000);
 						writer.write("\tMax iterations = " + i*1000);
 						writer.newLine();
-						final int j = i;
-						Experiment experiment = new Experiment(){
-							@Override
-							protected ArrayList<Player> getPlayers() {
-								return playerList;
-							}
-							
-							@Override
-							protected Map<MatchRoleID, ArrayList<MatchBehaviourID>> getPositions() {
-								return getBasicPositions();
-							}
-							
-							@Override
-							protected TrainerType getTrainerType() {
-								return TrainerType.BALANCED;
-							}
-							
-							@Override
-							protected Training getTraining() {
-								return new Training(4,4);
-							}
-							
-							@Override
-							protected TeamRatings getOpponentRatings() {
-								return opponentRatings;
-							}
-							
-							@Override
-							protected HattrickChoiceSet getRootChoiceSet(
-									TrainerType trainerType, Training training,
-									TeamRatings opponentRatings, boolean numeric,
-									boolean homeMatch, ArrayList<Player> players,
-									Map<MatchRoleID, ArrayList<MatchBehaviourID>> positions) {
-								return new FillChoiceSet(trainerType, training, opponentRatings, numeric, homeMatch, players, positions);
-							}
-							
-							@Override
-							protected boolean isNumeric() {
-								return false; //TODO: aanpassen
-							}
-							
-							@Override
-							protected boolean isHomeMatch() {
-								return true;
-							}
-							
-							@Override
-							protected MCTSNode generateRoot(ChoiceSet choiceSet) {
-								return new SinglePlayerOMCNode(null, choiceSet, 50);  //TODO: aanpassen
-							}
-							
-							@Override
-							protected int getMaxIterations() {
-								return j*1000;
-							}
-							
-							@Override
-							protected Simulation getSimulation() {
-								return new PureRandomSimulation();
-							}
-						};
 						
 						ChoiceSet result = experiment.execute();
 						writer.write("\t\t"+ result.getDepth()

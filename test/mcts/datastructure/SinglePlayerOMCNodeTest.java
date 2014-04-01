@@ -37,11 +37,11 @@ public class SinglePlayerOMCNodeTest {
 		childOf3Node1.backPropagate(0);
 		childOf3Node2.backPropagate(1);
 		
-		assertEquals(1.27775E-57, childNode1.getUrgency(), 1E-58);
-		assertEquals(1, childNode2.getUrgency(), 0.00001);
-		assertEquals(1.73364E-34, childNode3.getUrgency(), 1E-35);
-		assertEquals(0.0000633425, childOf3Node1.getUrgency(), 0.000001);
-		assertEquals(1, childOf3Node2.getUrgency(), 0.00001);	
+		assertEquals(1.27775E-57, childNode1.getUrgency((OMCVariantNode) childNode1.getMaxSibling()), 1E-58);
+		assertEquals(1, childNode2.getUrgency((OMCVariantNode) childNode2.getMaxSibling()), 0.00001);
+		assertEquals(1.73364E-34, childNode3.getUrgency((OMCVariantNode) childNode3.getMaxSibling()), 1E-35);
+		assertEquals(0.0000633425, childOf3Node1.getUrgency((OMCVariantNode) childOf3Node1.getMaxSibling()), 0.000001);
+		assertEquals(1, childOf3Node2.getUrgency((OMCVariantNode) childOf3Node2.getMaxSibling()), 0.00001);	
 	}
 
 }

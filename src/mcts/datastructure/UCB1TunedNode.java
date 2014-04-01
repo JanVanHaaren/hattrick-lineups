@@ -41,7 +41,10 @@ public class UCB1TunedNode extends UCTVariantNode {
 	protected double getStandardDeviation() {
 		if(this.recalculate)
 		{
-			setStandardDeviation(Math.sqrt(getSquaredValuesSum()/getVisits() - Math.pow(getValue(), 2)));
+			if(getSquaredValuesSum()/getVisits() - Math.pow(getValue(), 2) <= 0)
+				setStandardDeviation(0);
+			else
+				setStandardDeviation(Math.sqrt(getSquaredValuesSum()/getVisits() - Math.pow(getValue(), 2)));
 			this.recalculate = false;
 		}
 		
@@ -58,11 +61,6 @@ public class UCB1TunedNode extends UCTVariantNode {
 		this.standardDeviation = standardDeviation;
 	}
 	
-	protected double getMaxSiblingStandardDeviation()
-	{
-		return ((UCB1TunedNode)getMaxSibling()).getStandardDeviation();
-	}
-
 	@Override
 	public double getSelectionValue() {
 		return getValue()

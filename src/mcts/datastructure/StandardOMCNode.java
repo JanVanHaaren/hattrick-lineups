@@ -9,8 +9,8 @@ public class StandardOMCNode extends OMCVariantNode {
 	}
 
 	@Override
-	protected double getUrgency(){
-		return Erf.erfc((getMaxSiblingValue() - getValue())/(Math.sqrt(2)*getStandardDeviation()));
+	protected double getUrgency(OMCVariantNode maxSibling){
+		return Erf.erfc((maxSibling.getValue() - getValue())/(Math.sqrt(2)*getStandardDeviation()));
 	}
 
 	@Override

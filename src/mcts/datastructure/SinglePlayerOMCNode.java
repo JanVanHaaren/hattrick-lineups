@@ -16,13 +16,14 @@ public class SinglePlayerOMCNode extends OMCVariantNode {
 	}
 
 	@Override
-	protected double getUrgency(){
-		return Erf.erfc(getG()*((getMaxSiblingValue() - getValue())/(Math.sqrt(2)*getStandardDeviation())));
+	protected double getUrgency(OMCVariantNode maxSibling){
+		return Erf.erfc(getG()*((maxSibling.getValue() - getValue())/(Math.sqrt(2)*getStandardDeviation())));
 	}
 
 	@Override
 	protected MCTSNode generateChild(ChoiceSet choiceSet) {
 		return new SinglePlayerOMCNode(this, choiceSet, getG());
 	}
+
 
 }

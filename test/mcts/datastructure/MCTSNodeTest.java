@@ -74,9 +74,9 @@ public class MCTSNodeTest {
 		}
 
 		@Override
-		protected double getSelectionValue() {
+		public MCTSNode select() {
 			// TODO Auto-generated method stub
-			return 0;
+			return null;
 		}
 		
 	}

@@ -115,22 +115,8 @@ public abstract class MCTSNode {
 		this.visits++;
 	}
 	
-	protected abstract double getSelectionValue();
-
-	public MCTSNode select(){
-		double maxSelectionValue = Double.NEGATIVE_INFINITY;
-		MCTSNode maxChild = null;
-		for(MCTSNode child : getChildren())
-		{
-			if(child.getSelectionValue() > maxSelectionValue)
-			{
-				maxSelectionValue = child.getSelectionValue();
-				maxChild = child;
-			}
-		}
-		return maxChild;
-	}
-
+	public abstract MCTSNode select();
+	
 	public ChoiceSet getChoiceSet() {
 		return choiceSet;
 	}

@@ -35,10 +35,10 @@ public class OMCVariantNodeTest {
 		childNode2.backPropagate(1);
 		childNode3.backPropagate(1);
 		childOf3Node1.backPropagate(1);
-		assertEquals(0.38461538461538461538461538461538, childNode1.getSelectionValue(), 0.00001);
-		assertEquals(0.76923076923076923076923076923077, childNode2.getSelectionValue(), 0.00001);
-		assertEquals(1.5384615384615384615384615384615, childNode3.getSelectionValue(), 0.00001);
-		assertEquals(0, childOf3Node1.getSelectionValue(), 0.00001);
+		assertEquals(0.38461538461538461538461538461538, childNode1.getSelectionValue((OMCVariantNode) childNode1.getMaxSibling(), ((OMCVariantNode) childNode1.getParent()).getChildUrgencySum((OMCVariantNode) childNode1.getMaxSibling())), 0.00001);
+		assertEquals(0.76923076923076923076923076923077, childNode2.getSelectionValue((OMCVariantNode) childNode2.getMaxSibling(), ((OMCVariantNode) childNode1.getParent()).getChildUrgencySum((OMCVariantNode) childNode1.getMaxSibling())), 0.00001);
+		assertEquals(1.5384615384615384615384615384615, childNode3.getSelectionValue((OMCVariantNode) childNode3.getMaxSibling(), ((OMCVariantNode) childNode1.getParent()).getChildUrgencySum((OMCVariantNode) childNode1.getMaxSibling())), 0.00001);
+		assertEquals(0, childOf3Node1.getSelectionValue((OMCVariantNode) childOf3Node1.getMaxSibling(), ((OMCVariantNode) childOf3Node1.getParent()).getChildUrgencySum((OMCVariantNode) childNode1.getMaxSibling())), 0.00001);
 	}
 	
 	@Test
@@ -66,13 +66,13 @@ public class OMCVariantNodeTest {
 		}
 
 		@Override
-		protected double getUrgency() {
-			return urgency;
+		protected MCTSNode generateChild(ChoiceSet choiceSet) {
+			return new OMCVariantNodeInstantiation(this, choiceSet, 0);
 		}
 
 		@Override
-		protected MCTSNode generateChild(ChoiceSet choiceSet) {
-			return new OMCVariantNodeInstantiation(this, choiceSet, 0);
+		protected double getUrgency(OMCVariantNode maxSibling) {
+			return urgency;
 		}
 		
 	}

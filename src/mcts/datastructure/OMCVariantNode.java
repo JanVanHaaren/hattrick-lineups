@@ -39,7 +39,10 @@ public abstract class OMCVariantNode extends MCTSNode {
 	protected double getStandardDeviation() {
 		if(this.recalculate)
 		{
-			setStandardDeviation(Math.sqrt(getSquaredValuesSum()/getVisits() - Math.pow(getValue(), 2)));
+			if(getSquaredValuesSum()/getVisits() - Math.pow(getValue(), 2) <= 0)
+				setStandardDeviation(0);
+			else
+				setStandardDeviation(Math.sqrt(getSquaredValuesSum()/getVisits() - Math.pow(getValue(), 2)));
 			this.recalculate = false;
 		}
 		
@@ -61,20 +64,61 @@ public abstract class OMCVariantNode extends MCTSNode {
 		return ((OMCVariantNode)getMaxSibling()).getStandardDeviation();
 	}
 	
-	private double getFairness(double urgency){
-		double siblingUrgency = 0;
-		for(MCTSNode sibling : getSiblings())
-			siblingUrgency += ((OMCVariantNode)sibling).getUrgency();
-		return (getParent().getVisits()*urgency)/(getVisits()*siblingUrgency);
+	@Override
+	public OMCVariantNode select(){
+		double maxSelectionValue = Double.NEGATIVE_INFINITY;
+		OMCVariantNode maxChild = null;
+		OMCVariantNode maxValueChild = (OMCVariantNode) getMaxChild();
+		double childUrgencySum = getChildUrgencySum(maxValueChild);
+		for(MCTSNode child : getChildren())
+		{
+			OMCVariantNode childCast = (OMCVariantNode) child;
+			if(childCast.getSelectionValue(maxValueChild, childUrgencySum) > maxSelectionValue)
+			{
+				maxSelectionValue = childCast.getSelectionValue(maxValueChild, childUrgencySum);
+				maxChild = childCast;
+			}
+		}
+		return maxChild;
+	}
+
+	
+	private double getFairness(double urgency, OMCVariantNode maxSibling, double siblingUrgencySum){
+		
+		return (getParent().getVisits()*urgency)/(getVisits()*siblingUrgencySum);
 	}
 	
-	protected abstract double getUrgency();
+	protected abstract double getUrgency(OMCVariantNode maxSibling);
 	
-//	
+	protected double getSelectionValue(OMCVariantNode maxSibling, double siblingUrgencySum){
+		return getFairness(getUrgency(maxSibling), maxSibling, siblingUrgencySum) + Math.random()*Epsilon.epsilon();
+	}
+
+	double getChildUrgencySum(OMCVariantNode maxSibling) {
+		double siblingUrgencySum = 0;
+		for(MCTSNode sibling : getChildren())
+			siblingUrgencySum += ((OMCVariantNode)sibling).getUrgency(maxSibling);
+		return siblingUrgencySum;
+	}
 	
-	@Override
-	protected double getSelectionValue(){
-		
-		return getFairness(getUrgency()) + Math.random()*Epsilon.epsilon();
+	public double getFairnessTiming() {
+		long curTime = System.currentTimeMillis();
+		for(int i = 1; i <= 10000; i++)
+		{
+			this.recalculate = true;
+			getFairness(5, (OMCVariantNode) getMaxSibling(), ((OMCVariantNode) getParent()).getChildUrgencySum((OMCVariantNode) getMaxSibling()));
+		}
+		return System.currentTimeMillis() - curTime;
+	}
+	
+	public double getUrgencyTiming() {
+		long curTime = System.currentTimeMillis();
+		MCTSNode maxValueSibling = getMaxSibling();
+		for(int i = 1; i <= 10000; i++)
+		{
+			this.recalculate = true;
+			getUrgency((OMCVariantNode) maxValueSibling);
+		}
+		return System.currentTimeMillis() - curTime;
 	}
 }

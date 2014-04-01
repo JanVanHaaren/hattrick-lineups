@@ -40,19 +40,22 @@ public class MCTSAlgorithm {
 		}
 		
 		lastNode.expand();
+		MCTSNode wut = lastNode;
+		wut.expand();
+		if(wut.select() == null)
+			System.out.println("wot");
 		if(!lastNode.getChildren().isEmpty())
 			lastNode = lastNode.select();
 		
+		if(lastNode == null)
+			System.out.println("wut");
 		double result = getSimulation().simulate(lastNode);
 		
 		lastNode.backPropagate(result);
 	}
 	
 	public ChoiceSet execute(){
-		System.out.println("executing");
 		for(int i = 0; i < getMaxIterations(); i++){
-			if(i % 10 == 0)
-				System.out.println("current step: " + i);
 			executeStep();
 		}
 		return getTree().getBestNode().getChoiceSet();

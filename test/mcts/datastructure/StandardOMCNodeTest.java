@@ -36,11 +36,11 @@ public class StandardOMCNodeTest {
 		childOf3Node1.backPropagate(0);
 		childOf3Node2.backPropagate(1);
 		
-		assertEquals(1.24419E-15, childNode1.getUrgency(), 1E-16);
-		assertEquals(1, childNode2.getUrgency(), 0.00001);
-		assertEquals(9.14130E-10, childNode3.getUrgency(), 1E-11);
-		assertEquals(0.0455003, childOf3Node1.getUrgency(), 0.00001);
-		assertEquals(1, childOf3Node2.getUrgency(), 0.00001);
+		assertEquals(1.24419E-15, childNode1.getUrgency((OMCVariantNode) childNode1.getMaxSibling()), 1E-16);
+		assertEquals(1, childNode2.getUrgency((OMCVariantNode) childNode2.getMaxSibling()), 0.00001);
+		assertEquals(9.14130E-10, childNode3.getUrgency((OMCVariantNode) childNode3.getMaxSibling()), 1E-11);
+		assertEquals(0.0455003, childOf3Node1.getUrgency((OMCVariantNode) childOf3Node1.getMaxSibling()), 0.00001);
+		assertEquals(1, childOf3Node2.getUrgency((OMCVariantNode) childOf3Node2.getMaxSibling()), 0.00001);
 		
 	}
 
