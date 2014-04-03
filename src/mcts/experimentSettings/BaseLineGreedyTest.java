@@ -32,7 +32,7 @@ public class BaseLineGreedyTest {
 		
 		for(String  teamFile : teamFiles)
 		{
-			final ArrayList<Player> playerList = TeamGenerator.readTeamFromFile(LocalPaths.TEAM_FILES + teamFile + ".txt");
+			ArrayList<Player> playerList = TeamGenerator.readTeamFromFile(LocalPaths.TEAM_FILES + teamFile + ".txt");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(LocalPaths.EVALUATION_FILES + "baseLine2_" + teamFile + ".txt"));
 			
 			for(int t = 0; t < opponentRatingsList.size(); t++)
@@ -47,6 +47,22 @@ public class BaseLineGreedyTest {
 			}
 			writer.close();
 		}
+	}
+	
+	public static double getNumericBaseLine(String teamName, int opponentNumber)
+	{
+		ArrayList<Player> playerList = TeamGenerator.readTeamFromFile(LocalPaths.TEAM_FILES + teamName + ".txt");
+		TeamRatings opponentRatings = TeamGenerator.readTeamRatingsFromFile(LocalPaths.TEAM_FILES + "opponent.txt").get(opponentNumber);
+		FillChoiceSet choiceSet = new FillChoiceSet(TrainerType.BALANCED, new Training(4, 4), opponentRatings, true, true, playerList, getBasicPositions());
+		return choiceSet.getGreedyCompletion().getSimulationResult();
+	}
+	
+	public static double getNominalBaseLine(String teamName, int opponentNumber)
+	{
+		ArrayList<Player> playerList = TeamGenerator.readTeamFromFile(LocalPaths.TEAM_FILES + teamName + ".txt");
+		TeamRatings opponentRatings = TeamGenerator.readTeamRatingsFromFile(LocalPaths.TEAM_FILES + "opponent.txt").get(opponentNumber);
+		FillChoiceSet choiceSet = new FillChoiceSet(TrainerType.BALANCED, new Training(4, 4), opponentRatings, false, true, playerList, getBasicPositions());
+		return choiceSet.getGreedyCompletion().getSimulationResult();
 	}
 	
 	private static Map<MatchRoleID, ArrayList<MatchBehaviourID>> getBasicPositions() {

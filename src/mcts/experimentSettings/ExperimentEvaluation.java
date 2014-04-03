@@ -45,9 +45,9 @@ public class ExperimentEvaluation {
 
 
 
-	public void createRandomEvaluation(String directory, double totalRuns) throws IOException
+	public void createRandomEvaluation(String directory, double totalRuns, boolean numeric) throws IOException
 	{
-		
+		System.out.println(directory);
 		String experimentDirectory = LocalPaths.EXPERIMENTS + directory;
 		
 		for(File evalFile : Arrays.asList(new File(experimentDirectory).listFiles()))
@@ -65,6 +65,9 @@ public class ExperimentEvaluation {
 			addToSRMap(teamName, sResults, totalRuns);
 		}
 		
+		double teamAmounts = getDepthMap().keySet().size();
+		
+		double[] averagedDepth = new double[50];
 		
 		for(String teamName : getDepthMap().keySet())
 		{
@@ -74,34 +77,66 @@ public class ExperimentEvaluation {
 			{
 				for(int j = 0; j < depths[0].length - 1; j++)
 				{
+					averagedDepth[j] += depths[i][j]/(teamAmounts*15);
 					bw.write(depths[i][j] + ",");
 				}
+				averagedDepth[49] += depths[i][49]/(teamAmounts*15);
 				bw.write(Double.toString(depths[i][depths[0].length - 1]));
 				bw.newLine();
 			}
 			bw.close();
 		}
 		
+		double[] averagedSR = new double[50];
 		for(String teamName : getDepthMap().keySet())
 		{
+			System.out.println(teamName);
 			double[][] simulationResults = getSimulationResultMap().get(teamName);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(LocalPaths.EVALUATION_FILES + directory + "_" + teamName + "_RANDOM_sr.txt"));
 			for(int i = 0; i < simulationResults.length; i++)
 			{
 				for(int j = 0; j < simulationResults[0].length - 1; j++)
 				{
+					double increase = 0;
+					if(numeric)
+					{
+						double baseLine = BaseLineGreedyTest.getNumericBaseLine(teamName, i);
+						increase = (simulationResults[i][j] - baseLine) / Math.abs(baseLine);
+					}
+					else
+					{
+						double baseLine = BaseLineGreedyTest.getNominalBaseLine(teamName, i);
+						increase = simulationResults[i][j] - baseLine;
+					}
+					averagedSR[j] += increase/(teamAmounts*15);
 					bw.write(simulationResults[i][j] + ",");
 				}
+				double baseLine = numeric ? BaseLineGreedyTest.getNumericBaseLine(teamName, i) : BaseLineGreedyTest.getNominalBaseLine(teamName, i);
+				double increase = (simulationResults[i][49] - baseLine) / Math.abs(baseLine);
+				averagedSR[49] += increase/(teamAmounts*15);
 				bw.write(Double.toString(simulationResults[i][simulationResults[0].length - 1]));
 				bw.newLine();
 			}
 			bw.close();
 		}
+		
+		BufferedWriter bw = new BufferedWriter(new FileWriter(LocalPaths.EVALUATION_FILES + directory + "_RANDOM_averageSR.txt"));
+		BufferedWriter bw2 = new BufferedWriter(new FileWriter(LocalPaths.EVALUATION_FILES + directory + "_RANDOM_averageDepth.txt"));
+		
+		for(int i = 0; i < 49; i++)
+		{
+			bw.write(averagedSR[i] + ",");
+			bw2.write(averagedDepth[i] + ",");
+		}
+		bw.write(averagedSR[49] + "");
+		bw2.write(averagedDepth[49] + "");
+		bw.close();
+		bw2.close();
 	}
 	
-	public void createRouletteEvaluation(String directory, double totalRuns) throws IOException
+	public void createRouletteEvaluation(String directory, double totalRuns, boolean numeric) throws IOException
 	{
-		
+		System.out.println(directory);
 		String experimentDirectory = LocalPaths.EXPERIMENTS + directory;
 		
 		for(File evalFile : Arrays.asList(new File(experimentDirectory).listFiles()))
@@ -119,6 +154,9 @@ public class ExperimentEvaluation {
 			addToSRMap(teamName, sResults, totalRuns);
 		}
 		
+		double teamAmounts = getDepthMap().keySet().size();
+		
+		double[] averagedDepth = new double[50];
 		
 		for(String teamName : getDepthMap().keySet())
 		{
@@ -128,29 +166,61 @@ public class ExperimentEvaluation {
 			{
 				for(int j = 0; j < depths[0].length - 1; j++)
 				{
+					averagedDepth[j] += depths[i][j]/(teamAmounts*15);
 					bw.write(depths[i][j] + ",");
 				}
+				averagedDepth[49] += depths[i][49]/(teamAmounts*15);
 				bw.write(Double.toString(depths[i][depths[0].length - 1]));
 				bw.newLine();
 			}
 			bw.close();
 		}
 		
+		double[] averagedSR = new double[50];
 		for(String teamName : getDepthMap().keySet())
 		{
+			System.out.println(teamName);
 			double[][] simulationResults = getSimulationResultMap().get(teamName);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(LocalPaths.EVALUATION_FILES + directory + "_" + teamName + "_ROULETTE_sr.txt"));
 			for(int i = 0; i < simulationResults.length; i++)
 			{
 				for(int j = 0; j < simulationResults[0].length - 1; j++)
 				{
+					double increase = 0;
+					if(numeric)
+					{
+						double baseLine = BaseLineGreedyTest.getNumericBaseLine(teamName, i);
+						increase = (simulationResults[i][j] - baseLine) / Math.abs(baseLine);
+					}
+					else
+					{
+						double baseLine = BaseLineGreedyTest.getNominalBaseLine(teamName, i);
+						increase = simulationResults[i][j] - baseLine;
+					}
+					averagedSR[j] += increase/(teamAmounts*15);
 					bw.write(simulationResults[i][j] + ",");
 				}
+				double baseLine = numeric ? BaseLineGreedyTest.getNumericBaseLine(teamName, i) : BaseLineGreedyTest.getNominalBaseLine(teamName, i);
+				double increase = (simulationResults[i][49] - baseLine) / Math.abs(baseLine);
+				averagedSR[49] += increase/(teamAmounts*15);
 				bw.write(Double.toString(simulationResults[i][simulationResults[0].length - 1]));
 				bw.newLine();
 			}
 			bw.close();
 		}
+		
+		BufferedWriter bw = new BufferedWriter(new FileWriter(LocalPaths.EVALUATION_FILES + directory + "_ROULETTE_averageSR.txt"));
+		BufferedWriter bw2 = new BufferedWriter(new FileWriter(LocalPaths.EVALUATION_FILES + directory + "_ROULETTE_averageDepth.txt"));
+		
+		for(int i = 0; i < 49; i++)
+		{
+			bw.write(averagedSR[i] + ",");
+			bw2.write(averagedDepth[i] + ",");
+		}
+		bw.write(averagedSR[49] + "");
+		bw2.write(averagedDepth[49] + "");
+		bw.close();
+		bw2.close();
 	}
 	
 	public double[][] getDepth(File file) throws NumberFormatException, IOException
@@ -263,8 +333,26 @@ public class ExperimentEvaluation {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		new ExperimentEvaluation().createRandomEvaluation("StUCT_Numeric", 40);
-		new ExperimentEvaluation().createRouletteEvaluation("StUCT_Numeric", 40);
+//		new ExperimentEvaluation().createRandomEvaluation("StUCT_Numeric", 40, true);
+//		new ExperimentEvaluation().createRouletteEvaluation("StUCT_Numeric", 40, true);
+		new ExperimentEvaluation().createRandomEvaluation("StOMCnum", 31, true);
+		new ExperimentEvaluation().createRouletteEvaluation("StOMCnum", 31, true);
+//		new ExperimentEvaluation().createRandomEvaluation("SPOMC_Numeric", 48, true);
+//		new ExperimentEvaluation().createRouletteEvaluation("SPOMC_Numeric", 48, true);
+		new ExperimentEvaluation().createRandomEvaluation("PBBMnum", 36, true);
+		new ExperimentEvaluation().createRouletteEvaluation("PBBMnum", 36, true);
+//		new ExperimentEvaluation().createRandomEvaluation("UCB1Tuned_Numeric", 34, true);
+//		new ExperimentEvaluation().createRouletteEvaluation("UCB1Tuned_Numeric", 34, true);
+		new ExperimentEvaluation().createRandomEvaluation("StUCTnom", 30, false);
+		new ExperimentEvaluation().createRouletteEvaluation("StUCTnom", 30, false);
+		new ExperimentEvaluation().createRandomEvaluation("StOMCnom", 12, false);
+		new ExperimentEvaluation().createRouletteEvaluation("StOMCnom", 12, false);
+		new ExperimentEvaluation().createRandomEvaluation("SPOMCnom", 36, false);
+		new ExperimentEvaluation().createRouletteEvaluation("SPOMCnom", 36, false);
+		new ExperimentEvaluation().createRandomEvaluation("PBBMnom", 35, false);
+		new ExperimentEvaluation().createRouletteEvaluation("PBBMnom", 35, false);
+		new ExperimentEvaluation().createRandomEvaluation("UCB1Tunednom", 29, false);
+		new ExperimentEvaluation().createRouletteEvaluation("UCB1Tunednom", 29, false);
 	}
 
 }
