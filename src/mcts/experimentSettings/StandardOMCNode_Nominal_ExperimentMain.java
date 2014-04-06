@@ -16,6 +16,7 @@ import mcts.hattrick.TeamGenerator;
 import mcts.hattrick.TeamRatings;
 import mcts.simulation.PureRandomSimulation;
 import mcts.simulation.Simulation;
+import mcts.simulation.VnukStatsRouletteSimulation;
 import api.LocalPaths;
 import api.entity.Training;
 import api.entity.datatype.MatchBehaviourID;
@@ -29,8 +30,10 @@ public class StandardOMCNode_Nominal_ExperimentMain {
 		int x = 1;
 		while(true)
 		{
-			pureRandomMain(x);
-			vnukStatsRouletteMain(x);
+//			pureRandomMain(x);
+//			vnukStatsRouletteMain(x);
+			StandardOMCNode_Nominal_ExperimentMain.vnukStatsRouletteMain(x);
+			StandardOMCNode_Numeric_ExperimentMain.vnukStatsRouletteMain(x);
 			x++;
 		}
 	}
@@ -234,7 +237,7 @@ public class StandardOMCNode_Nominal_ExperimentMain {
 						
 						@Override
 						protected Simulation getSimulation() {
-							return new PureRandomSimulation();
+							return new VnukStatsRouletteSimulation();
 						}
 					};
 					for(int i = 1; i <= 50; i++) //TODO: aanpassen

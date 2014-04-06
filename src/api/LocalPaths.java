@@ -31,20 +31,20 @@ public class LocalPaths {
 //			"C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\Weka\\" :
 //			"/cw/dtailocal/s0217261/Weka/";
 	
-	public static final String WEKA_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\Weka\\";
-//	public static final String WEKA_LOCATION = "/cw/dtailocal/s0217261/Weka/";
+//	public static final String WEKA_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\Weka\\";
+	public static final String WEKA_LOCATION = "/cw/dtailocal/s0217261/Weka/";
 	
-	public static final String MODEL_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\Model\\";
-//	public static final String MODEL_LOCATION = "/cw/dtailocal/s0217261/Model/";
+//	public static final String MODEL_LOCATION = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\Model\\";
+	public static final String MODEL_LOCATION = "/cw/dtailocal/s0217261/Model/";
 	
-	public static final String TEAM_FILES = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\TeamFile\\";
-//	public static final String TEAM_FILES = "/cw/dtailocal/s0217261/TeamFile/";
+//	public static final String TEAM_FILES = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\TeamFile\\";
+	public static final String TEAM_FILES = "/cw/dtailocal/s0217261/TeamFile/";
 	
-	public static final String EVALUATION_FILES = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\EvaluationFiles\\";
-//	public static final String EVALUATION_FILES = "/cw/dtailocal/s0217261/EvaluationFiles/";
+//	public static final String EVALUATION_FILES = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\EvaluationFiles\\";
+	public static final String EVALUATION_FILES = "/cw/dtailocal/s0217261/EvaluationFiles/";
 
-	public static final String EXPERIMENTS = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\Experiments\\";
-//	public static final String EXPERIMENTS = "/cw/dtailocal/s0217261/EvaluationFiles/";
+//	public static final String EXPERIMENTS = "C:\\Users\\Verachtert Aäron\\Dropbox\\Backup\\Unief\\THESIS\\s0217261\\Experiments\\";
+	public static final String EXPERIMENTS = "/cw/dtailocal/s0217261/Experiments/";
 	
 	
 	
